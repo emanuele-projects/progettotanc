@@ -5,3 +5,6 @@ dist/
 .env.production
 npm-debug.log*
 .DS_Store
+
+# Sorgenti video originali (non versionate; i file serviti stanno in public/video)
+imgs/

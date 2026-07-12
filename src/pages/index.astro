@@ -19,7 +19,11 @@ import { locations } from '../data/locations';
 <BaseLayout theme="light">
   <Hero
     eyebrow="Metodo · Riservatezza · Risultati"
-    art="skyline"
+    previewVideos={[
+      { src: '/video/hero-1.mp4', label: 'Video 1' },
+      { src: '/video/hero-2.mp4', label: 'Video 2', position: 'center top' },
+      { src: '/video/hero-3.mp4', label: 'Video 3' },
+    ]}
     lead="Dal 1989 affianchiamo imprenditori e famiglie d'impresa nelle operazioni che contano: M&A, finanza straordinaria, passaggio generazionale. Sette sedi tra Europa e Golfo, una sola regìa."
     ctas={[
       { label: 'Richiedi un incontro riservato', href: '/contatti/', solid: true },

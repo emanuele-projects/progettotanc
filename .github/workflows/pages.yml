@@ -1,9 +1,10 @@
 # ============================================================
-# GitHub Pages — https://sitotanc.it (dominio custom, root)
-# Pubblica il sito a ogni push su main. Il dominio è impostato
-# in Settings → Pages; il file CNAME viene incluso nel deploy.
-# Requisiti una tantum: Source = "GitHub Actions" e DNS del
-# dominio puntato ai server Pages di GitHub.
+# GitHub Pages — https://campameme.github.io/sitotanc/
+# Anteprima pubblicata a ogni push su main (project pages, base
+# /sitotanc). Requisito una tantum: Settings → Pages →
+# Build and deployment → Source: "GitHub Actions".
+# Per tornare a un dominio custom in root: reimpostare DEPLOY_SITE,
+# togliere DEPLOY_BASE e aggiungere il CNAME.
 # ============================================================
 
 name: GitHub Pages
@@ -41,10 +42,8 @@ jobs:
 
       - run: npm run build
         env:
-          DEPLOY_SITE: https://sitotanc.it
-
-      # Mantiene il dominio custom associato al deploy
-      - run: cp CNAME dist/CNAME
+          DEPLOY_SITE: https://campameme.github.io
+          DEPLOY_BASE: /sitotanc
 
       - uses: actions/upload-pages-artifact@v3
         with:

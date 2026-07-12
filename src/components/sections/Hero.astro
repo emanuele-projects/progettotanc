@@ -1,8 +1,8 @@
 ---
 /**
- * Hero alla CookGroup: banda a tutta larghezza con immagine + overlay
- * navy e testo bianco — identico su tema chiaro e scuro. L'immagine è
- * una scena BrandArt (prop `art`) o una foto reale (prop `photo`).
+ * Hero alla CookGroup: banda a tutta larghezza con sfondo (video, foto
+ * o illustrazione) + overlay navy e testo bianco. Con `previewVideos`
+ * mostra un selettore per confrontare più video e la versione senza.
  */
 import BrandArt from '../BrandArt.astro';
 import { url } from '../../lib/url';
@@ -16,6 +16,12 @@ interface Meta {
   value: string;
   label: string;
 }
+interface PreviewVideo {
+  src: string;
+  label: string;
+  /** object-position del video (default 'center') */
+  position?: string;
+}
 interface Props {
   eyebrow: string;
   lead: string;
@@ -23,23 +29,72 @@ interface Props {
   meta?: Meta[];
   photo?: string;
   art?: 'skyline' | 'boardroom' | 'mentoria' | 'deal' | 'growth';
+  /** Sfondo video (percorso in /public). Prevale su photo/art. */
+  video?: string;
+  /** Anteprima di confronto: selettore per provare più video + "Senza video". */
+  previewVideos?: PreviewVideo[];
 }
-const { eyebrow, lead, ctas = [], meta = [], photo, art } = Astro.props;
+const { eyebrow, lead, ctas = [], meta = [], photo, art, video, previewVideos } = Astro.props;
+
+const first = previewVideos?.[0];
+const activeVideoSrc = video ?? first?.src;
+const activePos = first?.position ?? 'center';
+// Con previewVideos c'è sempre l'illustrazione come "Senza video" (nascosta all'avvio)
+const fallbackArt = art ?? 'skyline';
 ---
 
 <section class="hero on-navy" id="top">
-  {photo && <div class="hero-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>}
-  {!photo && art && (
-    <div class="hero-art" aria-hidden="true">
-      <BrandArt variant={art} />
+  {activeVideoSrc && (
+    <video
+      class="hero-video"
+      data-hero-video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      src={url(activeVideoSrc)}
+      style={`object-position:${activePos}`}
+      aria-hidden="true"
+    ></video>
+  )}
+
+  {!video && photo && !previewVideos && (
+    <div class="hero-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>
+  )}
+
+  {/* Illustrazione: fallback normale, oppure "Senza video" (nascosta) nel selettore */}
+  {(previewVideos || (!activeVideoSrc && !photo && art)) && (
+    <div class="hero-art" data-hero-fallback hidden={!!previewVideos} aria-hidden="true">
+      <BrandArt variant={fallbackArt} />
     </div>
   )}
+
   <div class="hero-overlay" aria-hidden="true"></div>
-  {!photo && !art && (
+
+  {!activeVideoSrc && !photo && !art && (
     <div class="deco" aria-hidden="true">
       <div class="emblem"></div>
     </div>
   )}
+
+  {previewVideos && previewVideos.length > 0 && (
+    <div class="hero-switch" data-hero-switch>
+      <span class="hs-label">Anteprima sfondo</span>
+      <div class="hs-btns">
+        {previewVideos.map((v, i) => (
+          <button
+            type="button"
+            class:list={['hs-btn', { active: i === 0 }]}
+            data-src={url(v.src)}
+            data-pos={v.position ?? 'center'}
+          >{v.label}</button>
+        ))}
+        <button type="button" class="hs-btn" data-src="">Senza video</button>
+      </div>
+    </div>
+  )}
+
   <div class="wrap">
     <div class="hero-inner em-gold">
       <span class="eyebrow" data-reveal>{eyebrow}</span>
@@ -83,11 +138,18 @@ const { eyebrow, lead, ctas = [], meta = [], photo, art } = Astro.props;
     color: var(--on-navy);
     overflow: hidden;
   }
+  .hero-video {
+    position: absolute; inset: 0; z-index: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
   .hero-photo {
     position: absolute; inset: 0; z-index: 0;
     background-size: cover; background-position: center;
   }
   .hero-art { position: absolute; inset: 0; z-index: 0; opacity: 0.5; }
+  .hero-art[hidden] { display: none; }
   .hero-art :global(.brand-art) { height: 100%; aspect-ratio: auto; background: transparent; }
   .hero-overlay {
     position: absolute; inset: 0; z-index: 0;
@@ -125,7 +187,75 @@ const { eyebrow, lead, ctas = [], meta = [], photo, art } = Astro.props;
     font-family: var(--disp); font-size: 30px; letter-spacing: 0;
     margin-bottom: 4px; text-transform: none;
   }
+
+  /* Selettore anteprima (solo per confronto — si rimuove al go-live) */
+  .hero-switch {
+    position: absolute; z-index: 5; right: 24px; bottom: 24px;
+    display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+    background: rgba(6, 20, 42, 0.72);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--hair-on-navy);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .hs-label {
+    font-family: var(--sans); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted);
+  }
+  .hs-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .hs-btn {
+    font-family: var(--sans); font-size: 13px; font-weight: 700;
+    color: var(--on-navy-dim);
+    background: transparent;
+    border: 1px solid var(--hair-on-navy);
+    border-radius: 20px;
+    padding: 8px 16px; cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .hs-btn:hover { color: var(--on-navy); border-color: var(--accent-soft); }
+  .hs-btn.active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
   @media (max-width: 900px) {
     .hero { min-height: 0; padding: 140px 0 70px; }
+    .hero-switch { right: 14px; bottom: 14px; padding: 10px 12px; }
+    .hs-btn { padding: 7px 12px; font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { display: none; }
   }
 </style>
+
+<script>
+  // Selettore anteprima: cambia lo sfondo dell'hero (video 1/2/3 o nessuno)
+  const panel = document.querySelector<HTMLElement>('[data-hero-switch]');
+  const vid = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const fallback = document.querySelector<HTMLElement>('[data-hero-fallback]');
+
+  if (panel && vid) {
+    panel.querySelectorAll<HTMLButtonElement>('.hs-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        panel.querySelectorAll('.hs-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const src = btn.dataset.src;
+        if (!src) {
+          // "Senza video": mostra l'illustrazione, ferma il video
+          vid.pause();
+          vid.style.display = 'none';
+          if (fallback) fallback.hidden = false;
+          return;
+        }
+
+        vid.style.display = '';
+        if (fallback) fallback.hidden = true;
+        vid.style.objectPosition = btn.dataset.pos || 'center';
+        if (vid.getAttribute('src') !== src) {
+          vid.setAttribute('src', src);
+          vid.load();
+        }
+        vid.play().catch(() => {});
+      });
+    });
+  }
+</script>
