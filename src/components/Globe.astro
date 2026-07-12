@@ -1,0 +1,194 @@
+---
+/**
+ * Mappamondo interattivo — preset COBE (WebGL a punti, ~5KB) tinto
+ * nei colori del brand: base navy, marker e glow oro. Trascinabile
+ * con inerzia; autorotazione quando non interagisci. Espone su
+ * canvas.__globe { focus(lat, lng, idx), reset() } per centrare
+ * una sede ed evidenziarne il marker.
+ */
+interface Marker {
+  lat: number;
+  lng: number;
+}
+interface Props {
+  id: string;
+  markers: Marker[];
+  /** indice del marker "sede direzionale" (leggermente più grande) */
+  primaryIndex?: number;
+  autoRotate?: boolean;
+  label?: string;
+}
+const { id, markers, primaryIndex = -1, autoRotate = true, label = 'Mappamondo delle sedi' } = Astro.props;
+---
+
+<div class="globe-wrap">
+  <canvas
+    data-globe
+    id={id}
+    data-markers={JSON.stringify(markers)}
+    data-primary={String(primaryIndex)}
+    data-autorotate={String(autoRotate)}
+    role="img"
+    aria-label={label}
+  ></canvas>
+</div>
+
+<style>
+  .globe-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .globe-wrap canvas {
+    width: 100%; height: 100%;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .globe-wrap canvas:active { cursor: grabbing; }
+</style>
+
+<script>
+  import createGlobe from 'cobe';
+
+  const GOLD: [number, number, number] = [0.76, 0.64, 0.36];      // #C2A35B
+  const GOLD_SOFT: [number, number, number] = [0.85, 0.75, 0.52]; // #D8BE84
+  const BASE: [number, number, number] = [0.16, 0.24, 0.42];      // blu navy dei punti
+  const GLOW: [number, number, number] = [0.10, 0.16, 0.30];      // alone navy
+
+  const locationToAngles = (lat: number, lng: number): [number, number] => [
+    Math.PI - ((lng * Math.PI) / 180 - Math.PI / 2),
+    (lat * Math.PI) / 180,
+  ];
+
+  document.querySelectorAll<HTMLCanvasElement>('[data-globe]').forEach((canvas) => {
+    const markerData: { lat: number; lng: number }[] = JSON.parse(canvas.dataset.markers || '[]');
+    const primaryIdx = parseInt(canvas.dataset.primary || '-1', 10);
+    const autoRotate = canvas.dataset.autorotate !== 'false';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const baseMarkers = (active: number) =>
+      markerData.map((m, i) => ({
+        location: [m.lat, m.lng] as [number, number],
+        size: i === active ? 0.13 : i === primaryIdx ? 0.08 : 0.055,
+        color: (i === active ? GOLD_SOFT : GOLD) as [number, number, number],
+      }));
+
+    // rotte dorate dalla sede direzionale alle altre
+    const hq = markerData[primaryIdx >= 0 ? primaryIdx : 0];
+    const arcs = hq
+      ? markerData
+          .filter((_, i) => i !== (primaryIdx >= 0 ? primaryIdx : 0))
+          .map((m) => ({
+            from: [hq.lat, hq.lng] as [number, number],
+            to: [m.lat, m.lng] as [number, number],
+            color: GOLD as [number, number, number],
+          }))
+      : [];
+
+    // stato rotazione
+    let width = 0;
+    let currentPhi = locationToAngles(45, 8)[0]; // parte centrato sull'Italia
+    let currentTheta = 0.55;
+    let focusTarget: [number, number] | null = null;
+    let activeIdx = -1;
+    let dragging = false;
+    let pointerStartX = 0;
+    let phiAtDragStart = 0;
+    let velocity = 0;
+    let idle = autoRotate;
+
+    const onResize = () => { width = canvas.offsetWidth; };
+    addEventListener('resize', onResize);
+    onResize();
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi: currentPhi,
+      theta: currentTheta,
+      dark: 1,
+      diffuse: 1.2,
+      mapSamples: 18000,
+      mapBrightness: 5,
+      baseColor: BASE,
+      markerColor: GOLD,
+      glowColor: GLOW,
+      opacity: 0.92,
+      markers: baseMarkers(-1),
+      arcs,
+      arcColor: GOLD,
+      arcWidth: 0.4,
+      arcHeight: 0.35,
+    });
+
+    // loop di animazione: COBE v2 si aggiorna via globe.update()
+    let raf = 0;
+    const tick = () => {
+      if (focusTarget) {
+        // rotazione morbida verso la sede selezionata
+        const [tPhi, tTheta] = focusTarget;
+        const dPhi = ((tPhi - currentPhi + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+        const dTheta = tTheta - currentTheta;
+        currentPhi += dPhi * 0.08;
+        currentTheta += dTheta * 0.08;
+        if (Math.abs(dPhi) < 0.002 && Math.abs(dTheta) < 0.002) focusTarget = null;
+      } else if (!dragging) {
+        currentPhi += velocity;
+        velocity *= 0.93;
+        if (idle && !reduced) currentPhi += 0.0035;
+      }
+      globe.update({
+        phi: currentPhi,
+        theta: currentTheta,
+        markers: baseMarkers(activeIdx),
+        width: width * 2,
+        height: width * 2,
+      });
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // drag con inerzia
+    canvas.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      idle = false;
+      focusTarget = null;
+      pointerStartX = e.clientX;
+      phiAtDragStart = currentPhi;
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const delta = (e.clientX - pointerStartX) / 120;
+      const prev = currentPhi;
+      currentPhi = phiAtDragStart + delta;
+      velocity = currentPhi - prev;
+    });
+    const endDrag = () => { dragging = false; };
+    canvas.addEventListener('pointerup', endDrag);
+    canvas.addEventListener('pointercancel', endDrag);
+
+    // API per l'esterno (elenco sedi)
+    (canvas as HTMLCanvasElement & { __globe?: unknown }).__globe = {
+      focus(lat: number, lng: number, idx: number) {
+        focusTarget = locationToAngles(lat, lng);
+        activeIdx = idx;
+        idle = false;
+        velocity = 0;
+      },
+      reset() {
+        focusTarget = null;
+        activeIdx = -1;
+        idle = autoRotate;
+      },
+    };
+
+    // pulizia se la pagina viene scartata (bfcache-friendly)
+    addEventListener('pagehide', () => {
+      cancelAnimationFrame(raf);
+      globe.destroy();
+    }, { once: true });
+  });
+</script>

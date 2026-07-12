@@ -5,6 +5,7 @@
  * anche il contrasto dell'header trasparente su ogni pagina.
  */
 import BrandArt from './BrandArt.astro';
+import { url } from '../lib/url';
 
 interface Props {
   eyebrow: string;
@@ -27,7 +28,7 @@ const { eyebrow, lead, photo, art } = Astro.props;
 ---
 
 <section class="page-hero on-navy">
-  {photo && <div class="ph-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>}
+  {photo && <div class="ph-photo" style={`background-image:url('${url(photo)}')`} aria-hidden="true"></div>}
   {!photo && art && (
     <div class="ph-art" aria-hidden="true">
       <BrandArt variant={art} />

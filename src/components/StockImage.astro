@@ -1,0 +1,43 @@
+---
+/**
+ * Immagine stock con "patina" di brand: leggera desaturazione + velo
+ * navy per rendere coerenti foto di provenienza diversa (placeholder
+ * temporanei da Pixabay, in attesa degli scatti definitivi).
+ */
+import { url } from '../lib/url';
+
+interface Props {
+  src: string;
+  alt: string;
+  ratio?: string;
+  /** intensità del velo navy 0..1 */
+  tint?: number;
+  loading?: 'lazy' | 'eager';
+}
+const { src, alt, ratio = '16 / 10', tint = 0.34, loading = 'lazy' } = Astro.props;
+---
+
+<figure class="stock" style={`aspect-ratio:${ratio}; --tint:${tint};`}>
+  <img src={url(src)} alt={alt} loading={loading} />
+</figure>
+
+<style>
+  .stock {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    background: #0B2A5C;
+  }
+  .stock img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    filter: saturate(0.72) contrast(1.03) brightness(0.95);
+  }
+  .stock::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(6, 27, 61, 0.9) 0%, rgba(11, 42, 92, 0.55) 55%, rgba(6, 27, 61, 0.75) 100%);
+    opacity: var(--tint);
+    pointer-events: none;
+  }
+</style>

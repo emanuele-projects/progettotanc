@@ -60,7 +60,7 @@ const fallbackArt = art ?? 'skyline';
   )}
 
   {!video && photo && !previewVideos && (
-    <div class="hero-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>
+    <div class="hero-photo" style={`background-image:url('${url(photo)}')`} aria-hidden="true"></div>
   )}
 
   {/* Illustrazione: fallback normale, oppure "Senza video" (nascosta) nel selettore */}

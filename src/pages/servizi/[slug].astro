@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import BrandArt from '../../components/BrandArt.astro';
+import StockImage from '../../components/StockImage.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { services, type Service } from '../../data/services';
 import { url } from '../../lib/url';
@@ -25,7 +25,7 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   title={`${service.plainTitle} — Fulvio Rossi Plus`}
   description={service.excerpt}
 >
-  <PageHero eyebrow={`Servizi · ${service.num}`} lead={service.lead} art={service.art}>
+  <PageHero eyebrow={`Servizi · ${service.num}`} lead={service.lead} photo={service.photo}>
     <Fragment set:html={service.title} />
   </PageHero>
 
@@ -36,7 +36,7 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
         <p class="todo-note">Contenuto in sviluppo — questa pagina verrà approfondita con casi, numeri e riferimenti.</p>
       </div>
       <aside class="svc-side" data-reveal>
-        <BrandArt variant={service.art} ratio="4 / 5" label={service.plainTitle} />
+        <StockImage src={service.photo} alt={service.plainTitle} ratio="4 / 5" />
       </aside>
     </div>
   </section>

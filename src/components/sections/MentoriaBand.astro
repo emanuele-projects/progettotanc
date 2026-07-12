@@ -4,7 +4,7 @@
  * e la scena illustrata dedicata — l'unica sezione dorata del sito
  * consulting, ponte verso l'area /mentoria (blu notte + oro).
  */
-import BrandArt from '../BrandArt.astro';
+import StockImage from '../StockImage.astro';
 import { url } from '../../lib/url';
 ---
 
@@ -24,7 +24,7 @@ import { url } from '../../lib/url';
       </div>
     </div>
     <div class="band-art" data-reveal>
-      <BrandArt variant="mentoria" ratio="4 / 3" label="Mentoria e crescita della leadership" />
+      <StockImage src="/images/stock/mentoria-faro.jpg" alt="Un faro nella notte — la guida che rende autonomi" ratio="4 / 3" tint={0.22} />
     </div>
   </div>
 </section>
@@ -68,7 +68,7 @@ import { url } from '../../lib/url';
     border-color: var(--gold-soft);
     color: #081527;
   }
-  .band-art :global(.brand-art) {
+  .band-art :global(.stock) {
     border: 1px solid var(--hair-on-navy);
     border-radius: var(--radius-card);
   }

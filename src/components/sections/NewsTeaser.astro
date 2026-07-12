@@ -21,7 +21,7 @@ const posts = (await getPosts()).slice(0, 3);
         <a href={url(`/news/${p.slug}/`)} class="news-card" data-reveal>
           <div class="news-media">
             {p.featuredImage ? (
-              <img src={p.featuredImage.url} alt={p.featuredImage.alt} loading="lazy" />
+              <img src={url(p.featuredImage.url)} alt={p.featuredImage.alt} loading="lazy" />
             ) : (
               <BrandArt variant="editorial" ratio="16 / 9" />
             )}

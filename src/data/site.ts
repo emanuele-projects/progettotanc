@@ -28,7 +28,7 @@ export const nav: NavItem[] = [
   { label: 'Team', href: '/team' },
   { label: 'Sedi', href: '/sedi' },
   { label: 'News', href: '/news' },
-  { label: 'Contatti', href: '/contatti' },
+  // "Contatti" rimosso: duplicava il CTA "Incontro riservato" (→ /contatti)
   { label: 'Mentoria', href: '/mentoria', highlight: true },
 ];
 

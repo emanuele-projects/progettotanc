@@ -11,6 +11,8 @@ export interface Service {
   body: string[];
   /** Scena illustrata di brand (variant di BrandArt) */
   art: 'deal' | 'growth' | 'succession' | 'vault' | 'global' | 'quality';
+  /** Foto placeholder (Pixabay, temporanea) */
+  photo: string;
 }
 
 /**
@@ -22,6 +24,7 @@ export const services: Service[] = [
   {
     slug: 'ma-e-ricerca-di-capitali',
     art: 'deal',
+    photo: '/images/stock/ma-towers.jpg',
     num: '01',
     title: 'M&A e ricerca di capitali',
     plainTitle: 'M&A e ricerca di capitali',
@@ -36,6 +39,7 @@ export const services: Service[] = [
   {
     slug: 'finanza-e-ristrutturazione-del-debito',
     art: 'growth',
+    photo: '/images/stock/finanza.jpg',
     num: '02',
     title: 'Finanza & ristrutturazione del debito',
     plainTitle: 'Finanza e ristrutturazione del debito',
@@ -50,6 +54,7 @@ export const services: Service[] = [
   {
     slug: 'passaggio-generazionale',
     art: 'succession',
+    photo: '/images/stock/passaggio.jpg',
     num: '03',
     title: 'Passaggio generazionale',
     plainTitle: 'Passaggio generazionale',
@@ -64,6 +69,7 @@ export const services: Service[] = [
   {
     slug: 'protezione-del-patrimonio',
     art: 'vault',
+    photo: '/images/stock/patrimonio.jpg',
     num: '04',
     title: 'Protezione del patrimonio',
     plainTitle: 'Protezione del patrimonio',
@@ -78,6 +84,7 @@ export const services: Service[] = [
   {
     slug: 'internazionalizzazione',
     art: 'global',
+    photo: '/images/stock/internazionale.jpg',
     num: '05',
     title: 'Internazionalizzazione',
     plainTitle: 'Internazionalizzazione',
@@ -92,6 +99,7 @@ export const services: Service[] = [
   {
     slug: 'certificazioni-iso-e-made-in-italy',
     art: 'quality',
+    photo: '/images/stock/certificazioni.jpg',
     num: '06',
     title: 'Certificazioni ISO & Made in Italy',
     plainTitle: 'Certificazioni ISO e Made in Italy',

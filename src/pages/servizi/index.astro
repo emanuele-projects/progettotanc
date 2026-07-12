@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import BrandArt from '../../components/BrandArt.astro';
+import StockImage from '../../components/StockImage.astro';
 import Method from '../../components/sections/Method.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { services } from '../../data/services';
@@ -33,7 +33,7 @@ const pillars = [
 >
   <PageHero
     eyebrow="Aree di intervento"
-    art="skyline"
+    photo="/images/stock/skyline.jpg"
     lead="Sei aree, un'unica regìa: partiamo da una diagnosi onesta e arriviamo a risultati che si misurano."
   >
     I nostri <em>servizi</em>
@@ -45,7 +45,7 @@ const pillars = [
         {services.map((s) => (
           <a href={url(`/servizi/${s.slug}/`)} class="svc" data-reveal>
             <div class="svc-media">
-              <BrandArt variant={s.art} ratio="16 / 10" label={s.plainTitle} />
+              <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" />
             </div>
             <div class="svc-body">
               <span class="num">{s.num}</span>

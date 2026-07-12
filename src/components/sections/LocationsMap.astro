@@ -1,9 +1,11 @@
 ---
 import SectionHead from '../SectionHead.astro';
+import Globe from '../Globe.astro';
 import { locations } from '../../data/locations';
 import { url } from '../../lib/url';
 
-const hq = locations.find((l) => l.primary) ?? locations[0];
+const primaryIndex = locations.findIndex((l) => l.primary);
+const markers = locations.map((l) => ({ lat: l.lat, lng: l.lng }));
 ---
 
 <section class="presence-map" id="sedi">
@@ -11,69 +13,30 @@ const hq = locations.find((l) => l.primary) ?? locations[0];
     <SectionHead eyebrow="Le nostre sedi">
       <Fragment slot="title">Sette sedi tra Europa e Golfo</Fragment>
       <p slot="lead">
-        Presidiamo i centri industriali e finanziari che contano. Seleziona una
-        sede sulla mappa: ci muoviamo verso di lei e apriamo la scheda.
+        Presidiamo i centri industriali e finanziari che contano. Gira il
+        mappamondo o seleziona una sede: il globo ruota fino al punto esatto
+        e si apre la scheda.
       </p>
     </SectionHead>
 
     <div class="map-layout" data-reveal>
-      <!-- Mappa stilizzata (personalizzata, in stile sito) -->
-      <div class="map-wrap">
-        <svg class="map-svg" viewBox="0 0 1000 640" role="img" aria-label="Mappa delle sedi tra Europa e Golfo" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <radialGradient id="map-bg" cx="42%" cy="38%" r="80%">
-              <stop offset="0" stop-color="#12233F" />
-              <stop offset="1" stop-color="#0A1322" />
-            </radialGradient>
-          </defs>
-          <rect width="1000" height="640" fill="url(#map-bg)" />
-
-          <!-- graticola tenue -->
-          <g class="graticule" stroke="#C2A35B" stroke-width="0.5" opacity="0.12">
-            <path d="M0 160 H1000 M0 320 H1000 M0 480 H1000" />
-            <path d="M200 0 V640 M400 0 V640 M600 0 V640 M800 0 V640" />
-          </g>
-
-          <!-- masse stilizzate: Europa + penisola arabica -->
-          <g class="land" fill="#16294A" opacity="0.85">
-            <path d="M250 210 q60 -60 150 -55 q80 4 120 45 q40 -15 95 5 q40 15 40 60 q30 20 20 70 q-10 55 -70 70 q-30 60 -110 55 q-70 -4 -110 -50 q-70 10 -110 -35 q-40 -45 -20 -110 q10 -35 5 -70 z" />
-            <path d="M660 400 q40 -30 95 -20 q60 12 80 55 q15 45 -20 80 q-45 40 -95 20 q-45 -20 -55 -70 q-8 -40 -5 -65 z" />
-          </g>
-          <g class="coast" fill="none" stroke="#C2A35B" stroke-width="1" opacity="0.22">
-            <path d="M250 210 q60 -60 150 -55 q80 4 120 45 q40 -15 95 5 q40 15 40 60 q30 20 20 70 q-10 55 -70 70 q-30 60 -110 55 q-70 -4 -110 -50 q-70 10 -110 -35 q-40 -45 -20 -110 q10 -35 5 -70 z" />
-            <path d="M660 400 q40 -30 95 -20 q60 12 80 55 q15 45 -20 80 q-45 40 -95 20 q-45 -20 -55 -70 q-8 -40 -5 -65 z" />
-          </g>
-
-          <!-- gruppo interno: pan/zoom applicato qui -->
-          <g data-map-inner style="transform-box: view-box; transform-origin: 0 0; transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);">
-            <!-- rotte dall'HQ alle altre sedi -->
-            <g class="routes" stroke="#C2A35B" stroke-width="1" fill="none" opacity="0.5">
-              {locations.filter((l) => !l.primary).map((l) => (
-                <path d={`M${hq.mapX} ${hq.mapY} Q ${(hq.mapX + l.mapX) / 2} ${Math.min(hq.mapY, l.mapY) - 40} ${l.mapX} ${l.mapY}`} stroke-dasharray="2 8" />
-              ))}
-            </g>
-
-            <!-- marker -->
-            {locations.map((l, i) => (
-              <g class:list={['marker', { hq: l.primary }]} data-marker={String(i)} data-role={l.role} transform={`translate(${l.mapX} ${l.mapY})`} role="button" tabindex="0" aria-label={`Sede di ${l.city}`}>
-                <circle class="m-halo" r="16" />
-                <rect class="m-rombo" x="-6" y="-6" width="12" height="12" transform="rotate(45)" />
-                <circle class="m-dot" r="3.5" />
-                <text class="m-label" x="0" y="-20" text-anchor="middle">{l.city}</text>
-              </g>
-            ))}
-          </g>
-        </svg>
-
-        <button class="map-reset" type="button" data-map-reset hidden>Vista d’insieme</button>
+      <div class="globe-panel">
+        <Globe id="globe-sedi" markers={markers} primaryIndex={primaryIndex} autoRotate={true} />
+        <button class="map-reset" type="button" data-map-reset hidden>Vista d'insieme</button>
       </div>
 
-      <!-- elenco + scheda -->
       <aside class="map-side">
         <ul class="sede-list" data-sede-list>
           {locations.map((l, i) => (
             <li>
-              <button type="button" class:list={['sede-item', { primary: l.primary }]} data-item={String(i)}>
+              <button
+                type="button"
+                class:list={['sede-item', { primary: l.primary }]}
+                data-item={String(i)}
+                data-lat={String(l.lat)}
+                data-lng={String(l.lng)}
+                data-role-label={l.role}
+              >
                 <span class="si-city">{l.city}</span>
                 <span class="si-cc">{l.country}</span>
               </button>
@@ -100,37 +63,19 @@ const hq = locations.find((l) => l.primary) ?? locations[0];
   }
   .map-layout {
     display: grid;
-    grid-template-columns: 1.55fr 1fr;
-    gap: 40px;
-    align-items: start;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 44px;
+    align-items: center;
   }
 
-  .map-wrap {
+  .globe-panel {
     position: relative;
     border: 1px solid var(--hair);
     border-radius: var(--radius-card);
     overflow: hidden;
-    background: #0A1322;
+    background: radial-gradient(circle at 42% 38%, #101F38 0%, #0A1322 72%);
+    padding: 24px;
   }
-  .map-svg { width: 100%; height: auto; display: block; }
-
-  .marker { cursor: pointer; }
-  .m-halo { fill: var(--gold); opacity: 0; transition: opacity 0.4s ease; }
-  .m-rombo { fill: none; stroke: var(--gold); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; }
-  .m-dot { fill: var(--gold); }
-  .marker.hq .m-rombo { stroke-width: 1.8; }
-  .marker.hq .m-dot { r: 4.5; fill: var(--gold-soft); }
-  .m-label {
-    font-family: var(--sans); font-size: 13px; font-weight: 600;
-    fill: #ECE5D6; letter-spacing: 0.02em;
-    opacity: 0.85; transition: opacity 0.3s ease;
-    paint-order: stroke; stroke: #0A1322; stroke-width: 3px;
-  }
-  .marker:hover .m-halo, .marker.active .m-halo { opacity: 0.22; }
-  .marker:hover .m-label, .marker.active .m-label { opacity: 1; fill: var(--gold-soft); }
-  .marker.active .m-dot { fill: var(--gold-soft); }
-  .marker:focus-visible { outline: none; }
-  .marker:focus-visible .m-halo { opacity: 0.3; }
 
   .map-reset {
     position: absolute; top: 14px; right: 14px;
@@ -152,15 +97,14 @@ const hq = locations.find((l) => l.primary) ?? locations[0];
   .sede-item {
     width: 100%; text-align: left;
     display: flex; flex-direction: column; gap: 4px;
-    padding: 16px 14px;
+    padding: 15px 14px;
     background: transparent; border: none;
     border-bottom: 1px solid var(--hair-faint);
     cursor: pointer;
     transition: background 0.25s ease, padding 0.25s ease;
   }
-  .sede-item:hover { background: var(--panel); padding-left: 20px; }
-  .sede-item.active { background: var(--panel); padding-left: 20px; }
-  .si-city { font-family: var(--disp); font-size: 21px; font-weight: 700; color: var(--ink); }
+  .sede-item:hover, .sede-item.active { background: var(--panel); padding-left: 20px; }
+  .si-city { font-family: var(--disp); font-size: 20px; font-weight: 700; color: var(--ink); }
   .sede-item.primary .si-city::after {
     content: "◆"; font-size: 9px; color: var(--accent-text);
     vertical-align: super; margin-left: 8px;
@@ -172,8 +116,8 @@ const hq = locations.find((l) => l.primary) ?? locations[0];
 
   /* scheda */
   .sede-card {
-    margin-top: 26px;
-    padding: 26px 28px;
+    margin-top: 24px;
+    padding: 24px 28px;
     background: var(--panel);
     border: 1px solid var(--hair);
     border-left: 3px solid var(--accent);
@@ -196,63 +140,33 @@ const hq = locations.find((l) => l.primary) ?? locations[0];
 </style>
 
 <script>
-  const inner = document.querySelector<SVGGElement>('[data-map-inner]');
-  const markers = [...document.querySelectorAll<SVGGElement>('[data-marker]')];
+  const canvas = document.querySelector<HTMLCanvasElement & { __globe?: { focus: (a: number, b: number, c: number) => void; reset: () => void } }>('#globe-sedi');
   const items = [...document.querySelectorAll<HTMLButtonElement>('[data-item]')];
   const card = document.querySelector<HTMLElement>('[data-sede-card]');
   const reset = document.querySelector<HTMLButtonElement>('[data-map-reset]');
 
-  // coordinate + dati passati inline dal server
-  const data = [
-    ...markers.map((m) => {
-      const t = m.getAttribute('transform') || '';
-      const match = t.match(/translate\(([\d.]+)\s+([\d.]+)\)/);
-      return { x: match ? +match[1] : 0, y: match ? +match[2] : 0 };
-    }),
-  ];
-
-  const VB_W = 1000, VB_H = 640, ZOOM = 2.1;
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const setActive = (idx: number | null) => {
-    markers.forEach((m, i) => m.classList.toggle('active', i === idx));
-    items.forEach((it, i) => it.classList.toggle('active', i === idx));
-  };
-
   const select = (idx: number) => {
-    const { x, y } = data[idx];
-    const tx = VB_W / 2 - ZOOM * x;
-    const ty = VB_H / 2 - ZOOM * y;
-    if (inner) inner.style.transform = reduced ? 'none' : `translate(${tx}px, ${ty}px) scale(${ZOOM})`;
-    setActive(idx);
-
     const item = items[idx];
-    if (card && item) {
-      const city = item.querySelector('.si-city')?.textContent ?? '';
-      const cc = item.querySelector('.si-cc')?.textContent ?? '';
-      const roleEl = card.querySelector<HTMLElement>('[data-sc-role]');
-      (card.querySelector('[data-sc-city]') as HTMLElement).textContent = city;
-      (card.querySelector('[data-sc-cc]') as HTMLElement).textContent = cc;
-      // il ruolo lo prendiamo dall'attributo del marker
-      if (roleEl) roleEl.textContent = markers[idx].getAttribute('data-role') ?? '';
+    if (!item) return;
+    canvas?.__globe?.focus(+item.dataset.lat!, +item.dataset.lng!, idx);
+    items.forEach((it, i) => it.classList.toggle('active', i === idx));
+    if (card) {
+      (card.querySelector('[data-sc-city]') as HTMLElement).textContent =
+        item.querySelector('.si-city')?.textContent ?? '';
+      (card.querySelector('[data-sc-cc]') as HTMLElement).textContent =
+        item.querySelector('.si-cc')?.textContent ?? '';
+      (card.querySelector('[data-sc-role]') as HTMLElement).textContent =
+        item.dataset.roleLabel ?? '';
       card.hidden = false;
     }
     if (reset) reset.hidden = false;
   };
 
-  const resetView = () => {
-    if (inner) inner.style.transform = 'none';
-    setActive(null);
+  items.forEach((it, i) => it.addEventListener('click', () => select(i)));
+  reset?.addEventListener('click', () => {
+    canvas?.__globe?.reset();
+    items.forEach((it) => it.classList.remove('active'));
     if (card) card.hidden = true;
     if (reset) reset.hidden = true;
-  };
-
-  markers.forEach((m, i) => {
-    m.addEventListener('click', () => select(i));
-    m.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(i); }
-    });
   });
-  items.forEach((it, i) => it.addEventListener('click', () => select(i)));
-  reset?.addEventListener('click', resetView);
 </script>
