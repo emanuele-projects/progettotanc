@@ -25,7 +25,7 @@ const markers = locations.map((l) => ({ lat: l.lat, lng: l.lng }));
 
     <div class="compact-layout" data-reveal>
       <a href={url('/sedi/')} class="globe-panel" aria-label="Vai alla pagina delle sedi">
-        <Globe id="globe-home" markers={markers} primaryIndex={primaryIndex} autoRotate={true} />
+        <Globe id="globe-home" markers={markers} primaryIndex={primaryIndex} interactive={false} />
       </a>
 
       <div class="loc-col">
@@ -60,14 +60,9 @@ const markers = locations.map((l) => ({ lat: l.lat, lng: l.lng }));
   }
   .globe-panel {
     display: block;
-    border: 1px solid var(--hair);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    background: radial-gradient(circle at 42% 38%, #101F38 0%, #0A1322 72%);
-    padding: 18px;
-    transition: border-color 0.35s ease;
+    background: transparent;
+    padding: 0;
   }
-  .globe-panel:hover { border-color: var(--gold); }
 
   .loc-row {
     display: flex; flex-wrap: wrap;

@@ -21,7 +21,7 @@ const markers = locations.map((l) => ({ lat: l.lat, lng: l.lng }));
 
     <div class="map-layout" data-reveal>
       <div class="globe-panel">
-        <Globe id="globe-sedi" markers={markers} primaryIndex={primaryIndex} autoRotate={true} />
+        <Globe id="globe-sedi" markers={markers} primaryIndex={primaryIndex} interactive={true} />
         <button class="map-reset" type="button" data-map-reset hidden>Vista d'insieme</button>
       </div>
 
@@ -70,11 +70,8 @@ const markers = locations.map((l) => ({ lat: l.lat, lng: l.lng }));
 
   .globe-panel {
     position: relative;
-    border: 1px solid var(--hair);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    background: radial-gradient(circle at 42% 38%, #101F38 0%, #0A1322 72%);
-    padding: 24px;
+    background: transparent;
+    padding: 0;
   }
 
   .map-reset {
