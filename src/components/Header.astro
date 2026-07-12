@@ -1,6 +1,7 @@
 ---
 import { site, nav, ctaLabel, ctaHref } from '../data/site';
 import { services } from '../data/services';
+import { url } from '../lib/url';
 
 const links = nav.filter((item) => !item.highlight);
 const mentoria = nav.find((item) => item.highlight);
@@ -8,7 +9,7 @@ const mentoria = nav.find((item) => item.highlight);
 
 <header data-header>
   <div class="wrap navbar">
-    <a href="/" class="brand">
+    <a href={url('/')} class="brand">
       <span class="name">{site.brand}</span>
       <span class="sub">{site.brandSub}</span>
     </a>
@@ -16,13 +17,13 @@ const mentoria = nav.find((item) => item.highlight);
       {links.map((item) =>
         item.label === 'Servizi' ? (
           <div class="nav-drop">
-            <a href={item.href} aria-haspopup="true">
+            <a href={url(item.href)} aria-haspopup="true">
               {item.label}
               <svg class="caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             </a>
             <div class="drop-menu">
               {services.map((s) => (
-                <a href={`/servizi/${s.slug}/`} class="drop-item">
+                <a href={url(`/servizi/${s.slug}/`)} class="drop-item">
                   <span class="drop-num">{s.num}</span>
                   <span set:html={s.title} />
                 </a>
@@ -30,15 +31,15 @@ const mentoria = nav.find((item) => item.highlight);
             </div>
           </div>
         ) : (
-          <a href={item.href}>{item.label}</a>
+          <a href={url(item.href)}>{item.label}</a>
         )
       )}
-      {mentoria && <a href={mentoria.href} class="btn btn-gold nav-mentoria">{mentoria.label}</a>}
-      <a href={ctaHref} class="btn btn-solid nav-cta">{ctaLabel}</a>
+      {mentoria && <a href={url(mentoria.href)} class="btn btn-gold nav-mentoria">{mentoria.label}</a>}
+      <a href={url(ctaHref)} class="btn btn-solid nav-cta">{ctaLabel}</a>
     </nav>
     <div class="head-actions">
-      {mentoria && <a href={mentoria.href} class="btn btn-gold">{mentoria.label}</a>}
-      <a href={ctaHref} class="btn btn-solid desk-cta">{ctaLabel}</a>
+      {mentoria && <a href={url(mentoria.href)} class="btn btn-gold">{mentoria.label}</a>}
+      <a href={url(ctaHref)} class="btn btn-solid desk-cta">{ctaLabel}</a>
     </div>
     <button
       class="menu-tog"

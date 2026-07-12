@@ -1,6 +1,7 @@
 ---
 import { site, nav } from '../data/site';
 import { locations } from '../data/locations';
+import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
 const cities = locations.map((l) => l.city);
@@ -19,7 +20,7 @@ const cities = locations.map((l) => l.city);
       <div class="foot-col">
         <h4>Studio</h4>
         <p>
-          {nav.map((item) => <a href={item.href}>{item.label}<br /></a>)}
+          {nav.map((item) => <a href={url(item.href)}>{item.label}<br /></a>)}
         </p>
       </div>
       <div class="foot-col">

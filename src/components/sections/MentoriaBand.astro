@@ -5,6 +5,7 @@
  * consulting, ponte verso l'area /mentoria (blu notte + oro).
  */
 import BrandArt from '../BrandArt.astro';
+import { url } from '../../lib/url';
 ---
 
 <section class="mentoria-band on-navy" id="mentoria">
@@ -19,7 +20,7 @@ import BrandArt from '../BrandArt.astro';
         autonoma la guida aziendale.
       </p>
       <div class="band-cta" data-reveal>
-        <a href="/mentoria/" class="btn gold-btn">Scopri la Mentoria</a>
+        <a href={url('/mentoria/')} class="btn gold-btn">Scopri la Mentoria</a>
       </div>
     </div>
     <div class="band-art" data-reveal>

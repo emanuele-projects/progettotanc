@@ -2,6 +2,7 @@
 import SectionHead from '../SectionHead.astro';
 import BrandArt from '../BrandArt.astro';
 import { getPosts, formatDate } from '../../lib/wp';
+import { url } from '../../lib/url';
 
 const posts = (await getPosts()).slice(0, 3);
 ---
@@ -17,7 +18,7 @@ const posts = (await getPosts()).slice(0, 3);
     </SectionHead>
     <div class="news-grid">
       {posts.map((p) => (
-        <a href={`/news/${p.slug}/`} class="news-card" data-reveal>
+        <a href={url(`/news/${p.slug}/`)} class="news-card" data-reveal>
           <div class="news-media">
             {p.featuredImage ? (
               <img src={p.featuredImage.url} alt={p.featuredImage.alt} loading="lazy" />
@@ -35,7 +36,7 @@ const posts = (await getPosts()).slice(0, 3);
       ))}
     </div>
     <div class="news-all" data-reveal>
-      <a href="/news/" class="btn">Tutte le news</a>
+      <a href={url('/news/')} class="btn">Tutte le news</a>
     </div>
   </div>
 </section>

@@ -1,6 +1,7 @@
 ---
 import SectionHead from '../SectionHead.astro';
 import { locations } from '../../data/locations';
+import { url } from '../../lib/url';
 
 interface Props {
   /** true = solo griglia + link alla pagina /sedi (per la home) */
@@ -33,7 +34,7 @@ const { compact = false } = Astro.props;
           <div class="sp-city" data-sp-city></div>
           <div class="sp-country" data-sp-country></div>
           <div class="sp-role" data-sp-role></div>
-          <a href="/contatti/" class="btn btn-solid sp-cta">Contatta questa sede</a>
+          <a href={url('/contatti/')} class="btn btn-solid sp-cta">Contatta questa sede</a>
         </div>
       </div>
     </div>}
@@ -41,7 +42,7 @@ const { compact = false } = Astro.props;
     <div class="loc-row" data-reveal>
       {locations.map((l, i) =>
         compact ? (
-          <a href="/sedi/" class:list={['loc', { primary: l.primary }]}>
+          <a href={url('/sedi/')} class:list={['loc', { primary: l.primary }]}>
             <span class="city">{l.city}</span>
             <span class="cc">{l.country}</span>
             <span class="role">{l.role}</span>
@@ -62,7 +63,7 @@ const { compact = false } = Astro.props;
 
     {compact && (
       <div class="loc-more" data-reveal>
-        <a href="/sedi/" class="btn">Tutte le sedi e i riferimenti</a>
+        <a href={url('/sedi/')} class="btn">Tutte le sedi e i riferimenti</a>
       </div>
     )}
   </div>

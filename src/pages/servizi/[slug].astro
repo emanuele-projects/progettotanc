@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import BrandArt from '../../components/BrandArt.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { services, type Service } from '../../data/services';
+import { url } from '../../lib/url';
 
 export function getStaticPaths() {
   return services.map((service) => ({
@@ -45,7 +46,7 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
       <span class="eyebrow" data-reveal>Altri servizi</span>
       <div class="rel-grid">
         {others.map((o) => (
-          <a href={`/servizi/${o.slug}/`} class="rel-card" data-reveal>
+          <a href={url(`/servizi/${o.slug}/`)} class="rel-card" data-reveal>
             <span class="num">{o.num}</span>
             <h3 set:html={o.title} />
             <span class="arrow">Approfondisci →</span>

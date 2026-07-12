@@ -1,5 +1,6 @@
 ---
 import { site } from '../../data/site';
+import { url } from '../../lib/url';
 
 interface Cta {
   label: string;
@@ -30,7 +31,7 @@ const {
     <p data-reveal>{lead}</p>
     <div class="cta-actions" data-reveal>
       {ctas.map((cta) => (
-        <a href={cta.href} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
+        <a href={url(cta.href)} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
       ))}
     </div>
   </div>

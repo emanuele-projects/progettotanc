@@ -3,6 +3,7 @@ import SectionHead from '../SectionHead.astro';
 import BrandArt from '../BrandArt.astro';
 import Carousel from '../Carousel.astro';
 import { services } from '../../data/services';
+import { url } from '../../lib/url';
 ---
 
 <section id="servizi">
@@ -17,7 +18,7 @@ import { services } from '../../data/services';
     <div data-reveal>
       <Carousel id="servizi-slider" label="I nostri servizi">
         {services.map((s) => (
-          <a href={`/servizi/${s.slug}/`} class="svc car-slide">
+          <a href={url(`/servizi/${s.slug}/`)} class="svc car-slide">
             <div class="svc-media">
               <BrandArt variant={s.art} ratio="16 / 10" label={s.plainTitle} />
             </div>
@@ -32,7 +33,7 @@ import { services } from '../../data/services';
       </Carousel>
     </div>
     <div class="svc-all" data-reveal>
-      <a href="/servizi/" class="btn">Tutti i servizi</a>
+      <a href={url('/servizi/')} class="btn">Tutti i servizi</a>
     </div>
   </div>
 </section>

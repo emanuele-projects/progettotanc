@@ -5,6 +5,7 @@ import BrandArt from '../../components/BrandArt.astro';
 import Method from '../../components/sections/Method.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { services } from '../../data/services';
+import { url } from '../../lib/url';
 
 const pillars = [
   {
@@ -42,7 +43,7 @@ const pillars = [
     <div class="wrap">
       <div class="svc-grid">
         {services.map((s) => (
-          <a href={`/servizi/${s.slug}/`} class="svc" data-reveal>
+          <a href={url(`/servizi/${s.slug}/`)} class="svc" data-reveal>
             <div class="svc-media">
               <BrandArt variant={s.art} ratio="16 / 10" label={s.plainTitle} />
             </div>

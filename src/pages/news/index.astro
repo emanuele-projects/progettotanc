@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { getPosts, formatDate } from '../../lib/wp';
+import { url } from '../../lib/url';
 
 const posts = await getPosts();
 const usingMocks = !import.meta.env.WP_API_URL;
@@ -27,7 +28,7 @@ const usingMocks = !import.meta.env.WP_API_URL;
     <div class="wrap">
       <div class="list">
         {posts.map((p) => (
-          <a href={`/news/${p.slug}/`} class="row" data-reveal>
+          <a href={url(`/news/${p.slug}/`)} class="row" data-reveal>
             <time class="date" datetime={p.date.toISOString()}>{formatDate(p.date)}</time>
             <div class="row-main">
               <h2>{p.title}</h2>

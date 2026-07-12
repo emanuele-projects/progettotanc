@@ -5,6 +5,7 @@
  * una scena BrandArt (prop `art`) o una foto reale (prop `photo`).
  */
 import BrandArt from '../BrandArt.astro';
+import { url } from '../../lib/url';
 
 interface Cta {
   label: string;
@@ -47,7 +48,7 @@ const { eyebrow, lead, ctas = [], meta = [], photo, art } = Astro.props;
       {ctas.length > 0 && (
         <div class="hero-cta" data-reveal>
           {ctas.map((cta) => (
-            <a href={cta.href} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
+            <a href={url(cta.href)} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
           ))}
         </div>
       )}

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { url } from '../lib/url';
 ---
 
 <BaseLayout
@@ -19,8 +20,8 @@ import PageHero from '../components/PageHero.astro';
   <section class="nf-actions-sec">
     <div class="wrap">
       <div class="nf-actions" data-reveal>
-        <a href="/" class="btn btn-solid">Torna alla home</a>
-        <a href="/contatti/" class="btn">Contattaci</a>
+        <a href={url('/')} class="btn btn-solid">Torna alla home</a>
+        <a href={url('/contatti/')} class="btn">Contattaci</a>
       </div>
     </div>
   </section>
