@@ -1,9 +1,9 @@
 # ============================================================
-# Anteprima su GitHub Pages
-# Pubblica il sito a ogni push su main:
-#   https://campameme.github.io/sitotanc/
-# È l'ambiente di ANTEPRIMA: la produzione resta l'hosting
-# WordPress via FTP (vedi deploy.yml, oggi disattivato).
+# GitHub Pages — https://sitotanc.it (dominio custom, root)
+# Pubblica il sito a ogni push su main. Il dominio è impostato
+# in Settings → Pages; il file CNAME viene incluso nel deploy.
+# Requisiti una tantum: Source = "GitHub Actions" e DNS del
+# dominio puntato ai server Pages di GitHub.
 # ============================================================
 
 name: GitHub Pages
@@ -41,8 +41,10 @@ jobs:
 
       - run: npm run build
         env:
-          DEPLOY_SITE: https://campameme.github.io
-          DEPLOY_BASE: /sitotanc
+          DEPLOY_SITE: https://sitotanc.it
+
+      # Mantiene il dominio custom associato al deploy
+      - run: cp CNAME dist/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:
