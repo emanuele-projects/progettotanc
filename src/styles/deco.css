@@ -1,0 +1,36 @@
+/* ============================================================
+   Il rombo — firma del brand Fulvio Rossi Plus.
+   Vive come watermark nelle sezioni navy e come sigillo
+   nel footer. (La cornice Art Déco a tutta pagina è stata
+   rimossa nel restyle corporate.)
+   ============================================================ */
+
+/* Emblema: rombo concentrico */
+.deco { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.emblem {
+  position: absolute; top: 50%; right: 6%; transform: translateY(-50%);
+  width: min(38vmin, 420px); aspect-ratio: 1;
+  background: var(--emblem) no-repeat center / contain;
+  opacity: 0.12;
+  animation: emblemGlow 11s ease-in-out infinite;
+}
+
+/* Divisore a banda con rombo centrale */
+.deco-band {
+  position: relative; z-index: 2;
+  height: 24px; width: 240px; max-width: 74%;
+  margin: 0 auto; opacity: 0.65;
+  background: var(--band) no-repeat center / contain;
+}
+.deco-band-pad { padding: 26px 0 0; }
+
+/* Sigillo rombo statico (footer, card) */
+.emblem-seal {
+  width: 74px; aspect-ratio: 1;
+  background: var(--emblem) no-repeat center / contain;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .emblem { right: 50%; transform: translate(50%, -50%); opacity: 0.07; width: 66vmin; }
+}

@@ -1,0 +1,236 @@
+---
+/**
+ * Illustrazioni di brand — scene SVG duotone nei blu del sito
+ * (oro solo nella scena "mentoria"). Danno al sito il layer
+ * fotografico del reference in attesa delle foto reali: per
+ * sostituirle basterà cambiare questo componente con <Image>.
+ */
+interface Props {
+  variant:
+    | 'skyline'
+    | 'boardroom'
+    | 'deal'
+    | 'growth'
+    | 'succession'
+    | 'vault'
+    | 'global'
+    | 'quality'
+    | 'portrait'
+    | 'mentoria'
+    | 'editorial';
+  ratio?: string;
+  label?: string;
+  class?: string;
+}
+const { variant, ratio = '16 / 10', label = '', class: className } = Astro.props;
+
+const scenes: Record<string, string> = {
+  skyline: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <circle cx="620" cy="140" r="70" fill="#9DB9F2" opacity="0.35"/>
+    <g fill="#0B2A5C">
+      <rect x="40" y="260" width="80" height="340"/>
+      <rect x="140" y="180" width="95" height="420"/>
+      <rect x="255" y="300" width="70" height="300"/>
+      <rect x="345" y="120" width="110" height="480"/>
+      <rect x="475" y="240" width="85" height="360"/>
+      <rect x="580" y="320" width="70" height="280"/>
+      <rect x="670" y="200" width="95" height="400"/>
+    </g>
+    <g fill="#577FE1" opacity="0.85">
+      <rect x="60" y="290" width="10" height="14"/><rect x="85" y="290" width="10" height="14"/>
+      <rect x="60" y="320" width="10" height="14"/><rect x="85" y="320" width="10" height="14"/>
+      <rect x="160" y="210" width="12" height="16"/><rect x="188" y="210" width="12" height="16"/>
+      <rect x="160" y="245" width="12" height="16"/><rect x="188" y="245" width="12" height="16"/>
+      <rect x="160" y="280" width="12" height="16"/><rect x="215" y="245" width="12" height="16"/>
+      <rect x="370" y="150" width="14" height="18"/><rect x="400" y="150" width="14" height="18"/>
+      <rect x="370" y="190" width="14" height="18"/><rect x="430" y="190" width="14" height="18"/>
+      <rect x="400" y="230" width="14" height="18"/><rect x="370" y="270" width="14" height="18"/>
+      <rect x="495" y="270" width="12" height="16"/><rect x="522" y="270" width="12" height="16"/>
+      <rect x="495" y="305" width="12" height="16"/><rect x="690" y="230" width="12" height="16"/>
+      <rect x="718" y="230" width="12" height="16"/><rect x="690" y="265" width="12" height="16"/>
+    </g>
+    <rect y="560" width="800" height="40" fill="#061B3D"/>
+  `,
+  boardroom: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <g fill="#9DB9F2" opacity="0.25">
+      <rect x="60" y="60" width="150" height="240"/>
+      <rect x="240" y="60" width="150" height="240"/>
+      <rect x="420" y="60" width="150" height="240"/>
+      <rect x="600" y="60" width="150" height="240"/>
+    </g>
+    <polygon points="120,560 680,560 560,360 240,360" fill="#0B2A5C"/>
+    <polygon points="240,360 560,360 550,380 250,380" fill="#577FE1" opacity="0.7"/>
+    <g fill="#061B3D">
+      <ellipse cx="180" cy="420" rx="34" ry="18"/>
+      <ellipse cx="140" cy="500" rx="40" ry="20"/>
+      <ellipse cx="620" cy="420" rx="34" ry="18"/>
+      <ellipse cx="660" cy="500" rx="40" ry="20"/>
+      <ellipse cx="400" cy="330" rx="30" ry="14"/>
+    </g>
+    <circle cx="400" cy="452" r="26" fill="#9DB9F2" opacity="0.5"/>
+  `,
+  deal: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <g fill="#0B2A5C">
+      <polygon points="90,600 90,180 240,140 240,600"/>
+      <polygon points="710,600 710,180 560,140 560,600"/>
+    </g>
+    <g fill="#577FE1" opacity="0.8">
+      <rect x="120" y="210" width="14" height="16"/><rect x="150" y="205" width="14" height="16"/>
+      <rect x="120" y="250" width="14" height="16"/><rect x="180" y="240" width="14" height="16"/>
+      <rect x="640" y="210" width="14" height="16"/><rect x="670" y="215" width="14" height="16"/>
+      <rect x="640" y="250" width="14" height="16"/><rect x="610" y="245" width="14" height="16"/>
+    </g>
+    <path d="M240 320 H560" stroke="#9DB9F2" stroke-width="6" stroke-dasharray="2 18" stroke-linecap="round"/>
+    <circle cx="330" cy="320" r="58" fill="#577FE1" opacity="0.55"/>
+    <circle cx="470" cy="320" r="58" fill="#9DB9F2" opacity="0.55"/>
+    <path d="M310 430 h180 M330 460 h140" stroke="#0B2A5C" stroke-width="10" stroke-linecap="round"/>
+  `,
+  growth: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <g stroke="#0B2A5C" stroke-width="1.5" opacity="0.5">
+      <path d="M80 480 H720 M80 380 H720 M80 280 H720 M80 180 H720"/>
+    </g>
+    <g fill="#0B2A5C">
+      <rect x="130" y="400" width="70" height="160"/>
+      <rect x="250" y="340" width="70" height="220"/>
+      <rect x="370" y="380" width="70" height="180"/>
+      <rect x="490" y="270" width="70" height="290"/>
+      <rect x="610" y="200" width="70" height="360"/>
+    </g>
+    <path d="M120 430 L285 330 L405 365 L525 240 L680 150" fill="none" stroke="#577FE1" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M640 148 L688 142 L672 188" fill="none" stroke="#577FE1" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="285" cy="330" r="10" fill="#9DB9F2"/>
+    <circle cx="525" cy="240" r="10" fill="#9DB9F2"/>
+  `,
+  succession: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <circle cx="250" cy="270" r="120" fill="#0B2A5C"/>
+    <circle cx="250" cy="270" r="78" fill="none" stroke="#577FE1" stroke-width="3"/>
+    <polygon points="250,215 305,270 250,325 195,270" fill="#577FE1" opacity="0.85"/>
+    <path d="M395 270 H520" stroke="#9DB9F2" stroke-width="8" stroke-linecap="round"/>
+    <path d="M492 242 L532 270 L492 298" fill="none" stroke="#9DB9F2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="600" cy="270" r="76" fill="#0B2A5C"/>
+    <polygon points="600,236 636,270 600,304 564,270" fill="#9DB9F2" opacity="0.95"/>
+    <path d="M120 470 Q400 400 680 470" fill="none" stroke="#0B2A5C" stroke-width="4" opacity="0.7"/>
+  `,
+  vault: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <circle cx="400" cy="300" r="210" fill="#0B2A5C"/>
+    <circle cx="400" cy="300" r="160" fill="none" stroke="#577FE1" stroke-width="5"/>
+    <circle cx="400" cy="300" r="110" fill="none" stroke="#9DB9F2" stroke-width="3"/>
+    <g stroke="#577FE1" stroke-width="6" stroke-linecap="round">
+      <path d="M400 108 V150 M400 450 V492 M208 300 H250 M550 300 H592"/>
+      <path d="M266 166 L296 196 M504 404 L534 434 M534 166 L504 196 M296 404 L266 434"/>
+    </g>
+    <circle cx="400" cy="300" r="46" fill="#577FE1"/>
+    <polygon points="400,272 428,300 400,328 372,300" fill="#061B3D"/>
+  `,
+  global: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <circle cx="400" cy="310" r="200" fill="#0B2A5C"/>
+    <g fill="none" stroke="#577FE1" stroke-width="2.5" opacity="0.9">
+      <ellipse cx="400" cy="310" rx="200" ry="200"/>
+      <ellipse cx="400" cy="310" rx="120" ry="200"/>
+      <ellipse cx="400" cy="310" rx="45" ry="200"/>
+      <path d="M200 310 H600 M225 220 H575 M225 400 H575 M280 140 H520 M280 480 H520"/>
+    </g>
+    <g fill="none" stroke="#9DB9F2" stroke-width="4" stroke-linecap="round">
+      <path d="M300 260 Q400 150 530 250"/>
+      <path d="M280 380 Q420 470 560 350"/>
+    </g>
+    <circle cx="300" cy="260" r="9" fill="#9DB9F2"/>
+    <circle cx="530" cy="250" r="9" fill="#9DB9F2"/>
+    <circle cx="280" cy="380" r="9" fill="#9DB9F2"/>
+    <circle cx="560" cy="350" r="9" fill="#9DB9F2"/>
+  `,
+  quality: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <g fill="#0B2A5C">
+      <circle cx="400" cy="270" r="150"/>
+      <circle cx="400" cy="128" r="34"/>
+      <circle cx="502" cy="156" r="34"/><circle cx="298" cy="156" r="34"/>
+      <circle cx="544" cy="270" r="34"/><circle cx="256" cy="270" r="34"/>
+      <circle cx="502" cy="384" r="34"/><circle cx="298" cy="384" r="34"/>
+      <circle cx="400" cy="412" r="34"/>
+    </g>
+    <circle cx="400" cy="270" r="112" fill="none" stroke="#577FE1" stroke-width="5"/>
+    <path d="M340 272 L385 316 L468 222" fill="none" stroke="#9DB9F2" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="352,410 400,560 448,410 400,452" fill="#577FE1" opacity="0.8"/>
+  `,
+  portrait: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <circle cx="400" cy="500" r="330" fill="#0B2A5C" opacity="0.45"/>
+    <circle cx="400" cy="235" r="105" fill="#0B2A5C"/>
+    <path d="M185 600 Q185 430 400 430 Q615 430 615 600 Z" fill="#0B2A5C"/>
+    <path d="M185 600 Q185 430 400 430 Q615 430 615 600" fill="none" stroke="#577FE1" stroke-width="4" opacity="0.7"/>
+    <circle cx="400" cy="235" r="105" fill="none" stroke="#577FE1" stroke-width="4" opacity="0.7"/>
+  `,
+  mentoria: `
+    <rect width="800" height="600" fill="url(#ba-navy)"/>
+    <g fill="#0F2A50">
+      <rect x="120" y="470" width="560" height="40"/>
+      <rect x="200" y="400" width="480" height="40"/>
+      <rect x="280" y="330" width="400" height="40"/>
+    </g>
+    <path d="M140 460 L300 390 L460 320 L640 240" fill="none" stroke="#C2A35B" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 26"/>
+    <circle cx="285" cy="300" r="52" fill="#C2A35B"/>
+    <path d="M195 470 Q195 380 285 380 Q375 380 375 470 Z" fill="#C2A35B"/>
+    <circle cx="520" cy="212" r="40" fill="#D8BE84"/>
+    <path d="M452 340 Q452 268 520 268 Q588 268 588 340 Z" fill="#D8BE84"/>
+    <polygon points="640,180 668,208 640,236 612,208" fill="none" stroke="#C2A35B" stroke-width="3"/>
+  `,
+  editorial: `
+    <rect width="800" height="600" fill="url(#ba-sky)"/>
+    <rect x="170" y="90" width="460" height="420" fill="#0B2A5C"/>
+    <rect x="200" y="130" width="200" height="130" fill="#577FE1" opacity="0.65"/>
+    <g stroke="#9DB9F2" stroke-width="12" stroke-linecap="round" opacity="0.9">
+      <path d="M430 150 H600 M430 185 H600 M430 220 H560"/>
+    </g>
+    <g stroke="#577FE1" stroke-width="10" stroke-linecap="round" opacity="0.8">
+      <path d="M200 310 H600 M200 345 H600 M200 380 H540 M200 415 H600 M200 450 H480"/>
+    </g>
+  `,
+};
+
+const svgBody = scenes[variant] ?? scenes.skyline;
+const role = label ? 'img' : 'presentation';
+---
+
+<div class:list={['brand-art', className]} style={`aspect-ratio: ${ratio};`}>
+  <svg
+    viewBox="0 0 800 600"
+    preserveAspectRatio="xMidYMid slice"
+    role={role}
+    aria-label={label || undefined}
+    aria-hidden={label ? undefined : 'true'}
+  >
+    <defs>
+      <linearGradient id="ba-sky" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0" stop-color="#0B2A5C" />
+        <stop offset="0.55" stop-color="#173B78" />
+        <stop offset="1" stop-color="#2F55B8" />
+      </linearGradient>
+      <linearGradient id="ba-navy" x1="0" y1="0" x2="0.5" y2="1">
+        <stop offset="0" stop-color="#061B3D" />
+        <stop offset="1" stop-color="#0B2A5C" />
+      </linearGradient>
+    </defs>
+    <Fragment set:html={svgBody} />
+  </svg>
+</div>
+
+<style>
+  .brand-art {
+    width: 100%;
+    overflow: hidden;
+    background: #0B2A5C;
+  }
+  .brand-art svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>

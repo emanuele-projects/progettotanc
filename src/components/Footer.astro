@@ -1,0 +1,87 @@
+---
+import { site, nav } from '../data/site';
+import { locations } from '../data/locations';
+
+const year = new Date().getFullYear();
+const cities = locations.map((l) => l.city);
+---
+
+<footer class="on-navy">
+  <div class="wrap">
+    <div class="foot-seal">
+      <div class="emblem-seal" aria-hidden="true"></div>
+    </div>
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="name">{site.brand}</div>
+        <div class="sub">{site.brandSub}</div>
+      </div>
+      <div class="foot-col">
+        <h4>Studio</h4>
+        <p>
+          {nav.map((item) => <a href={item.href}>{item.label}<br /></a>)}
+        </p>
+      </div>
+      <div class="foot-col">
+        <h4>Contatti</h4>
+        <p>
+          <a href={`mailto:${site.email}`}>{site.email}</a><br />
+          {site.address}<br />
+          {site.phone}
+        </p>
+      </div>
+      <div class="foot-col">
+        <h4>Sedi</h4>
+        <p>
+          {cities.slice(0, 3).join(' · ')}<br />
+          {cities.slice(3, 5).join(' · ')}<br />
+          {cities.slice(5).join(' · ')}
+        </p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {year} — Tutti i diritti riservati</span>
+      <span>{site.piva}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Footer sempre navy (alla CookGroup), con il rombo come sigillo */
+  footer {
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--on-navy-dim);
+    padding: 56px 0 36px;
+  }
+  .foot-seal {
+    display: flex; justify-content: center;
+    padding-bottom: 36px;
+  }
+  .foot-top {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--hair-on-navy);
+  }
+  .foot-brand .name {
+    font-family: var(--disp); font-size: 26px; font-weight: 800;
+    letter-spacing: 0.03em; color: var(--on-navy);
+  }
+  .foot-brand .sub {
+    font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.28em;
+    color: var(--on-navy-muted); text-transform: uppercase; margin-top: 8px;
+  }
+  .foot-col h4 {
+    font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent-soft);
+    margin-bottom: 16px;
+  }
+  .foot-col p { font-size: 16px; line-height: 1.9; font-weight: 300; }
+  .foot-col a { transition: color 0.3s; }
+  .foot-col a:hover { color: var(--accent-soft); }
+  .foot-bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding-top: 26px;
+    font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    color: var(--on-navy-muted); text-transform: uppercase;
+  }
+</style>

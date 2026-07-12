@@ -1,0 +1,84 @@
+---
+import SectionHead from '../SectionHead.astro';
+import BrandArt from '../BrandArt.astro';
+import { getPosts, formatDate } from '../../lib/wp';
+
+const posts = (await getPosts()).slice(0, 3);
+---
+
+<section id="news">
+  <div class="wrap">
+    <SectionHead eyebrow="News &amp; approfondimenti">
+      <Fragment slot="title">Il punto di vista dello studio</Fragment>
+      <p slot="lead">
+        Analisi e riflessioni su M&amp;A, finanza d'impresa e continuità:
+        gli articoli della redazione.
+      </p>
+    </SectionHead>
+    <div class="news-grid">
+      {posts.map((p) => (
+        <a href={`/news/${p.slug}/`} class="news-card" data-reveal>
+          <div class="news-media">
+            {p.featuredImage ? (
+              <img src={p.featuredImage.url} alt={p.featuredImage.alt} loading="lazy" />
+            ) : (
+              <BrandArt variant="editorial" ratio="16 / 9" />
+            )}
+          </div>
+          <div class="news-body">
+            <time class="date" datetime={p.date.toISOString()}>{formatDate(p.date)}</time>
+            <h3>{p.title}</h3>
+            <p>{p.excerpt}</p>
+            <span class="arrow">Leggi →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <div class="news-all" data-reveal>
+      <a href="/news/" class="btn">Tutte le news</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .news-card {
+    display: block;
+    border: 1px solid var(--hair-faint);
+    background: var(--panel);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .news-card:hover {
+    border-color: var(--hair);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(6, 27, 61, 0.08);
+  }
+  .news-media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .news-body { padding: 24px 28px 32px; }
+  .date {
+    font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-text);
+  }
+  .news-card h3 { font-size: 25px; margin: 16px 0 12px; line-height: 1.15; }
+  .news-card p {
+    color: var(--muted); font-size: 16.5px; line-height: 1.55;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .arrow {
+    display: inline-block; margin-top: 20px;
+    font-family: var(--sans); font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-dim);
+  }
+  .news-all { text-align: center; margin-top: 56px; }
+
+  @media (max-width: 900px) {
+    .news-grid { grid-template-columns: 1fr; }
+  }
+</style>

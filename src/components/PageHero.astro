@@ -1,0 +1,79 @@
+---
+/**
+ * Testata compatta per le pagine interne: banda navy con immagine
+ * (scena BrandArt o foto) + overlay, stile CookGroup. Garantisce
+ * anche il contrasto dell'header trasparente su ogni pagina.
+ */
+import BrandArt from './BrandArt.astro';
+
+interface Props {
+  eyebrow: string;
+  lead?: string;
+  photo?: string;
+  art?:
+    | 'skyline'
+    | 'boardroom'
+    | 'deal'
+    | 'growth'
+    | 'succession'
+    | 'vault'
+    | 'global'
+    | 'quality'
+    | 'portrait'
+    | 'mentoria'
+    | 'editorial';
+}
+const { eyebrow, lead, photo, art } = Astro.props;
+---
+
+<section class="page-hero on-navy">
+  {photo && <div class="ph-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>}
+  {!photo && art && (
+    <div class="ph-art" aria-hidden="true">
+      <BrandArt variant={art} />
+    </div>
+  )}
+  <div class="ph-overlay" aria-hidden="true"></div>
+  {!photo && !art && <div class="deco" aria-hidden="true"><div class="emblem"></div></div>}
+  <div class="wrap em-gold">
+    <span class="eyebrow" data-reveal>{eyebrow}</span>
+    <h1 data-reveal><slot /></h1>
+    {lead && <p class="ph-lead" data-reveal>{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--on-navy-dim);
+    padding: 170px 0 80px;
+    overflow: hidden;
+  }
+  .ph-photo {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+  }
+  .ph-art { position: absolute; inset: 0; z-index: 0; opacity: 0.45; }
+  .ph-art :global(.brand-art) { height: 100%; aspect-ratio: auto; background: transparent; }
+  .ph-overlay { position: absolute; inset: 0; z-index: 0; background: var(--navy-overlay); }
+  .page-hero :global(.eyebrow) { color: var(--accent-soft); }
+  .page-hero h1 {
+    font-size: clamp(36px, 5vw, 60px);
+    color: var(--on-navy);
+    margin-top: 20px;
+    max-width: 920px;
+    line-height: 1.1;
+  }
+  .page-hero h1 :global(em) { font-style: normal; color: var(--accent-soft); }
+  .ph-lead {
+    font-size: clamp(18px, 1.9vw, 22px);
+    font-weight: 300;
+    max-width: 640px;
+    margin-top: 22px;
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .page-hero { padding: 140px 0 56px; }
+  }
+</style>

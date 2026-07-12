@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Manifesto from '../components/sections/Manifesto.astro';
+import Method from '../components/sections/Method.astro';
+import PercorsoSteps from '../components/sections/PercorsoSteps.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import DecoBand from '../components/DecoBand.astro';
+import { site } from '../data/site';
+
+const pillars = [
+  {
+    pn: 'I',
+    title: 'Mentoria diretta',
+    text: 'Affiancamento personale di fondatore, successori e prime linee: incontri riservati, obiettivi misurabili, un mentore che ha già attraversato ciò che state affrontando.',
+  },
+  {
+    pn: 'II',
+    title: 'Trasferimento di metodo',
+    text: 'Non consigli: strumenti. Consegniamo alla guida aziendale il metodo di analisi e decisione che usiamo noi, perché resti in azienda.',
+  },
+  {
+    pn: 'III',
+    title: 'Coaching dei collaboratori',
+    text: 'La leadership non vive in una persona sola. Prepariamo la squadra che circonda la guida: deleghe chiare, responsabilità vere.',
+  },
+];
+
+const steps = [
+  {
+    n: 'I',
+    title: 'Diagnosi della leadership',
+    text: 'Un primo ciclo di colloqui riservati con la proprietà e le prime linee: dove si concentrano le decisioni, dove si fermano, che cosa succede quando la guida non c’è.',
+  },
+  {
+    n: 'II',
+    title: 'Patto di mentoria',
+    text: 'Obiettivi, tempi, riservatezza: mettiamo per iscritto che cosa il percorso deve lasciare in azienda. Il mentore risponde di questo risultato.',
+  },
+  {
+    n: 'III',
+    title: 'Affiancamento sul campo',
+    text: 'Il mentore entra nelle decisioni reali: comitati, trattative, scelte di governance. Si impara guidando, con qualcuno accanto che ha già guidato.',
+  },
+  {
+    n: 'IV',
+    title: 'Autonomia',
+    text: 'Il percorso riesce quando non serve più. Chiudiamo con una guida autonoma, una squadra responsabilizzata e un metodo che resta.',
+  },
+];
+---
+
+<BaseLayout
+  theme="dark"
+  title="Mentoria — Fulvio Rossi Plus"
+  description="Mentoria e trasferimento di leadership: affiancamento personale di fondatori e successori, coaching dei collaboratori, metodo che resta in azienda."
+>
+  <Hero
+    eyebrow="Mentoria · Leadership · Continuità"
+    art="mentoria"
+    lead="La consulenza risolve un problema. La mentoria fa crescere chi dovrà risolverli tutti: affianchiamo fondatori, successori e prime linee finché la guida non cammina da sola."
+    ctas={[
+      { label: 'Richiedi un percorso riservato', href: '/contatti/', solid: true },
+      { label: 'Come funziona', href: '#percorso' },
+    ]}
+    meta={[
+      { value: String(site.foundedYear), label: 'Esperienza dello studio' },
+      { value: '1:1', label: 'Affiancamento personale' },
+      { value: 'IV', label: 'Tempi del percorso' },
+    ]}
+  >
+    <Fragment slot="title">Guidare<br /><em>si impara.</em></Fragment>
+  </Hero>
+
+  <Manifesto eyebrow="Che cos'è la mentoria" sign="Fulvio Rossi — Fondatore">
+    Il capitale più fragile di un'impresa non è nei conti: è nella testa di chi
+    la guida. La mentoria è il modo in cui questo capitale si <em>trasmette</em> —
+    dal fondatore ai successori, dalla proprietà alla squadra — prima che
+    l'urgenza lo renda necessario.
+  </Manifesto>
+
+  <DecoBand />
+
+  <Method
+    id="metodo"
+    eyebrow="Le tre dimensioni"
+    lead="Un servizio distinto dalla consulenza, con una promessa precisa: rendere autonoma la guida aziendale."
+    pillars={pillars}
+  >
+    <Fragment slot="title">Mentoria<br />&amp; trasferimento</Fragment>
+  </Method>
+
+  <PercorsoSteps
+    eyebrow="Il percorso"
+    lead="Quattro tempi, dal primo colloquio all'autonomia. Riservatezza assoluta in ogni fase."
+    steps={steps}
+  >
+    <Fragment slot="title">Come <em>funziona</em></Fragment>
+  </PercorsoSteps>
+
+  <DecoBand />
+
+  <CtaBand
+    eyebrow="Il primo passo"
+    lead="Il percorso comincia con un colloquio riservato, senza impegno: capiamo insieme se la mentoria è lo strumento giusto per la vostra guida."
+  >
+    <Fragment slot="title">Parliamo di chi<br /><em>guida.</em></Fragment>
+  </CtaBand>
+</BaseLayout>

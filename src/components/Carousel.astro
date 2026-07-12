@@ -1,0 +1,160 @@
+---
+/**
+ * Carousel riutilizzabile (pattern card-slider del sito di riferimento):
+ * viewport a scroll-snap trascinabile, frecce circolari, dots opzionali.
+ * I figli passati nello slot devono avere class="car-slide".
+ * Progressive enhancement: senza JS resta una riga scorrevole nativa.
+ */
+interface Props {
+  id: string;
+  label: string;
+  dots?: boolean;
+  /** larghezza slide: desktop / tablet / mobile */
+  slideW?: string;
+  slideWTablet?: string;
+  slideWMobile?: string;
+}
+const {
+  id,
+  label,
+  dots = false,
+  slideW = '31.5%',
+  slideWTablet = '47%',
+  slideWMobile = '84%',
+} = Astro.props;
+---
+
+<div
+  class="fr-carousel"
+  data-carousel
+  id={id}
+  style={`--slide-w:${slideW}; --slide-w-t:${slideWTablet}; --slide-w-m:${slideWMobile};`}
+>
+  <button class="car-btn car-prev" type="button" aria-label="Scorri indietro" data-car-prev>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="car-viewport" data-car-viewport tabindex="0" role="group" aria-label={label}>
+    <slot />
+  </div>
+  <button class="car-btn car-next" type="button" aria-label="Scorri avanti" data-car-next>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  {dots && <div class="car-dots" data-car-dots role="tablist" aria-label={`Posizione — ${label}`}></div>}
+</div>
+
+<style is:global>
+  .fr-carousel { position: relative; }
+
+  .car-viewport {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px;
+    margin: -4px;
+  }
+  .car-viewport::-webkit-scrollbar { display: none; }
+  .car-viewport > .car-slide {
+    flex: 0 0 var(--slide-w);
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .car-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 5;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--hair);
+    background: var(--panel);
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(6, 27, 61, 0.10);
+  }
+  .car-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .car-btn[disabled] { opacity: 0.35; pointer-events: none; }
+  .car-prev { left: -20px; }
+  .car-next { right: -20px; }
+
+  .car-dots {
+    display: flex; gap: 10px; justify-content: center;
+    margin-top: 30px;
+  }
+  .car-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    border: 1px solid var(--muted-2);
+    background: transparent;
+    padding: 0; cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .car-dot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+
+  @media (max-width: 1024px) {
+    .car-viewport > .car-slide { flex-basis: var(--slide-w-t); }
+  }
+  @media (max-width: 700px) {
+    .car-viewport > .car-slide { flex-basis: var(--slide-w-m); }
+    .car-btn { display: none; }
+  }
+</style>
+
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const behavior: ScrollBehavior = reduced ? 'auto' : 'smooth';
+
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((car) => {
+    const vp = car.querySelector<HTMLElement>('[data-car-viewport]')!;
+    const prev = car.querySelector<HTMLButtonElement>('[data-car-prev]')!;
+    const next = car.querySelector<HTMLButtonElement>('[data-car-next]')!;
+    const dotsWrap = car.querySelector<HTMLElement>('[data-car-dots]');
+    const slides = [...vp.querySelectorAll<HTMLElement>('.car-slide')];
+    if (!slides.length) return;
+
+    const dots: HTMLButtonElement[] = [];
+    if (dotsWrap) {
+      slides.forEach((slide, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'car-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Vai all'elemento ${i + 1}`);
+        dot.addEventListener('click', () =>
+          vp.scrollTo({ left: slide.offsetLeft - vp.offsetLeft, behavior })
+        );
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    const step = () => Math.max(vp.clientWidth * 0.9, slides[0].clientWidth + 30);
+    prev.addEventListener('click', () => vp.scrollBy({ left: -step(), behavior }));
+    next.addEventListener('click', () => vp.scrollBy({ left: step(), behavior }));
+
+    const update = () => {
+      const maxScroll = vp.scrollWidth - vp.clientWidth;
+      const overflow = maxScroll > 8;
+      prev.style.display = overflow ? '' : 'none';
+      next.style.display = overflow ? '' : 'none';
+      if (dotsWrap) dotsWrap.style.display = overflow ? '' : 'none';
+      if (!overflow) return;
+      prev.toggleAttribute('disabled', vp.scrollLeft <= 4);
+      next.toggleAttribute('disabled', vp.scrollLeft >= maxScroll - 4);
+      if (dots.length) {
+        let best = 0;
+        let bestDist = Infinity;
+        slides.forEach((s, i) => {
+          const d = Math.abs(s.offsetLeft - vp.offsetLeft - vp.scrollLeft);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === best));
+      }
+    };
+
+    vp.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  });
+</script>

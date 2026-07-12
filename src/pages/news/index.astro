@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { getPosts, formatDate } from '../../lib/wp';
+
+const posts = await getPosts();
+const usingMocks = !import.meta.env.WP_API_URL;
+---
+
+<BaseLayout
+  theme="light"
+  title="News & approfondimenti — Fulvio Rossi Plus"
+  description="Analisi e riflessioni su M&A, finanza d'impresa, passaggio generazionale e continuità: gli articoli dello studio."
+>
+  <PageHero
+    eyebrow="News & approfondimenti"
+    art="editorial"
+    lead={usingMocks
+      ? 'Articoli dimostrativi — il blog verrà alimentato dalla redazione via WordPress.'
+      : 'Analisi e riflessioni su M&A, finanza d’impresa e continuità.'}
+  >
+    Il punto di vista <em>dello studio</em>
+  </PageHero>
+
+  <section class="news-list">
+    <div class="wrap">
+      <div class="list">
+        {posts.map((p) => (
+          <a href={`/news/${p.slug}/`} class="row" data-reveal>
+            <time class="date" datetime={p.date.toISOString()}>{formatDate(p.date)}</time>
+            <div class="row-main">
+              <h2>{p.title}</h2>
+              <p>{p.excerpt}</p>
+            </div>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    lead="Un confronto riservato per mettere a fuoco insieme il valore da liberare e le mosse da fare."
+  >
+    <Fragment slot="title">Parliamo della vostra<br /><em>impresa.</em></Fragment>
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .news-list { padding: 80px 0 100px; }
+  .list { border-top: 1px solid var(--hair); }
+  .row {
+    display: grid;
+    grid-template-columns: 180px 1fr 40px;
+    gap: 40px;
+    align-items: baseline;
+    padding: 40px 6px;
+    border-bottom: 1px solid var(--hair-faint);
+    transition: background 0.3s ease;
+  }
+  .row:hover { background: var(--panel-2); }
+  .date {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-text);
+  }
+  .row h2 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; transition: color 0.3s; }
+  .row:hover h2 { color: var(--accent-text); }
+  .row p { color: var(--muted); font-size: 17px; margin-top: 10px; max-width: 640px; }
+  .arrow { font-size: 22px; color: var(--accent-text); opacity: 0; transition: opacity 0.3s; }
+  .row:hover .arrow { opacity: 1; }
+
+  @media (max-width: 900px) {
+    .row { grid-template-columns: 1fr; gap: 10px; }
+    .arrow { display: none; }
+  }
+</style>

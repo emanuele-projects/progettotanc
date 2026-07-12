@@ -1,0 +1,58 @@
+---
+import { site } from '../../data/site';
+
+interface Cta {
+  label: string;
+  href: string;
+  solid?: boolean;
+}
+interface Props {
+  eyebrow?: string;
+  lead: string;
+  ctas?: Cta[];
+  id?: string;
+}
+const {
+  eyebrow = 'Il primo passo',
+  lead,
+  ctas = [
+    { label: 'Prenota un incontro', href: '/contatti/', solid: true },
+    { label: 'Scrivici una email', href: `mailto:${site.email}` },
+  ],
+  id = 'contatti',
+} = Astro.props;
+---
+
+<section class="cta" id={id}>
+  <div class="wrap em-gold">
+    <span class="eyebrow" data-reveal>{eyebrow}</span>
+    <h2 data-reveal><slot name="title" /></h2>
+    <p data-reveal>{lead}</p>
+    <div class="cta-actions" data-reveal>
+      {ctas.map((cta) => (
+        <a href={cta.href} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { text-align: center; padding: 120px 0; overflow: hidden; }
+  .cta::before {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, 70vw); aspect-ratio: 1; z-index: 0;
+    background: var(--emblem) no-repeat center / contain;
+    opacity: 0.09;
+    animation: emblemGlow 12s ease-in-out infinite;
+  }
+  .cta :global(.eyebrow) { justify-content: center; }
+  .cta h2 { font-size: clamp(32px, 4.4vw, 54px); font-weight: 800; margin-top: 20px; }
+  .cta p {
+    color: var(--ink-dim); font-size: 21px;
+    max-width: 560px; margin: 28px auto 46px;
+  }
+  .cta-actions {
+    display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  }
+</style>

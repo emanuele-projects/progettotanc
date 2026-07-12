@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  theme="light"
+  title="Pagina non trovata — Fulvio Rossi Plus"
+  description="La pagina che cercate non esiste o è stata spostata."
+>
+  <PageHero
+    eyebrow="Errore 404"
+    art="skyline"
+    lead="La pagina che cercate non esiste o è stata spostata."
+  >
+    Pagina <em>non trovata</em>
+  </PageHero>
+
+  <section class="nf-actions-sec">
+    <div class="wrap">
+      <div class="nf-actions" data-reveal>
+        <a href="/" class="btn btn-solid">Torna alla home</a>
+        <a href="/contatti/" class="btn">Contattaci</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf-actions-sec { padding: 80px 0 140px; }
+  .nf-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+</style>

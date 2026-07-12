@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import { locations } from '../data/locations';
+---
+
+<BaseLayout
+  theme="light"
+  title="Contatti — Fulvio Rossi Plus"
+  description="Richiedi un incontro riservato: un primo confronto per mettere a fuoco il valore da liberare e le mosse da fare."
+>
+  <PageHero
+    eyebrow="Il primo passo"
+    art="boardroom"
+    lead="Raccontateci la vostra impresa: rispondiamo entro due giorni lavorativi e, se possiamo esservi utili, fissiamo un primo colloquio senza impegno."
+  >
+    Un incontro <em>riservato</em>
+  </PageHero>
+
+  <section class="contact-body">
+    <div class="wrap contact-cols">
+      <!--
+        Form statico: l'hosting non ha backend per ora.
+        TODO-CONTENUTO: collegare a un form service (Web3Forms/Formspree)
+        o a un endpoint del futuro WordPress. Per ora: mailto.
+      -->
+      <form
+        class="c-form"
+        method="get"
+        action={`mailto:${site.email}`}
+        data-reveal
+      >
+        <div class="field">
+          <label for="f-nome">Nome e cognome</label>
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="f-azienda">Azienda</label>
+          <input id="f-azienda" name="azienda" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="f-msg">Di che cosa avete bisogno?</label>
+          <textarea id="f-msg" name="messaggio" rows="6" required></textarea>
+        </div>
+        <p class="privacy-note">
+          Inviando il modulo si apre il vostro client di posta. Ogni richiesta è
+          trattata con riservatezza assoluta.
+        </p>
+        <button type="submit" class="btn btn-solid">Invia la richiesta</button>
+      </form>
+
+      <aside class="c-side" data-reveal>
+        <div class="c-block">
+          <h4>Contatti diretti</h4>
+          <p>
+            <a href={`mailto:${site.email}`}>{site.email}</a><br />
+            {site.phone}
+          </p>
+        </div>
+        <div class="c-block">
+          <h4>Sede direzionale</h4>
+          <p>{site.address}</p>
+        </div>
+        <div class="c-block">
+          <h4>Le nostre sedi</h4>
+          <p>{locations.map((l) => l.city).join(' · ')}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-body { padding: 80px 0 110px; }
+  .contact-cols {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px;
+    align-items: start;
+  }
+
+  .c-form { max-width: 620px; }
+  .field { margin-bottom: 26px; }
+  .field label {
+    display: block;
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-text);
+    margin-bottom: 10px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--hair-faint);
+    color: var(--ink);
+    font-family: var(--body); font-size: 17px;
+    padding: 14px 16px;
+    border-radius: var(--radius-card);
+    transition: border-color 0.3s ease;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .privacy-note {
+    font-size: 15px; color: var(--muted); margin: 6px 0 28px; max-width: 480px;
+  }
+
+  .c-side { border-left: 1px solid var(--hair); padding-left: 44px; }
+  .c-block { margin-bottom: 38px; }
+  .c-block h4 {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-text);
+    margin-bottom: 12px;
+  }
+  .c-block p { color: var(--ink-dim); font-size: 17.5px; line-height: 1.8; }
+  .c-block a:hover { color: var(--accent-text); }
+
+  @media (max-width: 900px) {
+    .contact-cols { grid-template-columns: 1fr; gap: 50px; }
+    .c-side { border-left: none; padding-left: 0; border-top: 1px solid var(--hair); padding-top: 40px; }
+  }
+</style>

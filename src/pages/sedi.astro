@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Locations from '../components/sections/Locations.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+---
+
+<BaseLayout
+  theme="light"
+  title="Sedi — Fulvio Rossi Plus"
+  description="Sette sedi tra Europa e Golfo: Torino, Milano, Roma, Dubai, Montecarlo, Cracovia, Vilnius. Accesso diretto a mercati, capitali e opportunità."
+>
+  <PageHero
+    eyebrow="Dove siamo"
+    art="global"
+    lead="Presidiamo i centri industriali e finanziari che contano: accesso diretto a mercati, capitali e opportunità, con una sola regìa."
+  >
+    Sette sedi tra <em>Europa e Golfo</em>
+  </PageHero>
+
+  <Locations />
+
+  <CtaBand
+    lead="Un confronto riservato, senza impegno: nella sede più comoda per voi o in videoconferenza."
+  >
+    <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
+  </CtaBand>
+</BaseLayout>

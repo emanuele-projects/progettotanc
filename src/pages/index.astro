@@ -1,0 +1,62 @@
+---
+/**
+ * Homepage alleggerita: presenta, non esaurisce. Ogni sezione rimanda
+ * alla sua pagina dedicata (/servizi, /chi-siamo, /team, /sedi, /news,
+ * /mentoria) come nel sito di riferimento.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Manifesto from '../components/sections/Manifesto.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import MentoriaBand from '../components/sections/MentoriaBand.astro';
+import Locations from '../components/sections/Locations.astro';
+import NewsTeaser from '../components/sections/NewsTeaser.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+import { locations } from '../data/locations';
+---
+
+<BaseLayout theme="light">
+  <Hero
+    eyebrow="Metodo · Riservatezza · Risultati"
+    art="skyline"
+    lead="Dal 1989 affianchiamo imprenditori e famiglie d'impresa nelle operazioni che contano: M&A, finanza straordinaria, passaggio generazionale. Sette sedi tra Europa e Golfo, una sola regìa."
+    ctas={[
+      { label: 'Richiedi un incontro riservato', href: '/contatti/', solid: true },
+      { label: 'Scopri i servizi', href: '/servizi/' },
+    ]}
+    meta={[
+      { value: String(site.foundedYear), label: 'Anno di fondazione' },
+      { value: String(locations.length), label: 'Sedi tra Europa e Golfo' },
+      { value: '360°', label: 'Strategia · Finanza · Tutela' },
+    ]}
+  >
+    <Fragment slot="title">Advisor M&A<br />e <em>Deep Consulting</em></Fragment>
+  </Hero>
+
+  <Manifesto
+    eyebrow="Chi siamo"
+    sign="Fulvio Rossi — Fondatore"
+    ctaLabel="Scopri lo studio"
+    ctaHref="/chi-siamo/"
+  >
+    Fulvio Rossi Plus è uno studio di consulenza strategica e finanza
+    d'impresa. Un team multidisciplinare che entra in azienda come
+    <em>partner</em> e risponde alla proprietà: diagnosi oneste, decisioni
+    costruite insieme, risultati che si misurano.
+  </Manifesto>
+
+  <ServicesGrid />
+
+  <MentoriaBand />
+
+  <Locations compact={true} />
+
+  <NewsTeaser />
+
+  <CtaBand
+    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
+  >
+    <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
+  </CtaBand>
+</BaseLayout>

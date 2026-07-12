@@ -1,0 +1,54 @@
+---
+import SectionHead from '../SectionHead.astro';
+import { whyUs } from '../../data/why-us';
+---
+
+<section id="perche-noi">
+  <div class="wrap">
+    <SectionHead eyebrow="Perché sceglierci">
+      <Fragment slot="title">Perché Fulvio Rossi <em>Plus</em></Fragment>
+      <p slot="lead">
+        Non vendiamo relazioni: costruiamo risultati. Quattro ragioni per cui le
+        imprese ci scelgono, e restano.
+      </p>
+    </SectionHead>
+    <div class="why-grid">
+      {whyUs.map((w) => (
+        <div class="why" data-reveal>
+          <h3>{w.title}</h3>
+          <p>{w.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--hair-faint);
+    border-left: 1px solid var(--hair-faint);
+  }
+  .why {
+    padding: 44px 42px 48px;
+    border-right: 1px solid var(--hair-faint);
+    border-bottom: 1px solid var(--hair-faint);
+    position: relative;
+  }
+  .why::before {
+    content: "◆";
+    display: block;
+    font-size: 11px;
+    color: var(--accent-text);
+    margin-bottom: 20px;
+  }
+  .why h3 { font-size: 27px; margin-bottom: 12px; }
+  .why p { color: var(--muted); font-size: 17.5px; line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .why { padding: 36px 26px 40px; }
+  }
+</style>

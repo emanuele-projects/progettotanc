@@ -1,0 +1,23 @@
+---
+interface Props {
+  eyebrow: string;
+  centered?: boolean;
+}
+const { eyebrow, centered = false } = Astro.props;
+---
+
+<div class:list={['sec-head', 'em-gold', { centered }]} data-reveal>
+  <span class="eyebrow">{eyebrow}</span>
+  <h2><slot name="title" /></h2>
+  <slot name="lead" />
+</div>
+
+<style>
+  .sec-head.centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .sec-head.centered :global(.eyebrow) { justify-content: center; }
+  .sec-head.centered :global(p) { margin-left: auto; margin-right: auto; }
+</style>

@@ -1,0 +1,143 @@
+/* ============================================================
+   Base: reset, tipografia, primitivi condivisi
+   Ritmo e forme alla CookGroup: sezioni 80px, bottoni pill,
+   titoli serif extra-bold, corpo sans 20px.
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink-dim);
+  font-family: var(--body);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Atmosfera (solo tema scuro: sul chiaro i token la azzerano) */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 78% -8%, var(--glow-a), transparent 60%),
+    radial-gradient(700px 500px at 8% 12%, var(--glow-b), transparent 55%);
+}
+body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--disp);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--ink);
+  letter-spacing: 0.002em;
+}
+
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--accent); color: var(--on-accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Eyebrow: etichetta uppercase con lineetta */
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px; height: 1px;
+  background: var(--accent);
+}
+
+/* Bottoni pill (forma e colore CookGroup: blu su light, oro su dark) */
+.btn {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 30px;
+  border: 1px solid var(--accent);
+  color: var(--accent-text);
+  border-radius: var(--radius-pill);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-block;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn:hover { background: var(--accent); color: var(--on-accent); }
+.btn-solid { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn-solid:hover { filter: brightness(1.12); }
+
+/* Variante per fondi navy (hero, bande scure, footer):
+   outline bianco, solid = accent del tema */
+.on-navy .btn { color: var(--on-navy); border-color: var(--on-navy-dim); }
+.on-navy .btn:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.on-navy .btn-solid { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.on-navy .btn-solid:hover { filter: brightness(1.12); }
+
+/* Guscio sezione — ritmo 80px */
+section { position: relative; padding: 80px 0; }
+
+.sec-head { max-width: 780px; margin-bottom: 48px; }
+.sec-head h2 { font-size: clamp(30px, 3.6vw, 42px); margin-top: 18px; }
+.sec-head p { color: var(--muted); font-size: 20px; margin-top: 18px; max-width: 660px; }
+
+/* Enfasi accent nei titoli (sobria: niente animazioni) */
+.em-gold em {
+  font-style: normal;
+  color: var(--accent-text);
+}
+.on-navy .em-gold em { color: var(--accent-soft); }
+
+/* Reveal (GSAP): nascosto solo se JS è attivo — senza JS tutto visibile */
+html.js [data-reveal] { opacity: 0; transform: translateY(24px); }
+
+@keyframes emblemGlow {
+  0%, 100% { opacity: 0.10; }
+  50% { opacity: 0.16; }
+}
+
+@media (max-width: 900px) {
+  section { padding: 64px 0; }
+  .wrap { padding: 0 24px; }
+  body { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+  html { scroll-behavior: auto; }
+  html.js [data-reveal] { opacity: 1; transform: none; }
+}

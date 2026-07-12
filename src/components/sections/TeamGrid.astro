@@ -1,0 +1,57 @@
+---
+import SectionHead from '../SectionHead.astro';
+import BrandArt from '../BrandArt.astro';
+import Carousel from '../Carousel.astro';
+import { team } from '../../data/team';
+---
+
+<section id="team">
+  <div class="wrap">
+    <SectionHead eyebrow="Lo studio">
+      <Fragment slot="title">Le persone, prima di tutto</Fragment>
+      <p slot="lead">
+        La fiducia nasce dai volti. Qui troveranno posto i ritratti reali dello
+        studio: una squadra multidisciplinare di fiscalisti, legali, revisori e
+        business coach.
+      </p>
+    </SectionHead>
+    <div data-reveal>
+      <Carousel id="team-slider" label="Il team dello studio" dots={true}>
+        {team.map((m) => (
+          <div class="member car-slide">
+            <div class="member-photo">
+              <BrandArt variant="portrait" ratio="4 / 5" label={m.note} />
+            </div>
+            <div class="member-body">
+              <h3>{m.name}</h3>
+              <div class="pos">{m.role}</div>
+            </div>
+          </div>
+        ))}
+      </Carousel>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Team slider alla CookGroup: ritratto sopra, nome sotto, frecce + dots */
+  .member {
+    background: var(--panel);
+    border: 1px solid var(--hair-faint);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .member:hover {
+    border-color: var(--hair);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(6, 27, 61, 0.08);
+  }
+  .member-body { padding: 22px 24px 26px; text-align: left; }
+  .member h3 { font-size: 22px; }
+  .pos {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-text); margin-top: 8px;
+  }
+</style>

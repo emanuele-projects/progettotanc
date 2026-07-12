@@ -1,0 +1,58 @@
+# ============================================================
+# Deploy — STUB (non attivo: rinominare i trigger per attivarlo)
+#
+# Flusso previsto quando il sito andrà in produzione:
+#   1. push su main            → rebuild + deploy
+#   2. repository_dispatch     → rebuild quando WordPress pubblica
+#      (plugin "WP Webhooks" su post publish → chiamata API GitHub
+#       con event_type: wp_publish)
+#
+# Secrets da configurare nel repository GitHub:
+#   WP_API_URL   es. https://www.fulviorossiplus.it/wp/wp-json/wp/v2
+#   FTP_SERVER   host FTP dell'hosting
+#   FTP_USERNAME
+#   FTP_PASSWORD
+#
+# NOTA: la sync FTP carica dist/ nella root del sito ma ESCLUDE /wp/
+# per non toccare mai l'installazione WordPress.
+# ============================================================
+
+name: Build & Deploy
+
+on:
+  # Trigger disattivati finché l'hosting non è pronto.
+  # Sostituire con:
+  #   push:
+  #     branches: [main]
+  #   repository_dispatch:
+  #     types: [wp_publish]
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          WP_API_URL: ${{ secrets.WP_API_URL }}
+
+      # Decommentare quando i secrets FTP sono configurati:
+      # - name: Deploy via FTP
+      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      #   with:
+      #     server: ${{ secrets.FTP_SERVER }}
+      #     username: ${{ secrets.FTP_USERNAME }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     local-dir: ./dist/
+      #     server-dir: ./
+      #     exclude: |
+      #       **/wp/**

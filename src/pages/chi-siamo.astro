@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Manifesto from '../components/sections/Manifesto.astro';
+import WhyUs from '../components/sections/WhyUs.astro';
+import Badges from '../components/sections/Badges.astro';
+import Quotes from '../components/sections/Quotes.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  theme="light"
+  title="Chi siamo — Fulvio Rossi Plus"
+  description={`Dal ${site.foundedYear} accanto alle imprese familiari italiane: un team multidisciplinare di fiscalisti, legali, revisori e business coach con una sola regìa.`}
+>
+  <PageHero
+    eyebrow="Chi siamo"
+    art="boardroom"
+    lead={`Dal ${site.foundedYear} accanto a imprenditori e famiglie d'impresa: cicli espansivi, crisi, passaggi di testimone. Li abbiamo attraversati tutti.`}
+  >
+    Lo studio, <em>prima di tutto</em>
+  </PageHero>
+
+  <Manifesto eyebrow="La nostra idea di consulenza" sign="Fulvio Rossi — Fondatore" id="manifesto">
+    Fulvio Rossi Plus è uno studio di consulenza strategica e finanza
+    d'impresa. Un team multidisciplinare — fiscalisti, legali, revisori,
+    business coach — che entra in azienda come <em>partner</em> e risponde
+    alla proprietà: diagnosi oneste, decisioni costruite insieme, risultati
+    che si misurano.
+  </Manifesto>
+
+  <WhyUs />
+
+  <Badges />
+
+  <Quotes />
+
+  <CtaBand
+    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
+  >
+    <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
+  </CtaBand>
+</BaseLayout>

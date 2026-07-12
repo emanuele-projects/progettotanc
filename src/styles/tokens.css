@@ -1,0 +1,107 @@
+/* ============================================================
+   FULVIO ROSSI PLUS — Design tokens
+   Linguaggio CookGroup Legal: bianco, blu, serif bold, pill.
+   ACCENT per tema: BLU sulle pagine consulting (light),
+   ORO sull'area Mentoria (dark). L'ORO + il ROMBO restano la
+   firma della Mentoria e del brand (sigillo footer, banda home).
+   I componenti usano SOLO variabili semantiche.
+   ============================================================ */
+
+:root {
+  /* Oro di brand — riservato a Mentoria, rombo, sigilli */
+  --gold: #C2A35B;
+  --gold-soft: #D8BE84;
+  --gold-deep: #8C6F2F;
+
+  /* Blu CookGroup */
+  --blue: #577FE1;
+  --blue-deep: #2F55B8;
+  --blue-soft: #9DB9F2;
+
+  /* Navy di brand: hero, footer, bande — su ogni tema */
+  --navy: #061B3D;
+  --navy-2: #0B2A5C;
+  --navy-overlay: rgba(0, 45, 116, 0.59);
+  --on-navy: #FFFFFF;
+  --on-navy-dim: rgba(255, 255, 255, 0.80);
+  --on-navy-muted: rgba(255, 255, 255, 0.55);
+  --hair-on-navy: rgba(255, 255, 255, 0.22);
+
+  /* Tipografia */
+  --disp: "Kaisei Tokumin", Georgia, serif;
+  --body: "Figtree", system-ui, sans-serif;
+  --sans: "Figtree", system-ui, sans-serif;
+
+  /* Layout */
+  --maxw: 1200px;
+  --radius-pill: 30px;
+  --radius-card: 2px;
+
+  /* Ornamento di brand: il rombo (stroke oro, firma FR+) */
+  --emblem: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23C2A35B'%3E%3Cpath d='M100 10 L190 100 L100 190 L10 100 Z' stroke-width='1.2'/%3E%3Cpath d='M100 40 L160 100 L100 160 L40 100 Z' stroke-width='0.9'/%3E%3Cpath d='M100 82 L118 100 L100 118 L82 100 Z' stroke-width='0.9'/%3E%3Cpath d='M100 10 L100 190 M10 100 L190 100' stroke-width='0.5'/%3E%3C/svg%3E");
+  --band: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='24'%3E%3Cg fill='none' stroke='%23C2A35B' stroke-width='1'%3E%3Cpath d='M0 12 H104'/%3E%3Cpath d='M136 12 H240'/%3E%3Cpath d='M120 4 L128 12 L120 20 L112 12 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---------- TEMA CHIARO — bianco + BLU (pagine consulting) ---------- */
+[data-theme="light"] {
+  --bg: #FFFFFF;
+  --bg-2: #F6F7F9;
+  --panel: #FFFFFF;
+  --panel-2: #F6F7F9;
+
+  --ink: #101010;
+  --ink-dim: #212529;
+  --muted: #565F6B;
+  --muted-2: #8A93A0;
+
+  /* Accent = blu */
+  --accent: var(--blue);
+  --accent-soft: var(--blue-soft);
+  --accent-text: var(--blue-deep);       /* AA su bianco */
+  --accent-text-soft: var(--blue);
+  --on-accent: #FFFFFF;
+
+  --hair: rgba(6, 27, 61, 0.22);
+  --hair-faint: #E4E7EC;
+
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --mono-bg: radial-gradient(circle at 35% 30%, #E7EDF9, #D4DEF2);
+
+  --glow-a: transparent;
+  --glow-b: transparent;
+  --grain-opacity: 0;
+
+  color-scheme: light;
+}
+
+/* ---------- TEMA SCURO — /mentoria: BLU notte + ORO ---------- */
+[data-theme="dark"] {
+  --bg: #081A33;
+  --bg-2: #0A2040;
+  --panel: #0F2A50;
+  --panel-2: #0A1D3B;
+
+  --ink: #F2EDE1;
+  --ink-dim: #D9D4C7;
+  --muted: #9AA8C4;
+  --muted-2: #647291;
+
+  /* Accent = oro */
+  --accent: var(--gold);
+  --accent-soft: var(--gold-soft);
+  --accent-text: var(--gold);
+  --accent-text-soft: var(--gold-soft);
+  --on-accent: #081527;
+
+  --hair: rgba(194, 163, 91, 0.30);
+  --hair-faint: rgba(236, 229, 214, 0.11);
+
+  --header-bg: rgba(6, 20, 42, 0.90);
+  --mono-bg: radial-gradient(circle at 35% 30%, #17325E, #0B2142);
+
+  --glow-a: rgba(110, 140, 181, 0.14);
+  --glow-b: rgba(194, 163, 91, 0.06);
+  --grain-opacity: 0.03;
+
+  color-scheme: dark;
+}

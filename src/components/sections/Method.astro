@@ -1,0 +1,55 @@
+---
+import SectionHead from '../SectionHead.astro';
+
+export interface Pillar {
+  pn: string;
+  title: string;
+  text: string;
+}
+interface Props {
+  eyebrow: string;
+  lead: string;
+  pillars: Pillar[];
+  id?: string;
+}
+const { eyebrow, lead, pillars, id = 'metodo' } = Astro.props;
+---
+
+<section class="method" id={id}>
+  <div class="wrap">
+    <SectionHead eyebrow={eyebrow}>
+      <Fragment slot="title"><slot name="title" /></Fragment>
+      <p slot="lead">{lead}</p>
+    </SectionHead>
+    <div class="pillars">
+      {pillars.map((p) => (
+        <div class="pillar" data-reveal>
+          <span class="pn">{p.pn}</span>
+          <h3>{p.title}</h3>
+          <p>{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .method { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 54px;
+    margin-top: 20px;
+  }
+  .pillar { border-top: 1px solid var(--hair); padding-top: 30px; }
+  .pn {
+    font-family: var(--disp); font-size: 42px;
+    color: var(--accent-text); font-weight: 800;
+  }
+  .pillar h3 { font-size: 26px; margin: 14px 0 12px; }
+  .pillar p { color: var(--muted); font-size: 17.5px; line-height: 1.55; }
+
+  @media (max-width: 900px) {
+    .pillars { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>

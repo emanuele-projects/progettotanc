@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import BrandArt from '../../components/BrandArt.astro';
+import Method from '../../components/sections/Method.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { services } from '../../data/services';
+
+const pillars = [
+  {
+    pn: 'I',
+    title: 'Analisi di profondità',
+    text: 'Andiamo alla radice. Leggiamo numeri, processi e governance, e fondiamo ogni proposta su una diagnosi solida.',
+  },
+  {
+    pn: 'II',
+    title: 'Affiancamento strategico',
+    text: 'Costruiamo le decisioni insieme alla proprietà, con una squadra di legali, finanza e fiscale che lavora sotto un’unica regìa.',
+  },
+  {
+    pn: 'III',
+    title: 'Trasferimento di leadership',
+    text: 'Il nostro lavoro riesce quando non serve più: lasciamo alla guida metodo, strumenti e sicurezza per proseguire con le proprie forze.',
+  },
+];
+---
+
+<BaseLayout
+  theme="light"
+  title="Servizi — Fulvio Rossi Plus"
+  description="Le sei aree di intervento dello studio: M&A, finanza e ristrutturazione del debito, passaggio generazionale, protezione del patrimonio, internazionalizzazione, certificazioni."
+>
+  <PageHero
+    eyebrow="Aree di intervento"
+    art="skyline"
+    lead="Sei aree, un'unica regìa: partiamo da una diagnosi onesta e arriviamo a risultati che si misurano."
+  >
+    I nostri <em>servizi</em>
+  </PageHero>
+
+  <section class="svc-index">
+    <div class="wrap">
+      <div class="svc-grid">
+        {services.map((s) => (
+          <a href={`/servizi/${s.slug}/`} class="svc" data-reveal>
+            <div class="svc-media">
+              <BrandArt variant={s.art} ratio="16 / 10" label={s.plainTitle} />
+            </div>
+            <div class="svc-body">
+              <span class="num">{s.num}</span>
+              <h3 set:html={s.title} />
+              <p>{s.excerpt}</p>
+              <span class="arrow">Approfondisci →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Method
+    eyebrow="Il nostro approccio"
+    lead="Deep Consulting è il modo in cui affrontiamo ogni incarico: tre tempi per passare dall'urgenza alla visione e restituire alla guida aziendale piena autonomia."
+    pillars={pillars}
+  >
+    <Fragment slot="title">Deep Consulting</Fragment>
+  </Method>
+
+  <CtaBand
+    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
+  >
+    <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .svc-index { padding: 80px 0; }
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .svc {
+    display: block;
+    background: var(--panel);
+    border: 1px solid var(--hair-faint);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .svc:hover {
+    border-color: var(--hair);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(6, 27, 61, 0.08);
+  }
+  .svc-body { padding: 26px 26px 30px; }
+  .num {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; color: var(--accent-text);
+  }
+  .svc h3 { font-size: 23px; margin: 12px 0 10px; line-height: 1.2; transition: color 0.3s; }
+  .svc:hover h3 { color: var(--accent-text); }
+  .svc p { color: var(--muted); font-size: 16.5px; line-height: 1.6; }
+  .arrow {
+    display: inline-block;
+    margin-top: 18px;
+    font-family: var(--sans); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-text);
+    opacity: 0; transform: translateX(-6px);
+    transition: all 0.35s ease;
+  }
+  .svc:hover .arrow { opacity: 1; transform: translateX(0); }
+
+  @media (max-width: 1024px) {
+    .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .svc-grid { grid-template-columns: 1fr; }
+  }
+</style>

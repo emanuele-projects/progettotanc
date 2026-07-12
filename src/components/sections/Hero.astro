@@ -1,0 +1,130 @@
+---
+/**
+ * Hero alla CookGroup: banda a tutta larghezza con immagine + overlay
+ * navy e testo bianco — identico su tema chiaro e scuro. L'immagine è
+ * una scena BrandArt (prop `art`) o una foto reale (prop `photo`).
+ */
+import BrandArt from '../BrandArt.astro';
+
+interface Cta {
+  label: string;
+  href: string;
+  solid?: boolean;
+}
+interface Meta {
+  value: string;
+  label: string;
+}
+interface Props {
+  eyebrow: string;
+  lead: string;
+  ctas?: Cta[];
+  meta?: Meta[];
+  photo?: string;
+  art?: 'skyline' | 'boardroom' | 'mentoria' | 'deal' | 'growth';
+}
+const { eyebrow, lead, ctas = [], meta = [], photo, art } = Astro.props;
+---
+
+<section class="hero on-navy" id="top">
+  {photo && <div class="hero-photo" style={`background-image:url('${photo}')`} aria-hidden="true"></div>}
+  {!photo && art && (
+    <div class="hero-art" aria-hidden="true">
+      <BrandArt variant={art} />
+    </div>
+  )}
+  <div class="hero-overlay" aria-hidden="true"></div>
+  {!photo && !art && (
+    <div class="deco" aria-hidden="true">
+      <div class="emblem"></div>
+    </div>
+  )}
+  <div class="wrap">
+    <div class="hero-inner em-gold">
+      <span class="eyebrow" data-reveal>{eyebrow}</span>
+      <h1 data-reveal><slot name="title" /></h1>
+      <p class="lead" data-reveal>{lead}</p>
+      {ctas.length > 0 && (
+        <div class="hero-cta" data-reveal>
+          {ctas.map((cta) => (
+            <a href={cta.href} class:list={['btn', { 'btn-solid': cta.solid }]}>{cta.label}</a>
+          ))}
+        </div>
+      )}
+      {meta.length > 0 && (
+        <div class="hero-meta" data-reveal>
+          {meta.map((m) => {
+            const match = m.value.match(/^(\d+)(.*)$/);
+            return (
+              <span>
+                {match ? (
+                  <b data-countup={match[1]} data-suffix={match[2]}>{m.value}</b>
+                ) : (
+                  <b>{m.value}</b>
+                )}
+                {m.label}
+              </span>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex; align-items: center;
+    padding: 150px 0 90px;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--on-navy);
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+  }
+  .hero-art { position: absolute; inset: 0; z-index: 0; opacity: 0.5; }
+  .hero-art :global(.brand-art) { height: 100%; aspect-ratio: auto; background: transparent; }
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 0;
+    background: var(--navy-overlay);
+  }
+  .hero .wrap { width: 100%; }
+  .hero-inner { max-width: 860px; }
+  .hero :global(.eyebrow) { color: var(--accent-soft); }
+  .hero h1 {
+    font-size: clamp(44px, 6.4vw, 78px);
+    font-weight: 800;
+    color: var(--on-navy);
+    margin: 26px 0 0;
+    line-height: 1.08;
+  }
+  .lead {
+    font-size: clamp(19px, 2vw, 23px);
+    font-weight: 300;
+    color: var(--on-navy-dim);
+    max-width: 640px;
+    margin: 28px 0 0;
+    line-height: 1.6;
+  }
+  .hero-cta { display: flex; gap: 16px; margin-top: 42px; flex-wrap: wrap; }
+  .hero-meta {
+    display: flex; gap: 44px; margin-top: 60px; flex-wrap: wrap;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--on-navy-muted);
+    border-top: 1px solid var(--hair-on-navy);
+    padding-top: 24px; max-width: 720px;
+  }
+  .hero-meta span b {
+    color: var(--accent-soft); font-weight: 700; display: block;
+    font-family: var(--disp); font-size: 30px; letter-spacing: 0;
+    margin-bottom: 4px; text-transform: none;
+  }
+  @media (max-width: 900px) {
+    .hero { min-height: 0; padding: 140px 0 70px; }
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import BrandArt from '../../components/BrandArt.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { services, type Service } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+---
+
+<BaseLayout
+  theme="light"
+  title={`${service.plainTitle} — Fulvio Rossi Plus`}
+  description={service.excerpt}
+>
+  <PageHero eyebrow={`Servizi · ${service.num}`} lead={service.lead} art={service.art}>
+    <Fragment set:html={service.title} />
+  </PageHero>
+
+  <section class="svc-body">
+    <div class="wrap svc-cols">
+      <div class="svc-text" data-reveal>
+        {service.body.map((par) => <p>{par}</p>)}
+        <p class="todo-note">Contenuto in sviluppo — questa pagina verrà approfondita con casi, numeri e riferimenti.</p>
+      </div>
+      <aside class="svc-side" data-reveal>
+        <BrandArt variant={service.art} ratio="4 / 5" label={service.plainTitle} />
+      </aside>
+    </div>
+  </section>
+
+  <section class="related">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Altri servizi</span>
+      <div class="rel-grid">
+        {others.map((o) => (
+          <a href={`/servizi/${o.slug}/`} class="rel-card" data-reveal>
+            <span class="num">{o.num}</span>
+            <h3 set:html={o.title} />
+            <span class="arrow">Approfondisci →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    lead="Un confronto riservato per capire se e come possiamo esservi utili. Il primo passo è una conversazione."
+  >
+    <Fragment slot="title">Parliamone<br /><em>di persona.</em></Fragment>
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .svc-body { padding: 80px 0; }
+  .svc-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 70px; align-items: start; }
+  .svc-text p { font-size: 20px; line-height: 1.7; color: var(--ink-dim); margin-bottom: 24px; max-width: 640px; }
+  .todo-note {
+    font-family: var(--sans); font-size: 12px !important; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2) !important;
+    border-top: 1px solid var(--hair-faint); padding-top: 20px; margin-top: 38px;
+  }
+
+  .related { padding: 80px 0; background: var(--bg-2); border-top: 1px solid var(--hair-faint); }
+  .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 36px; }
+  .rel-card {
+    display: block; padding: 30px 28px 32px;
+    border: 1px solid var(--hair-faint); background: var(--panel);
+    border-radius: var(--radius-card);
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .rel-card:hover {
+    border-color: var(--hair);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(6, 27, 61, 0.08);
+  }
+  .rel-card .num {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; color: var(--accent-text);
+  }
+  .rel-card h3 { font-size: 21px; margin: 12px 0 14px; line-height: 1.2; }
+  .rel-card .arrow {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-text);
+  }
+
+  @media (max-width: 900px) {
+    .svc-cols { grid-template-columns: 1fr; gap: 44px; }
+    .rel-grid { grid-template-columns: 1fr; }
+  }
+</style>

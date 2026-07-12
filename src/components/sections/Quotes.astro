@@ -1,0 +1,66 @@
+---
+import SectionHead from '../SectionHead.astro';
+import Carousel from '../Carousel.astro';
+import { quotes } from '../../data/quotes';
+---
+
+<section class="quotes" id="recensioni">
+  <div class="wrap">
+    <SectionHead eyebrow="La voce dei clienti">
+      <Fragment slot="title">Parlano i risultati</Fragment>
+    </SectionHead>
+    <div data-reveal>
+      <Carousel
+        id="quotes-slider"
+        label="Le recensioni dei clienti"
+        dots={true}
+        slideW="64%"
+        slideWTablet="80%"
+        slideWMobile="88%"
+      >
+        {quotes.map((q) => (
+          <figure class="quote car-slide">
+            <span class="mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>{q.text}</blockquote>
+            <figcaption class="who">{q.who}</figcaption>
+          </figure>
+        ))}
+      </Carousel>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quotes {
+    background: var(--bg-2);
+    border-top: 1px solid var(--hair-faint);
+  }
+  .quote {
+    margin: 0;
+    padding: 40px 44px 44px;
+    background: var(--panel);
+    border: 1px solid var(--hair-faint);
+    border-radius: var(--radius-card);
+  }
+  .mark {
+    font-family: var(--disp); font-size: 76px; line-height: 0.5;
+    color: var(--accent-text);
+    height: 34px; display: block;
+  }
+  .quote blockquote {
+    font-family: var(--disp); font-weight: 400;
+    font-size: clamp(20px, 2vw, 24px); line-height: 1.5;
+    color: var(--ink);
+    margin: 22px 0 24px;
+    border: none; padding: 0;
+  }
+  .who {
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .quote { padding: 30px 26px 34px; }
+  }
+</style>
