@@ -7,12 +7,26 @@ import '@fontsource/figtree/400.css';
 import '@fontsource/figtree/500.css';
 import '@fontsource/figtree/600.css';
 import '@fontsource/figtree/700.css';
+// Font aggiuntivi per l'anteprima coppie (FontSwitcher)
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/800.css';
+import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/bodoni-moda/400.css';
+import '@fontsource/bodoni-moda/600.css';
+import '@fontsource/bodoni-moda/700.css';
+import '@fontsource/bodoni-moda/800.css';
+import '@fontsource/libre-baskerville/400.css';
+import '@fontsource/libre-baskerville/700.css';
+import '@fontsource/didact-gothic/400.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/deco.css';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FontSwitcher from '../components/FontSwitcher.astro';
 import { site } from '../data/site';
 import { url } from '../lib/url';
 
@@ -52,6 +66,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
     <meta name="generator" content={Astro.generator} />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      /* Anteprima font: applica la coppia salvata prima del paint (no FOUC) */
+      (function () {
+        var P = {
+          kaisei: '"Kaisei Tokumin", Georgia, serif',
+          playfair: '"Playfair Display", Georgia, serif',
+          bodoni: '"Bodoni Moda", Georgia, serif',
+        };
+        var S = {
+          figtree: '"Figtree", system-ui, sans-serif',
+          libre: '"Libre Baskerville", Georgia, serif',
+          didact: '"Didact Gothic", system-ui, sans-serif',
+        };
+        try {
+          var el = document.documentElement;
+          var p = localStorage.getItem('fr-font-primary');
+          var s = localStorage.getItem('fr-font-secondary');
+          if (p && P[p]) el.style.setProperty('--disp', P[p]);
+          if (s && S[s]) {
+            el.style.setProperty('--body', S[s]);
+            el.style.setProperty('--sans', S[s]);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <Header />
@@ -59,6 +98,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+    <FontSwitcher />
     <script>
       import { initAnimations } from '../scripts/animations';
       initAnimations();
