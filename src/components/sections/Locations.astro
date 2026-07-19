@@ -7,7 +7,7 @@
  */
 import SectionHead from '../SectionHead.astro';
 import Globe from '../Globe.astro';
-import { locations, locationGroups } from '../../data/locations';
+import { locations, locationGroups, typeLabels } from '../../data/locations';
 import { url } from '../../lib/url';
 
 interface Props {
@@ -19,6 +19,7 @@ const markers = locations.map((l) => ({
   lat: l.lat,
   lng: l.lng,
   city: l.city,
+  typeLabel: typeLabels[l.type],
   primary: l.primary,
 }));
 ---
@@ -34,7 +35,7 @@ const markers = locations.map((l) => ({
     </SectionHead>
 
     <div class="presence-layout" data-reveal>
-      <div class="globe-frame" aria-hidden="false">
+      <div class="globe-frame">
         <Globe markers={markers} label="Porzione di globo con le sedi tra Europa e Golfo" />
       </div>
 
@@ -78,30 +79,13 @@ const markers = locations.map((l) => ({
     align-items: center;
   }
 
-  /* finestra sulla porzione di globo */
+  /* porzione di globo: nessun riquadro, sfuma nello sfondo */
   .globe-frame {
     position: relative;
     aspect-ratio: 560 / 520;
-    border: 1px solid var(--hair);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    background: #08152A;
-    box-shadow: inset 0 0 60px rgba(4, 12, 24, 0.55);
+    background: transparent;
+    overflow: visible;
   }
-  /* rombi Art Déco agli angoli della cornice */
-  .globe-frame::before,
-  .globe-frame::after {
-    content: "";
-    position: absolute;
-    width: 10px; height: 10px;
-    border: 1px solid var(--gold);
-    opacity: 0.55;
-    transform: rotate(45deg);
-    pointer-events: none;
-    z-index: 2;
-  }
-  .globe-frame::before { top: 12px; left: 12px; }
-  .globe-frame::after { bottom: 12px; right: 12px; }
 
   /* gruppi di sedi */
   .groups { display: flex; flex-direction: column; }

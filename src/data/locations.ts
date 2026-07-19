@@ -1,5 +1,12 @@
 export type LocationType = 'direzionale' | 'legale' | 'rappresentanza';
 
+/** Etichetta al singolare, usata accanto ai punti sul globo */
+export const typeLabels: Record<LocationType, string> = {
+  direzionale: 'Sede direzionale',
+  legale: 'Sede legale',
+  rappresentanza: 'Sede di rappresentanza',
+};
+
 export interface Location {
   city: string;
   country: string;

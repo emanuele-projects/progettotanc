@@ -1,11 +1,10 @@
 ---
 /**
  * Porzione di globo in prospettiva (d3-geo, calcolata a build-time).
- * NON è più una mappa interattiva: è un elemento illustrativo, statico,
- * inquadrato come una finestra su una porzione di sfera. La curvatura
- * della graticola dà la prospettiva; piccoli punti oro segnano le città
- * (senza etichette né collegamenti). Le informazioni sulle sedi vivono
- * nei blocchi accanto, divisi per tipologia.
+ * NON è una mappa interattiva: è un elemento illustrativo statico. La
+ * sfera sfuma verso i bordi (maschera radiale) così da perdersi nello
+ * sfondo, senza cornice né riquadro. I punti oro segnano le città; al
+ * passaggio del mouse mostrano nome + tipologia della sede (non cliccabili).
  */
 import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -15,31 +14,29 @@ interface Marker {
   lat: number;
   lng: number;
   city: string;
+  typeLabel?: string;
   primary?: boolean;
 }
 interface Props {
   markers: Marker[];
-  /** centro della proiezione (leggermente a sud del cluster per dare prospettiva) */
   centerLat?: number;
   centerLng?: number;
-  /** raggio della sfera in unità viewBox: grande = la sfera riempie l'inquadratura */
   scale?: number;
   viewW?: number;
   viewH?: number;
-  /** posizione del centro-proiezione nel riquadro (frazione di viewW/viewH) */
   offsetX?: number;
   offsetY?: number;
   label?: string;
 }
 const {
   markers,
-  centerLat = 38,
-  centerLng = 24,
-  scale = 470,
+  centerLat = 44,
+  centerLng = 20,
+  scale = 485,
   viewW = 560,
   viewH = 520,
   offsetX = 0.5,
-  offsetY = 0.42,
+  offsetY = 0.5,
   label = 'Le sedi tra Europa e Golfo',
 } = Astro.props;
 
@@ -60,7 +57,9 @@ const graticulePath = path(geoGraticule10()) ?? '';
 
 const centerCoord: [number, number] = [centerLng, centerLat];
 
-// punti città sul lato visibile della sfera
+// raggio della dissolvenza (la sfera vera è enorme: qui definiamo dove sfuma)
+const fadeR = Math.min(viewW, viewH) * 0.58;
+
 const dots = markers
   .map((m, i) => {
     const p = projection([m.lng, m.lat]);
@@ -72,49 +71,71 @@ const dots = markers
 
 <svg viewBox={`0 0 ${viewW} ${viewH}`} role="img" aria-label={label} class="globe-svg">
   <defs>
-    <radialGradient id="fr-globe-sphere" cx="40%" cy="34%" r="80%">
-      <stop offset="0" stop-color="#183255" />
-      <stop offset="0.6" stop-color="#0C1E3B" />
-      <stop offset="1" stop-color="#08152A" />
+    <radialGradient id="fr-globe-sphere" cx="42%" cy="36%" r="62%">
+      <stop offset="0" stop-color="#1B3A63" />
+      <stop offset="0.6" stop-color="#0D2140" />
+      <stop offset="1" stop-color="#0A1B33" />
     </radialGradient>
-    <radialGradient id="fr-globe-vignette" cx="50%" cy="50%" r="62%">
-      <stop offset="0.66" stop-color="#000000" stop-opacity="0" />
-      <stop offset="1" stop-color="#050C18" stop-opacity="0.85" />
+    <!-- dissolvenza verso i bordi: la sfera si perde nello sfondo -->
+    <radialGradient id="fr-globe-fade" gradientUnits="userSpaceOnUse"
+      cx={translate[0]} cy={translate[1]} r={fadeR}>
+      <stop offset="0" stop-color="#fff" />
+      <stop offset="0.62" stop-color="#fff" />
+      <stop offset="1" stop-color="#000" />
     </radialGradient>
+    <mask id="fr-globe-mask">
+      <rect x="0" y="0" width={viewW} height={viewH} fill="url(#fr-globe-fade)" />
+    </mask>
   </defs>
 
-  <!-- superficie della sfera (grande: riempie il riquadro) -->
-  <circle cx={translate[0]} cy={translate[1]} r={scale} fill="url(#fr-globe-sphere)" />
+  <!-- corpo del globo, mascherato per sfumare ai bordi -->
+  <g mask="url(#fr-globe-mask)">
+    <circle cx={translate[0]} cy={translate[1]} r={scale} fill="url(#fr-globe-sphere)" />
+    <path d={graticulePath} fill="none" stroke="var(--gold)" stroke-width="0.7" stroke-opacity="0.22" />
+    <path d={landPath} fill="#2E5691" fill-opacity="0.95" stroke="#4A72B0" stroke-width="0.5" stroke-opacity="0.6" />
+  </g>
 
-  <!-- graticola: la sua curvatura dà la prospettiva -->
-  <path d={graticulePath} fill="none" stroke="var(--gold)" stroke-width="0.7" stroke-opacity="0.24" />
-
-  <!-- terre emerse in silhouette -->
-  <path d={landPath} fill="#2E5691" fill-opacity="0.95" stroke="#4A72B0" stroke-width="0.5" stroke-opacity="0.6" />
-
-  <!-- vignettatura per profondità -->
-  <circle cx={translate[0]} cy={translate[1]} r={scale} fill="url(#fr-globe-vignette)" />
-
-  <!-- punti città (solo segnaposto, nessuna etichetta) -->
+  <!-- punti città + etichetta (nome + tipologia) al passaggio del mouse -->
   <g class="dots">
     {dots.map((d) => (
       <g class:list={['dot', { primary: d.primary }]} transform={`translate(${d.x} ${d.y})`}>
-        <title>{d.city}</title>
-        <circle class="dot-glow" r="12" />
+        <title>{d.city}{d.typeLabel ? ` — ${d.typeLabel}` : ''}</title>
+        <circle class="dot-glow" r="14" />
         <circle class="dot-ring" r={d.primary ? 8 : 6} />
         <circle class="dot-core" r={d.primary ? 3.4 : 2.6} />
+        <g class="dot-label">
+          <text class="dl-city" y="26" text-anchor="middle">{d.city}</text>
+          {d.typeLabel && <text class="dl-type" y="41" text-anchor="middle">{d.typeLabel}</text>}
+        </g>
       </g>
     ))}
   </g>
 </svg>
 
 <style>
-  .globe-svg { width: 100%; height: 100%; display: block; }
+  .globe-svg { width: 100%; height: 100%; display: block; overflow: visible; }
 
-  .dot-glow { fill: var(--gold-soft); opacity: 0.14; }
-  .dot-ring { fill: none; stroke: var(--gold); stroke-width: 1; opacity: 0.5; }
+  .dot { cursor: default; }
+  .dot-glow { fill: var(--gold-soft); opacity: 0.16; transition: opacity 0.3s ease, r 0.3s ease; }
+  .dot-ring { fill: none; stroke: var(--gold); stroke-width: 1; opacity: 0.55; }
   .dot-core { fill: var(--gold-soft); }
   .dot.primary .dot-core { fill: #FFFFFF; }
-  .dot.primary .dot-ring { stroke: var(--gold-soft); opacity: 0.75; }
-  .dot.primary .dot-glow { opacity: 0.22; }
+  .dot.primary .dot-ring { stroke: var(--gold-soft); opacity: 0.8; }
+  .dot.primary .dot-glow { opacity: 0.24; }
+  .dot:hover .dot-glow { opacity: 0.4; }
+
+  /* etichetta: nascosta, appare all'hover del punto */
+  .dot-label { opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
+  .dot:hover .dot-label { opacity: 1; }
+  .dl-city {
+    font-family: var(--disp); font-size: 15px; font-weight: 700;
+    fill: #FFFFFF; paint-order: stroke; stroke: #08152A; stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+  .dl-type {
+    font-family: var(--sans); font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    fill: var(--gold-soft); paint-order: stroke; stroke: #08152A; stroke-width: 3.5px;
+    stroke-linejoin: round;
+  }
 </style>
