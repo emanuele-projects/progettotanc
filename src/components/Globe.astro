@@ -1,10 +1,11 @@
 ---
 /**
- * Globo SVG a proiezione ortografica (d3-geo), calcolato a build-time:
- * statico, non spostabile, zoomato sulla porzione Europa + Golfo dove
- * stanno le sedi. Il resto del mondo resta oltre il bordo della sfera
- * (nascosto). Solo pin cliccabili, nessun collegamento. Stile brand:
- * disco navy, terre in silhouette, graticola oro tenue, pin oro.
+ * Porzione di globo in prospettiva (d3-geo, calcolata a build-time).
+ * NON è più una mappa interattiva: è un elemento illustrativo, statico,
+ * inquadrato come una finestra su una porzione di sfera. La curvatura
+ * della graticola dà la prospettiva; piccoli punti oro segnano le città
+ * (senza etichette né collegamenti). Le informazioni sulle sedi vivono
+ * nei blocchi accanto, divisi per tipologia.
  */
 import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from 'd3-geo';
 import { feature } from 'topojson-client';
@@ -14,38 +15,40 @@ interface Marker {
   lat: number;
   lng: number;
   city: string;
-  role: string;
-  country: string;
   primary?: boolean;
 }
 interface Props {
   markers: Marker[];
+  /** centro della proiezione (leggermente a sud del cluster per dare prospettiva) */
   centerLat?: number;
   centerLng?: number;
-  /** raggio della sfera in unità viewBox (zoom) */
-  radius?: number;
-  /** true = pin come bottoni (aprono scheda via JS); altrimenti link a href */
-  interactive?: boolean;
-  href?: string;
+  /** raggio della sfera in unità viewBox: grande = la sfera riempie l'inquadratura */
+  scale?: number;
+  viewW?: number;
+  viewH?: number;
+  /** posizione del centro-proiezione nel riquadro (frazione di viewW/viewH) */
+  offsetX?: number;
+  offsetY?: number;
   label?: string;
 }
 const {
   markers,
-  centerLat = 44,
-  centerLng = 17,
-  radius = 300,
-  interactive = false,
-  href = '/sedi/',
-  label = 'Globo delle sedi',
+  centerLat = 38,
+  centerLng = 24,
+  scale = 470,
+  viewW = 560,
+  viewH = 520,
+  offsetX = 0.5,
+  offsetY = 0.42,
+  label = 'Le sedi tra Europa e Golfo',
 } = Astro.props;
 
-const SIZE = 640;
-const center: [number, number] = [SIZE / 2, SIZE / 2];
+const translate: [number, number] = [viewW * offsetX, viewH * offsetY];
 
 const projection = geoOrthographic()
   .rotate([-centerLng, -centerLat])
-  .scale(radius)
-  .translate(center)
+  .scale(scale)
+  .translate(translate)
   .clipAngle(90);
 
 const path = geoPath(projection);
@@ -57,8 +60,8 @@ const graticulePath = path(geoGraticule10()) ?? '';
 
 const centerCoord: [number, number] = [centerLng, centerLat];
 
-// posizioni proiettate dei pin (solo lato visibile della sfera)
-const pins = markers
+// punti città sul lato visibile della sfera
+const dots = markers
   .map((m, i) => {
     const p = projection([m.lng, m.lat]);
     const visible = p && geoDistance([m.lng, m.lat], centerCoord) < Math.PI / 2;
@@ -67,72 +70,51 @@ const pins = markers
   .filter((p): p is NonNullable<typeof p> => p !== null);
 ---
 
-<div class:list={['globe-svg-wrap', { 'is-interactive': interactive }]}>
-  <svg viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label={label} class="globe-svg">
-    <defs>
-      <radialGradient id="globe-sphere" cx="42%" cy="38%" r="72%">
-        <stop offset="0" stop-color="#13284A" />
-        <stop offset="1" stop-color="#0A1322" />
-      </radialGradient>
-    </defs>
+<svg viewBox={`0 0 ${viewW} ${viewH}`} role="img" aria-label={label} class="globe-svg">
+  <defs>
+    <radialGradient id="fr-globe-sphere" cx="40%" cy="34%" r="80%">
+      <stop offset="0" stop-color="#183255" />
+      <stop offset="0.6" stop-color="#0C1E3B" />
+      <stop offset="1" stop-color="#08152A" />
+    </radialGradient>
+    <radialGradient id="fr-globe-vignette" cx="50%" cy="50%" r="62%">
+      <stop offset="0.66" stop-color="#000000" stop-opacity="0" />
+      <stop offset="1" stop-color="#050C18" stop-opacity="0.85" />
+    </radialGradient>
+  </defs>
 
-    <!-- sfera -->
-    <circle cx={center[0]} cy={center[1]} r={radius} fill="url(#globe-sphere)" stroke="var(--gold)" stroke-width="1" stroke-opacity="0.45" />
+  <!-- superficie della sfera (grande: riempie il riquadro) -->
+  <circle cx={translate[0]} cy={translate[1]} r={scale} fill="url(#fr-globe-sphere)" />
 
-    <!-- graticola tenue -->
-    <path d={graticulePath} fill="none" stroke="var(--gold)" stroke-width="0.6" stroke-opacity="0.2" />
+  <!-- graticola: la sua curvatura dà la prospettiva -->
+  <path d={graticulePath} fill="none" stroke="var(--gold)" stroke-width="0.7" stroke-opacity="0.24" />
 
-    <!-- terre in silhouette -->
-    <path d={landPath} fill="#284C82" fill-opacity="0.95" stroke="var(--gold)" stroke-width="0.5" stroke-opacity="0.4" />
+  <!-- terre emerse in silhouette -->
+  <path d={landPath} fill="#2E5691" fill-opacity="0.95" stroke="#4A72B0" stroke-width="0.5" stroke-opacity="0.6" />
 
-    <!-- pin -->
-    <g class="pins">
-      {pins.map((p) => (
-        <g
-          class:list={['pin', { primary: p.primary }]}
-          transform={`translate(${p.x} ${p.y})`}
-          data-index={String(p.i)}
-          data-city={p.city}
-          data-country={p.country}
-          data-role={p.role}
-          role={interactive ? 'button' : undefined}
-          tabindex={interactive ? '0' : undefined}
-          aria-label={interactive ? `Sede di ${p.city}` : undefined}
-        >
-          <circle class="pin-halo" r="16" />
-          <circle class="pin-dot" r={p.primary ? 6 : 5} />
-          <circle class="pin-core" r="2" />
-          <text class="pin-label" x="0" y="-16" text-anchor="middle">{p.city}</text>
-        </g>
-      ))}
-    </g>
-  </svg>
+  <!-- vignettatura per profondità -->
+  <circle cx={translate[0]} cy={translate[1]} r={scale} fill="url(#fr-globe-vignette)" />
 
-  {!interactive && <a class="globe-link" href={href} aria-label="Vai alla pagina delle sedi"></a>}
-</div>
+  <!-- punti città (solo segnaposto, nessuna etichetta) -->
+  <g class="dots">
+    {dots.map((d) => (
+      <g class:list={['dot', { primary: d.primary }]} transform={`translate(${d.x} ${d.y})`}>
+        <title>{d.city}</title>
+        <circle class="dot-glow" r="12" />
+        <circle class="dot-ring" r={d.primary ? 8 : 6} />
+        <circle class="dot-core" r={d.primary ? 3.4 : 2.6} />
+      </g>
+    ))}
+  </g>
+</svg>
 
 <style>
-  .globe-svg-wrap { position: relative; width: 100%; }
-  .globe-svg { width: 100%; height: auto; display: block; overflow: hidden; }
-  .globe-link { position: absolute; inset: 0; }
+  .globe-svg { width: 100%; height: 100%; display: block; }
 
-  .pin { }
-  .pin-halo { fill: var(--gold); opacity: 0; transition: opacity 0.35s ease; }
-  .pin-dot { fill: var(--gold); }
-  .pin-core { fill: #0A1322; }
-  .pin.primary .pin-dot { fill: var(--gold-soft); }
-  .pin-label {
-    font-family: var(--sans); font-size: 13px; font-weight: 600;
-    fill: #ECE5D6; letter-spacing: 0.02em; opacity: 0; transition: opacity 0.3s ease;
-    paint-order: stroke; stroke: #0A1322; stroke-width: 3.5px;
-    pointer-events: none;
-  }
-  .pin:hover .pin-halo, .pin.active .pin-halo { opacity: 0.24; }
-  .pin:hover .pin-label, .pin.active .pin-label { opacity: 1; fill: var(--gold-soft); }
-  .pin.active .pin-dot { fill: var(--gold-soft); }
-
-  /* pin interattivi (in /sedi) cliccabili */
-  .is-interactive .pin { cursor: pointer; }
-  .is-interactive .pin:focus-visible { outline: none; }
-  .is-interactive .pin:focus-visible .pin-halo { opacity: 0.32; }
+  .dot-glow { fill: var(--gold-soft); opacity: 0.14; }
+  .dot-ring { fill: none; stroke: var(--gold); stroke-width: 1; opacity: 0.5; }
+  .dot-core { fill: var(--gold-soft); }
+  .dot.primary .dot-core { fill: #FFFFFF; }
+  .dot.primary .dot-ring { stroke: var(--gold-soft); opacity: 0.75; }
+  .dot.primary .dot-glow { opacity: 0.22; }
 </style>

@@ -1,20 +1,24 @@
 ---
 /**
- * Sezione sedi della homepage: mappamondo autorotante (drag per
- * esplorare) + griglia delle città. L'esperienza completa con
- * selezione e schede vive in /sedi (LocationsMap).
+ * Sezione sedi: porzione di globo in prospettiva (illustrativa) +
+ * le sette sedi raccontate per tipologia (direzionali / legale /
+ * rappresentanza), con descrizione generica per gruppo. Usata sia in
+ * home (compact, con rimando alla pagina) sia nella pagina Team & Sedi.
  */
 import SectionHead from '../SectionHead.astro';
 import Globe from '../Globe.astro';
-import { locations } from '../../data/locations';
+import { locations, locationGroups } from '../../data/locations';
 import { url } from '../../lib/url';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
 
 const markers = locations.map((l) => ({
   lat: l.lat,
   lng: l.lng,
   city: l.city,
-  role: l.role,
-  country: l.country,
   primary: l.primary,
 }));
 ---
@@ -24,31 +28,40 @@ const markers = locations.map((l) => ({
     <SectionHead eyebrow="Le nostre sedi">
       <Fragment slot="title">Sette sedi tra Europa e Golfo</Fragment>
       <p slot="lead">
-        Presidiamo i centri industriali e finanziari che contano: accesso
-        diretto a mercati, capitali e opportunità, con una sola regìa.
+        Presidiamo i centri industriali e finanziari che contano: una rete di
+        sedi con ruoli distinti, sotto un'unica regìa.
       </p>
     </SectionHead>
 
-    <div class="compact-layout" data-reveal>
-      <div class="globe-panel">
-        <Globe markers={markers} centerLat={42} centerLng={22} radius={360} interactive={false} href={url('/sedi/')} label="Globo delle sedi" />
+    <div class="presence-layout" data-reveal>
+      <div class="globe-frame" aria-hidden="false">
+        <Globe markers={markers} label="Porzione di globo con le sedi tra Europa e Golfo" />
       </div>
 
-      <div class="loc-col">
-        <div class="loc-row">
-          {locations.map((l) => (
-            <a href={url('/sedi/')} class:list={['loc', { primary: l.primary }]}>
-              <span class="city">{l.city}</span>
-              <span class="cc">{l.country}</span>
-              <span class="role">{l.role}</span>
-            </a>
-          ))}
-        </div>
-        <div class="loc-more">
-          <a href={url('/sedi/')} class="btn">Tutte le sedi e i riferimenti</a>
-        </div>
+      <div class="groups">
+        {locationGroups.map((g) => (
+          <article class="group">
+            <span class="g-tag">{g.tag}</span>
+            <h3 class="g-title">{g.title}</h3>
+            <p class="g-desc">{g.description}</p>
+            <ul class="g-cities">
+              {g.cities.map((c) => (
+                <li class:list={['g-city', { primary: c.primary }]}>
+                  <span class="gc-name">{c.city}</span>
+                  <span class="gc-cc">{c.country}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
+
+    {compact && (
+      <div class="presence-more">
+        <a href={url('/team/')} class="btn">Team &amp; sedi</a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -58,48 +71,97 @@ const markers = locations.map((l) => ({
     border-top: 1px solid var(--hair-faint);
     border-bottom: 1px solid var(--hair-faint);
   }
-  .compact-layout {
+  .presence-layout {
     display: grid;
-    grid-template-columns: 0.9fr 1.25fr;
-    gap: 44px;
+    grid-template-columns: 0.95fr 1.1fr;
+    gap: 52px;
     align-items: center;
   }
-  .globe-panel { position: relative; }
 
-  .loc-row {
-    display: flex; flex-wrap: wrap;
+  /* finestra sulla porzione di globo */
+  .globe-frame {
+    position: relative;
+    aspect-ratio: 560 / 520;
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: #08152A;
+    box-shadow: inset 0 0 60px rgba(4, 12, 24, 0.55);
+  }
+  /* rombi Art Déco agli angoli della cornice */
+  .globe-frame::before,
+  .globe-frame::after {
+    content: "";
+    position: absolute;
+    width: 10px; height: 10px;
+    border: 1px solid var(--gold);
+    opacity: 0.55;
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .globe-frame::before { top: 12px; left: 12px; }
+  .globe-frame::after { bottom: 12px; right: 12px; }
+
+  /* gruppi di sedi */
+  .groups { display: flex; flex-direction: column; }
+  .group {
+    padding: 22px 0;
     border-top: 1px solid var(--hair-faint);
   }
-  .loc {
-    flex: 1 1 33%;
-    min-width: 170px;
-    padding: 22px 20px;
-    border-right: 1px solid var(--hair-faint);
-    border-bottom: 1px solid var(--hair-faint);
-    display: block;
-    transition: background 0.3s ease;
-  }
-  .loc:hover { background: var(--panel); }
-  .loc.primary .city::after {
-    content: "◆";
-    font-size: 9px;
-    color: var(--accent-text);
-    vertical-align: super;
-    margin-left: 7px;
-  }
-  .city { display: block; font-family: var(--disp); font-size: 22px; font-weight: 700; color: var(--ink); }
-  .cc {
-    display: block;
-    font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
-    color: var(--accent-text); text-transform: uppercase; margin-top: 6px;
-  }
-  .role { display: block; color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .group:first-child { border-top: none; padding-top: 0; }
+  .group:last-child { padding-bottom: 0; }
 
-  .loc-more { text-align: center; margin-top: 36px; }
+  .g-tag {
+    display: inline-block;
+    font-family: var(--sans); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  .g-tag::before {
+    content: "◆";
+    font-size: 8px;
+    color: var(--gold);
+    margin-right: 9px;
+    vertical-align: middle;
+  }
+  .g-title {
+    font-family: var(--disp); font-size: 24px; font-weight: 700;
+    color: var(--ink); margin-top: 8px;
+  }
+  .g-desc {
+    color: var(--muted); font-size: 15.5px; line-height: 1.6;
+    margin-top: 8px; max-width: 46ch;
+  }
+  .g-cities {
+    list-style: none;
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 16px;
+  }
+  .g-city {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 9px 16px;
+    background: var(--panel);
+    border: 1px solid var(--hair-faint);
+    border-radius: var(--radius-card);
+  }
+  .g-city.primary { border-color: var(--hair); }
+  .gc-name {
+    font-family: var(--disp); font-size: 17px; font-weight: 700; color: var(--ink);
+  }
+  .g-city.primary .gc-name::after {
+    content: "◆"; font-size: 8px; color: var(--accent-text);
+    vertical-align: super; margin-left: 6px;
+  }
+  .gc-cc {
+    font-family: var(--sans); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2);
+  }
+
+  .presence-more { text-align: center; margin-top: 44px; }
 
   @media (max-width: 900px) {
-    .compact-layout { grid-template-columns: 1fr; gap: 30px; }
-    .globe-panel { max-width: 420px; margin: 0 auto; }
-    .loc { flex: 1 1 50%; }
+    .presence-layout { grid-template-columns: 1fr; gap: 34px; }
+    .globe-frame { max-width: 460px; margin: 0 auto; width: 100%; }
   }
 </style>

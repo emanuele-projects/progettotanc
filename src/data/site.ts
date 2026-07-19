@@ -25,8 +25,8 @@ export interface NavItem {
 export const nav: NavItem[] = [
   { label: 'Servizi', href: '/servizi' },
   { label: 'Chi siamo', href: '/chi-siamo' },
-  { label: 'Team', href: '/team' },
-  { label: 'Sedi', href: '/sedi' },
+  // Team e Sedi confluiti in un'unica pagina "Team & Sedi"
+  { label: 'Team & Sedi', href: '/team' },
   { label: 'News', href: '/news' },
   // "Contatti" rimosso: duplicava il CTA "Incontro riservato" (→ /contatti)
   { label: 'Mentoria', href: '/mentoria', highlight: true },

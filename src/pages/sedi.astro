@@ -1,28 +1,24 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import LocationsMap from '../components/sections/LocationsMap.astro';
-import CtaBand from '../components/sections/CtaBand.astro';
+/**
+ * La pagina Sedi è confluita in "Team & Sedi" (/team). Manteniamo questo
+ * URL come reindirizzamento per non rompere link esistenti. url() rende
+ * la destinazione corretta anche con base path (GitHub Pages).
+ */
+import { url } from '../lib/url';
+const target = url('/team/');
 ---
 
-<BaseLayout
-  theme="light"
-  title="Sedi — Fulvio Rossi Plus"
-  description="Sette sedi tra Europa e Golfo: Torino, Milano, Roma, Dubai, Montecarlo, Cracovia, Vilnius. Accesso diretto a mercati, capitali e opportunità."
->
-  <PageHero
-    eyebrow="Dove siamo"
-    art="global"
-    lead="Presidiamo i centri industriali e finanziari che contano: accesso diretto a mercati, capitali e opportunità, con una sola regìa."
-  >
-    Sette sedi tra <em>Europa e Golfo</em>
-  </PageHero>
-
-  <LocationsMap />
-
-  <CtaBand
-    lead="Un confronto riservato, senza impegno: nella sede più comoda per voi o in videoconferenza."
-  >
-    <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
-  </CtaBand>
-</BaseLayout>
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <meta name="robots" content="noindex" />
+    <title>Sedi — Fulvio Rossi Plus</title>
+  </head>
+  <body>
+    <p>La pagina Sedi è confluita in <a href={target}>Team &amp; Sedi</a>.</p>
+  </body>
+</html>

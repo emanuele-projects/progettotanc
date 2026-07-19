@@ -2,55 +2,105 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import BrandArt from '../components/BrandArt.astro';
+import Locations from '../components/sections/Locations.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
+import { url } from '../lib/url';
 import { team } from '../data/team';
 ---
 
 <BaseLayout
   theme="light"
-  title="Il team — Fulvio Rossi Plus"
-  description="Una squadra multidisciplinare che risponde a voi: fiscalisti, legali, revisori e business coach sotto un'unica regìa."
+  title="Team & Sedi — Fulvio Rossi Plus"
+  description="Le persone che vi seguono e i luoghi da cui operiamo: una guida riconoscibile, una rete di professionisti che si compone attorno alla vostra operazione, sette sedi tra Europa e Golfo."
 >
   <PageHero
-    eyebrow="Lo studio"
+    eyebrow="Persone & presenza"
     art="portrait"
-    lead="La fiducia nasce dai volti. Una squadra multidisciplinare — fiscalisti, legali, revisori, business coach — che risponde a voi."
+    lead="La fiducia nasce dai volti e dalla vicinanza. Una guida riconoscibile, una rete di professionisti alle spalle e sedi con ruoli distinti — sotto un'unica regìa."
   >
-    Le persone, <em>prima di tutto</em>
+    Le persone e i <em>luoghi</em>
   </PageHero>
 
-  <section class="team-page">
+  <!-- TEAM: le tre figure principali -->
+  <section class="team-lead">
     <div class="wrap">
-      <div class="team-grid">
+      <div class="tl-head" data-reveal>
+        <span class="eyebrow">La guida</span>
+        <h2>Chi risponde di voi</h2>
+        <p>
+          Poche figure di riferimento, sempre le stesse dall'inizio alla fine:
+          è a loro che rispondete, ed è di voi che rispondono.
+        </p>
+      </div>
+
+      <div class="lead-grid">
         {team.map((m) => (
-          <div class="member" data-reveal>
+          <article class="member" data-reveal>
             <div class="member-photo">
-              <BrandArt variant="portrait" ratio="4 / 5" label={m.note} />
+              {m.photo ? (
+                <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
+              ) : (
+                <BrandArt variant="portrait" ratio="4 / 5" label={m.note} />
+              )}
             </div>
             <div class="member-body">
               <h3>{m.name}</h3>
               <div class="pos">{m.role}</div>
               <div class="note">{m.note}</div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- LA RETE: come il team si estende -->
+  <section class="network">
+    <div class="wrap">
+      <div class="net-inner" data-reveal>
+        <span class="eyebrow">Dietro ai volti</span>
+        <h2>Una rete che si <em>estende</em></h2>
+        <p class="net-lead">
+          Il nostro valore non è solo nelle persone che incontrate: è nella
+          capacità di mettervi in connessione con i professionisti giusti —
+          fiscalisti, avvocati, revisori, banche d'affari, investitori — nel
+          momento esatto in cui servono.
+        </p>
+        <p class="net-body">
+          Il team si estende così: non un organico rigido, ma una squadra che si
+          compone attorno alla vostra operazione. I partner sono molti più dei
+          volti in questa pagina; a voi arriva sempre una regìa unica, che tiene
+          insieme le competenze e risponde del risultato.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEDI: porzione di globo + gruppi per tipologia -->
+  <Locations />
+
   <CtaBand
-    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
+    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e vi presentiamo le persone giuste."
   >
     <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
   </CtaBand>
 </BaseLayout>
 
 <style>
-  .team-page { padding: 80px 0; }
-  .team-grid {
+  /* --- Team: tre schede più contenute --- */
+  .team-lead { padding: 80px 0 70px; }
+  .tl-head { max-width: 720px; margin-bottom: 44px; }
+  .tl-head h2 {
+    font-family: var(--disp); font-size: clamp(28px, 3.4vw, 40px);
+    color: var(--ink); margin-top: 14px; line-height: 1.12;
+  }
+  .tl-head p { color: var(--muted); font-size: 18px; line-height: 1.6; margin-top: 16px; }
+
+  .lead-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 26px;
+    max-width: 900px;
   }
   .member {
     background: var(--panel);
@@ -64,24 +114,44 @@ import { team } from '../data/team';
     transform: translateY(-5px);
     box-shadow: 0 18px 40px rgba(6, 27, 61, 0.08);
   }
-  .member-body { padding: 22px 24px 26px; }
-  .member h3 { font-size: 22px; }
+  .member-photo { position: relative; }
+  .member-photo img {
+    display: block; width: 100%; aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .member-body { padding: 18px 20px 22px; }
+  .member h3 { font-size: 20px; }
   .pos {
-    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent-text); margin-top: 8px;
+    color: var(--accent-text); margin-top: 7px;
   }
   .note {
-    font-family: var(--sans); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--muted-2); margin-top: 14px;
-    border-top: 1px solid var(--hair-faint); padding-top: 12px;
+    color: var(--muted); font-size: 13.5px; line-height: 1.5;
+    margin-top: 12px;
+    border-top: 1px solid var(--hair-faint); padding-top: 10px;
   }
 
-  @media (max-width: 1024px) {
-    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  /* --- La rete --- */
+  .network {
+    background: var(--panel-2);
+    border-top: 1px solid var(--hair-faint);
+    border-bottom: 1px solid var(--hair-faint);
+    padding: 74px 0;
   }
-  @media (max-width: 700px) {
-    .team-grid { grid-template-columns: 1fr; }
+  .net-inner { max-width: 760px; }
+  .network h2 {
+    font-family: var(--disp); font-size: clamp(28px, 3.6vw, 44px);
+    color: var(--ink); margin-top: 14px; line-height: 1.12;
+  }
+  .network h2 :global(em) { font-style: normal; color: var(--accent-text); }
+  .net-lead { font-size: clamp(18px, 2vw, 22px); color: var(--ink-dim); line-height: 1.55; margin-top: 20px; }
+  .net-body { font-size: 17px; color: var(--muted); line-height: 1.7; margin-top: 18px; }
+
+  @media (max-width: 860px) {
+    .lead-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+  }
+  @media (max-width: 560px) {
+    .lead-grid { grid-template-columns: 1fr; max-width: 360px; }
   }
 </style>

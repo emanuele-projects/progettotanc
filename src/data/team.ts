@@ -1,17 +1,34 @@
 export interface Member {
-  /** Iniziali per il monogramma; '—' se placeholder */
+  /** Iniziali per il monogramma di ripiego */
   mono: string;
   name: string;
   role: string;
   note: string;
+  /**
+   * Ritratto reale, quando disponibile (es. '/images/team/fulvio-rossi.jpg').
+   * Se assente si usa il placeholder BrandArt. Bastano 2–3 foto vere.
+   */
+  photo?: string;
 }
 
-// TODO-CONTENUTO: nomi e ritratti reali
+// TODO-CONTENUTO: nome dell'avvocato e ritratti reali (Fulvio, Carolina, Avv.)
 export const team: Member[] = [
-  { mono: 'FR', name: 'Fulvio Rossi', role: 'Fondatore & Presidente', note: 'Ritratto da inserire' },
-  { mono: '—', name: 'Amministratore Delegato', role: 'Direzione & operazioni', note: 'Nome e ritratto da inserire' },
-  { mono: '—', name: 'Partner — M&A & Finanza', role: 'Operazioni straordinarie', note: 'Nome e ritratto da inserire' },
-  { mono: '—', name: 'Partner — Fiscale & Tributario', role: 'Struttura & pianificazione', note: 'Nome e ritratto da inserire' },
-  { mono: '—', name: 'Partner — Legale societario', role: 'Governance & contratti', note: 'Nome e ritratto da inserire' },
-  { mono: '—', name: 'Business Coach', role: 'Mentoria & leadership', note: 'Nome e ritratto da inserire' },
+  {
+    mono: 'FR',
+    name: 'Fulvio Rossi',
+    role: 'Fondatore & Presidente',
+    note: 'Visione, regìa e garanzia dello studio',
+  },
+  {
+    mono: 'CR',
+    name: 'Carolina Rossi',
+    role: 'Amministratore Delegato',
+    note: 'Direzione e operazioni',
+  },
+  {
+    mono: 'AL',
+    name: 'Avv. [Nome Cognome]',
+    role: 'Of Counsel · Area Legale',
+    note: 'Governance, contratti e tutela del patrimonio',
+  },
 ];
