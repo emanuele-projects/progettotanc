@@ -1,12 +1,10 @@
 ---
 /**
- * Sezione sedi: scena "dall'orbita" (Globe, vettoriale e animata) su
- * banda navy notte in cui la scena si dissolve, + le sette sedi
- * raccontate per tipologia (direzionali / legale / rappresentanza).
- * Usata in home (compact, con rimando a Team & Sedi) e nella pagina
- * Team & Sedi.
+ * Sezione sedi: globo 3D interattivo FULL-BLEED a sinistra (arriva al
+ * bordo dello schermo, senza i margini del sito) + testo a destra
+ * (titolo, lead e — su Team & Sedi — i gruppi per tipologia; in home
+ * il rimando alla pagina). Su mobile: globo sopra, testo sotto.
  */
-import SectionHead from '../SectionHead.astro';
 import Globe from '../Globe.astro';
 import { locations, locationGroups, typeLabels } from '../../data/locations';
 import { url } from '../../lib/url';
@@ -28,124 +26,170 @@ const markers = locations.map((l) => ({
 ---
 
 <section class="presence on-navy" id="sedi">
-  <div class="wrap">
-    <SectionHead eyebrow="Le nostre sedi">
-      <Fragment slot="title">Sette sedi tra Europa e Golfo</Fragment>
-      <p slot="lead">
-        Presidiamo i centri industriali e finanziari che contano: una rete di
-        sedi con ruoli distinti, sotto un'unica regìa. Trascina il globo e
-        tocca un segnaposto.
-      </p>
-    </SectionHead>
-  </div>
-
-  <div class="scene-band" data-reveal>
-    <Globe markers={markers} />
-  </div>
-
-  <div class="wrap">
-    {!compact && (
-    <div class="groups" data-reveal>
-      {locationGroups.map((g) => (
-        <article class="group">
-          <span class="g-tag">{g.tag}</span>
-          <h3 class="g-title">{g.title}</h3>
-          <p class="g-desc">{g.description}</p>
-          <ul class="g-cities">
-            {g.cities.map((c) => (
-              <li class:list={['g-city', { primary: c.primary }]}>
-                <span class="gc-name">{c.city}</span>
-                <span class="gc-cc">{c.country}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-      ))}
+  <div class="presence-split">
+    <div class="scene-col" data-reveal>
+      <Globe markers={markers} />
     </div>
-    )}
 
-    {compact && (
-      <div class="presence-more">
-        <a href={url('/team/')} class="btn">Team &amp; sedi</a>
+    <div class="text-col">
+      <div class="tc-head" data-reveal>
+        <span class="eyebrow">Le nostre sedi</span>
+        <h2>Sette sedi tra<br />Europa e Golfo</h2>
+        <p class="tc-lead">
+          Presidiamo i centri industriali e finanziari che contano: una rete
+          di sedi con ruoli distinti, sotto un'unica regìa. Trascina il globo
+          e tocca una sede per centrarla.
+        </p>
       </div>
-    )}
+
+      {!compact && (
+        <div class="groups" data-reveal>
+          {locationGroups.map((g) => (
+            <article class="group">
+              <span class="g-tag">{g.tag}</span>
+              <h3 class="g-title">{g.title}</h3>
+              <p class="g-desc">{g.description}</p>
+              <ul class="g-cities">
+                {g.cities.map((c) => (
+                  <li class:list={['g-city', { primary: c.primary }]}>
+                    <span class="gc-name">{c.city}</span>
+                    <span class="gc-cc">{c.country}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      )}
+
+      {compact && (
+        <div class="presence-more" data-reveal>
+          <a href={url('/team/')} class="btn">Team &amp; sedi</a>
+        </div>
+      )}
+    </div>
   </div>
 </section>
 
 <style>
-  /* banda navy notte: la scena orbitale si dissolve in questo sfondo */
+  /* banda navy notte, senza gutter: il globo tocca il bordo sinistro */
   .presence {
     background: #050B16;
     border-top: 1px solid rgba(194, 163, 91, 0.18);
     border-bottom: 1px solid rgba(194, 163, 91, 0.18);
-    padding-bottom: 70px;
+    padding: 0;
+    overflow: hidden;
   }
-  .presence :global(.sec-head h2) { color: #FFFFFF; }
-  .presence :global(.sec-head .eyebrow) { color: #D8BE84; }
-  .presence :global(.sec-head .eyebrow::before) { border-color: #C2A35B; }
-  .presence :global(.sec-head p) { color: rgba(236, 229, 214, 0.62); }
-
-  .scene-band {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  /* gruppi di sedi, su scuro */
-  .groups {
+  .presence-split {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-top: 46px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: clamp(28px, 4vw, 64px);
   }
-  .group { border-top: 1px solid rgba(236, 229, 214, 0.14); padding-top: 20px; }
+
+  /* colonna globo: full-bleed a sinistra, alta quanto serve */
+  .scene-col {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    min-height: 480px;
+  }
+  .scene-col :global(.globe-scene) {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 480px;
+    width: 100%;
+  }
+
+  /* colonna testo: allineata a destra col contenitore del sito */
+  .text-col {
+    padding-top: 72px;
+    padding-bottom: 72px;
+    padding-left: 0;
+    padding-right: max(24px, calc((100vw - var(--maxw)) / 2));
+  }
+  .tc-head .eyebrow { color: #D8BE84; }
+  .tc-head :global(.eyebrow::before) { border-color: #C2A35B; }
+  .tc-head h2 {
+    font-family: var(--disp);
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.1;
+    color: #FFFFFF;
+    margin-top: 16px;
+  }
+  .tc-lead {
+    color: rgba(236, 229, 214, 0.62);
+    font-size: 17px;
+    line-height: 1.65;
+    margin-top: 18px;
+    max-width: 52ch;
+  }
+
+  /* gruppi di sedi, impilati sotto il testo */
+  .groups { margin-top: 38px; }
+  .group {
+    border-top: 1px solid rgba(236, 229, 214, 0.14);
+    padding: 18px 0;
+  }
+  .group:last-child { padding-bottom: 0; }
 
   .g-tag {
     display: inline-block;
-    font-family: var(--sans); font-size: 10.5px; font-weight: 700;
+    font-family: var(--sans); font-size: 10px; font-weight: 700;
     letter-spacing: 0.22em; text-transform: uppercase;
     color: #D8BE84;
   }
   .g-tag::before {
     content: "◆";
-    font-size: 8px;
+    font-size: 7px;
     color: #C2A35B;
-    margin-right: 9px;
+    margin-right: 8px;
     vertical-align: middle;
   }
   .g-title {
-    font-family: var(--disp); font-size: 23px; font-weight: 700;
-    color: #FFFFFF; margin-top: 8px;
+    font-family: var(--disp); font-size: 20px; font-weight: 700;
+    color: #FFFFFF; margin-top: 6px;
   }
   .g-desc {
-    color: rgba(236, 229, 214, 0.6); font-size: 15px; line-height: 1.6;
-    margin-top: 8px;
+    color: rgba(236, 229, 214, 0.6); font-size: 14.5px; line-height: 1.55;
+    margin-top: 6px;
+    max-width: 52ch;
   }
   .g-cities {
     list-style: none;
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-top: 16px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 12px;
   }
   .g-city {
-    display: flex; flex-direction: column; gap: 2px;
-    padding: 9px 16px;
+    display: flex; flex-direction: column; gap: 1px;
+    padding: 7px 13px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(236, 229, 214, 0.14);
     border-radius: var(--radius-card);
   }
   .g-city.primary { border-color: rgba(194, 163, 91, 0.5); }
-  .gc-name { font-family: var(--disp); font-size: 17px; font-weight: 700; color: #F2EDE1; }
+  .gc-name { font-family: var(--disp); font-size: 15px; font-weight: 700; color: #F2EDE1; }
   .g-city.primary .gc-name::after {
-    content: "◆"; font-size: 8px; color: #C2A35B;
-    vertical-align: super; margin-left: 6px;
+    content: "◆"; font-size: 7px; color: #C2A35B;
+    vertical-align: super; margin-left: 5px;
   }
   .gc-cc {
-    font-family: var(--sans); font-size: 10px; font-weight: 600;
+    font-family: var(--sans); font-size: 9px; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase; color: rgba(216, 190, 132, 0.7);
   }
 
-  .presence-more { text-align: center; margin-top: 44px; }
+  .presence-more { margin-top: 34px; }
 
   @media (max-width: 960px) {
-    .groups { grid-template-columns: 1fr; gap: 26px; }
+    .presence-split { grid-template-columns: 1fr; gap: 0; }
+    .scene-col { min-height: 0; }
+    .scene-col :global(.globe-scene) {
+      aspect-ratio: 1 / 0.85;
+      height: auto;
+      min-height: 0;
+    }
+    .text-col {
+      padding: 12px 24px 56px;
+    }
   }
 </style>
