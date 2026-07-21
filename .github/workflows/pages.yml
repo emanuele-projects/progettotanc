@@ -1,7 +1,7 @@
 # ============================================================
-# GitHub Pages — https://campameme.github.io/sitotanc/
+# GitHub Pages — https://emanuele-projects.github.io/progettotanc/
 # Anteprima pubblicata a ogni push su main (project pages, base
-# /sitotanc). Requisito una tantum: Settings → Pages →
+# /progettotanc). Requisito una tantum: Settings → Pages →
 # Build and deployment → Source: "GitHub Actions".
 # Per tornare a un dominio custom in root: reimpostare DEPLOY_SITE,
 # togliere DEPLOY_BASE e aggiungere il CNAME.
@@ -42,8 +42,8 @@ jobs:
 
       - run: npm run build
         env:
-          DEPLOY_SITE: https://campameme.github.io
-          DEPLOY_BASE: /sitotanc
+          DEPLOY_SITE: https://emanuele-projects.github.io
+          DEPLOY_BASE: /progettotanc
 
       - uses: actions/upload-pages-artifact@v3
         with:
