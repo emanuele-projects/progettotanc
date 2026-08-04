@@ -5,6 +5,7 @@ import BrandArt from '../components/BrandArt.astro';
 import Locations from '../components/sections/Locations.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import { url } from '../lib/url';
+import { hasPublicAsset } from '../lib/assets';
 import { team } from '../data/team';
 ---
 
@@ -37,7 +38,7 @@ import { team } from '../data/team';
         {team.map((m) => (
           <article class="member" data-reveal>
             <div class="member-photo">
-              {m.photo ? (
+              {m.photo && hasPublicAsset(m.photo) ? (
                 <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
               ) : (
                 <BrandArt variant="portrait" ratio="4 / 5" label={m.note} />

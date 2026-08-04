@@ -6,29 +6,32 @@ export interface Member {
   note: string;
   /**
    * Ritratto reale, quando disponibile (es. '/images/team/fulvio-rossi.jpg').
-   * Se assente si usa il placeholder BrandArt. Bastano 2–3 foto vere.
+   * Se assente si usa il placeholder BrandArt.
    */
   photo?: string;
 }
 
-// TODO-CONTENUTO: nome dell'avvocato e ritratti reali (Fulvio, Carolina, Avv.)
 export const team: Member[] = [
   {
     mono: 'FR',
     name: 'Fulvio Rossi',
-    role: 'Fondatore & Presidente',
+    role: 'Presidente & Co-fondatore',
     note: 'Visione, regìa e garanzia dello studio',
+    photo: '/images/team/fulvio-rossi.jpg',
   },
   {
     mono: 'CR',
     name: 'Carolina Rossi',
     role: 'Amministratore Delegato',
     note: 'Direzione e operazioni',
+    photo: '/images/team/carolina-rossi.jpg',
   },
   {
-    mono: 'AL',
-    name: 'Avv. [Nome Cognome]',
-    role: 'Of Counsel · Area Legale',
-    note: 'Governance, contratti e tutela del patrimonio',
+    mono: 'GH',
+    name: 'Gerard Haoun',
+    role: 'Vice Presidente & Co-fondatore',
+    // TODO-CONTENUTO: confermare la riga di ruolo con l'interessato
+    note: 'Rete internazionale e relazioni con gli investitori',
+    photo: '/images/team/gerard-haoun.jpg',
   },
 ];

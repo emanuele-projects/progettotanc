@@ -6,7 +6,6 @@ import { getPosts, formatDate } from '../../lib/wp';
 import { url } from '../../lib/url';
 
 const posts = await getPosts();
-const usingMocks = !import.meta.env.WP_API_URL;
 ---
 
 <BaseLayout
@@ -17,9 +16,7 @@ const usingMocks = !import.meta.env.WP_API_URL;
   <PageHero
     eyebrow="News & approfondimenti"
     art="editorial"
-    lead={usingMocks
-      ? 'Analisi e riflessioni su M&A, finanza d’impresa e continuità. Alcuni articoli in elenco sono ancora dimostrativi: il blog verrà alimentato dalla redazione via WordPress.'
-      : 'Analisi e riflessioni su M&A, finanza d’impresa e continuità.'}
+    lead="Analisi e riflessioni su M&A, finanza d’impresa, continuità e mercati esteri: quello che vediamo lavorando, raccontato senza giri di parole."
   >
     Il punto di vista <em>dello studio</em>
   </PageHero>

@@ -1,14 +1,13 @@
 /**
- * Livello dati del blog — WordPress headless, con fallback mock.
+ * Livello dati del blog — WordPress headless.
  *
- * WP_API_URL assente/vuota  → articoli mock (src/data/mock-posts.ts)
+ * WP_API_URL assente/vuota  → solo i redazionali di src/data/editorial-posts.ts
  * WP_API_URL impostata      → fetch da {WP_API_URL}/posts in fase di build;
  *                             se la API risponde con errore la build FALLISCE
  *                             (mai pubblicare silenziosamente un sito stale).
  *
- * In entrambi i casi agli articoli si aggiungono i redazionali definitivi di
- * src/data/editorial-posts.ts: restano pubblicati anche a WordPress collegato,
- * salvo che la redazione pubblichi un articolo con lo stesso slug.
+ * I redazionali restano pubblicati anche a WordPress collegato, salvo che la
+ * redazione pubblichi un articolo con lo stesso slug.
  *
  * Esempio: WP_API_URL=https://www.fulviorossiplus.it/wp/wp-json/wp/v2
  */
@@ -40,10 +39,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
 async function load(): Promise<Post[]> {
   const { editorialPosts } = await import('../data/editorial-posts');
 
-  if (!API) {
-    const { mockPosts } = await import('../data/mock-posts');
-    return byDate([...editorialPosts, ...mockPosts]);
-  }
+  if (!API) return byDate(editorialPosts);
 
   const posts: Post[] = [];
   let page = 1;

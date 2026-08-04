@@ -27,12 +27,19 @@ export interface Badge {
   note: string;
 }
 
-// TODO-CONTENUTO: loghi e accreditamenti reali
+/**
+ * Ambiti di certificazione, negli stessi termini usati dalla pagina servizio 06.
+ * Sono indicati per ambito e non per sigla, come chiede il documento copy, per
+ * non dichiarare competenze non presidiate.
+ *
+ * TODO-CONTENUTO: una volta verificati con il cliente gli schemi effettivamente
+ * seguiti, qui si possono riportare le sigle e i loghi degli enti accreditati.
+ */
 export const badges: Badge[] = [
-  { label: 'ISO 9001', note: 'Qualità' },
-  { label: 'ISO 14001', note: 'Ambiente' },
-  { label: 'ISO 45001', note: 'Sicurezza' },
-  { label: 'Made in Italy', note: 'Filiera certificata' },
-  { label: 'Enti accreditati', note: 'Partner di certificazione' },
-  { label: 'Logo da inserire', note: 'Riconoscimento' },
+  { label: 'Qualità', note: 'Sistemi di gestione' },
+  { label: 'Ambiente', note: 'Impatti e conformità' },
+  { label: 'Sicurezza sul lavoro', note: 'Salute e prevenzione' },
+  { label: 'Sicurezza delle informazioni', note: 'Dati e continuità' },
+  { label: 'Anticorruzione', note: 'Controlli e trasparenza' },
+  { label: 'Origine italiana', note: 'Filiera tracciata' },
 ];
