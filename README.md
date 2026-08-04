@@ -32,9 +32,13 @@ npm run check     # type-check dei componenti Astro
 
 ## Immagini
 
-Le pagine servizio usano le **scene illustrate di `BrandArt.astro`**, una per servizio tramite il campo `art`. Sono vettoriali: nitide a ogni dimensione, in palette, senza peso di rete. Le foto di `public/images/stock/` erano miniature da ~360px usate a tutta larghezza (sgranate) e fuori registro: restano solo come immagini di copertina degli articoli.
+Le fotografie di sezione stanno in `public/images/sezioni/`, una per servizio più quelle di Chi siamo e Team, ridotte a 2000px sul lato lungo e salvate in JPEG progressivo (35 MB di sorgenti → ~3,5 MB in repo). Sono collegate dal campo `photo` di `src/data/services.ts` e dalle prop `photo` dei componenti hero.
 
-Per passare a fotografie vere su un servizio basta valorizzare `photo` in `src/data/services.ts`: se c'è, prevale sull'illustrazione. Metterle in `src/assets/` e usare `<Image>` di `astro:assets` (ridimensiona in build) — mai file pesanti in `public/`.
+Se `photo` è assente, i componenti ricadono sulle **scene illustrate di `BrandArt.astro`** indicate dal campo `art`: restano come rete di sicurezza, non sono più in pagina.
+
+Ogni hero sopra la piega ha una fotografia con il velo blu del sito. Su `PageHero` la classe `has-photo` sostituisce il velo piatto con un gradiente che si scurisce dal lato del testo, così il titolo regge anche sulle foto chiare.
+
+Le vecchie `public/images/stock/` (miniature da ~360px) sono state rimosse: erano sgranate a tutta larghezza e non più referenziate.
 
 ### Ritratti del team
 

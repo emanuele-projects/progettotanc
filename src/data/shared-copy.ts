@@ -31,7 +31,7 @@ export const microCopy = {
   /** occhiello del callout, pagine servizio */
   tavolo: 'Sediamo al tavolo con voi, non dietro di voi.',
   /** occhiello di «La nostra rete», pagina Internazionalizzazione */
-  interlocutore: 'Un solo interlocutore, sette sedi.',
+  interlocutore: 'Un solo interlocutore, otto sedi.',
   /** occhiello della CTA di chiusura, pagine servizio */
   momento: 'Se il momento non è quello giusto, ve lo diciamo.',
   /** occhiello di «Quando la tensione diventa crisi conclamata», pagina Finanza */

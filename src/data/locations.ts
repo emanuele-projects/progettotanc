@@ -43,6 +43,16 @@ export const locations: Location[] = [
     lng: 7.69,
     note: 'Strategia & coordinamento',
   },
+  {
+    city: 'Milano',
+    country: 'Italia',
+    // TODO-CONTENUTO: indirizzo di Milano, non compreso nell'elenco fornito
+    address: 'Milano',
+    type: 'direzionale',
+    lat: 45.46,
+    lng: 9.19,
+    note: 'Finanza & capitali',
+  },
   // Legale — centro societario e amministrativo
   {
     city: 'Cracovia',
@@ -122,7 +132,7 @@ export const locationGroups: LocationGroup[] = [
   {
     type: 'direzionale',
     tag: 'Direzione',
-    title: 'Sede direzionale',
+    title: 'Sedi direzionali',
     description:
       'Il cuore strategico e operativo dello studio: qui nascono le operazioni e si coordina il lavoro dei team.',
     cities: featured.filter((l) => l.type === 'direzionale'),

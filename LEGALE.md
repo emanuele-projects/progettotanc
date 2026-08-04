@@ -29,9 +29,10 @@ oggi segnati «DA COMPLETARE» e visibili in pagina.
 
 Oggi in `src/data/site.ts` ci sono segnaposto (`+39 011 000 0000`).
 
-- Telefono
-- Email generale e **email dedicata alle richieste privacy**
-- Conferma che `direzione@fulviorossiplus.it` sia attiva
+- ~~Email generale~~ — `info@fulviorossiplus.com`, già in uso sul sito
+- Telefono (oggi è un segnaposto: `+39 011 000 0000`)
+- Valutare un indirizzo dedicato alle richieste privacy (es. `privacy@`): oggi
+  l'informativa rimanda a `info@`, che è valido ma meno tracciabile
 - Se esiste un DPO: nome e recapito (altrimenti si conferma che non è stato
   nominato, come dice oggi l'informativa)
 
@@ -40,9 +41,12 @@ Oggi in `src/data/site.ts` ci sono segnaposto (`+39 011 000 0000`).
 Ogni fornitore che tratta dati per conto vostro va nominato con accordo ex
 art. 28 e citato in informativa.
 
-- Hosting: ragione sociale, sede, dove stanno i server
-- Provider di posta
-- Servizio del form contatti (vedi punto 5)
+- ~~Hosting e posta~~ — **Register**. Serve la ragione sociale esatta
+  (Register S.p.A.?), la sede e la conferma di dove stanno i server, per
+  citarli in informativa e firmare il DPA che Register mette a disposizione
+- Servizio del form contatti: **ancora da scegliere**. «Richiesta di consulenza
+  e/o incontro» è la finalità, non il fornitore: serve sapere se il form passerà
+  da un servizio esterno (Formspree, Web3Forms…) o da un endpoint WordPress
 - WordPress, se ospitato da terzi
 - Google Ireland Limited, quando attiverete GTM/Analytics/Maps/YouTube
 
@@ -77,20 +81,19 @@ finché non c'è il consenso: servono
 - decisione sull'uso di `youtube-nocookie.com` (l'informativa oggi lo dà per
   scelto)
 
-## 7. Immagini generate con AI — *bloccante*
+## 7. Ritratti ritoccati con AI
 
-I tre ritratti del team sono immagini AI presentate come fotografie di persone
-reali, con nome e ruolo. È il punto più delicato della lista.
+I ritratti sono di **persone reali**, ritoccate con AI, e gli interessati ne
+sono consapevoli. Questo toglie il problema principale — non si tratta di
+persone inesistenti presentate come reali. Resta da mettere per iscritto:
 
-- **Sostituirle con fotografie vere** è la strada consigliata
-- Se restano, va verificato con il legale il rischio di pratica commerciale
-  ingannevole (artt. 21-22 Codice del consumo): un ritratto AI di una persona
-  reale comunica qualcosa che non è vero
-- Vanno comunque acquisiti i **consensi scritti** delle tre persone alla
-  pubblicazione di nome, ruolo e immagine (artt. 96-97 legge sul diritto
-  d'autore)
-- Se in futuro si usano immagini AI per contesti non di persone, valutare
-  l'obbligo di marcatura introdotto dall'AI Act per i contenuti sintetici
+- **Consenso scritto** di ciascuno alla pubblicazione di nome, ruolo e immagine
+  (artt. 96-97 legge sul diritto d'autore), con menzione esplicita del ritocco
+  con AI e dell'uso sul sito. Vale come prova se qualcuno cambia idea
+- Verificare che il ritocco non alteri i tratti al punto da rendere la foto non
+  più rappresentativa della persona
+- Se in futuro si usano immagini AI in cui compaiono persone **non** reali,
+  quella è una fattispecie diversa e va rivalutata
 
 ## 8. Contenuti da verificare
 
