@@ -30,11 +30,51 @@ import { site } from '../data/site';
     che si misurano.
   </Manifesto>
 
+  <!-- LA RETE: come lo studio lavora con i professionisti esterni -->
+  <section class="network">
+    <div class="wrap em-gold">
+      <div class="net-inner" data-reveal>
+        <h2>Come lavoriamo con gli <em>altri</em></h2>
+        <p class="net-lead">
+          Nessuno studio ha dentro di sé tutte le competenze che un'operazione
+          richiede. Chi dice il contrario, o le improvvisa o le compra al momento.
+        </p>
+        <p class="net-body">
+          Noi abbiamo scelto una strada diversa: un nucleo stabile che segue il
+          cliente dal primo incontro alla firma, e attorno una rete di
+          professionisti costruita in trentacinque anni — legali, fiscalisti,
+          attestatori, notai, periti, consulenti settoriali in Italia e
+          all'estero. Persone con cui abbiamo già lavorato, di cui conosciamo il
+          metodo e i tempi.
+        </p>
+        <p class="net-body">
+          Il valore di una rete così non sta nella sua ampiezza: sta nel fatto
+          che a coordinarla resta sempre qualcuno. Le operazioni non si fermano
+          per mancanza di competenze. Si fermano perché nessuno tiene insieme i
+          pezzi. Quel ruolo lo teniamo noi: un solo interlocutore per voi, la
+          responsabilità del risultato che resta in capo a chi vi ha portato fin lì.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <WhyUs />
 
   <Badges />
 
   <Quotes />
+
+  <!-- Chiusura di pagina -->
+  <section class="closing-note">
+    <div class="wrap">
+      <p data-reveal>
+        Lavoriamo con imprese in fasi di vita diverse: aziende mature che
+        affrontano un'operazione straordinaria e realtà giovani che cercano i
+        primi capitali. Sono percorsi diversi per dimensione, non per metodo —
+        e restano sotto la stessa regìa.
+      </p>
+    </div>
+  </section>
 
   <CtaBand
     lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
@@ -42,3 +82,33 @@ import { site } from '../data/site';
     <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
   </CtaBand>
 </BaseLayout>
+
+<style>
+  /* --- Come lavoriamo con gli altri --- */
+  .network {
+    background: var(--panel-2);
+    border-top: 1px solid var(--hair-faint);
+    border-bottom: 1px solid var(--hair-faint);
+    padding: 74px 0;
+  }
+  .net-inner { max-width: 760px; }
+  .network h2 {
+    font-family: var(--disp); font-size: clamp(28px, 3.6vw, 44px);
+    color: var(--ink); line-height: 1.12;
+  }
+  .network h2 :global(em) { font-style: normal; color: var(--accent-text); }
+  .net-lead {
+    font-family: var(--disp); font-style: italic;
+    font-size: clamp(19px, 2.1vw, 23px); color: var(--ink-dim);
+    line-height: 1.5; margin-top: 22px;
+  }
+  .net-body { font-size: 17px; color: var(--muted); line-height: 1.75; margin-top: 20px; }
+
+  /* --- Chiusura di pagina --- */
+  .closing-note { padding: 70px 0 10px; }
+  .closing-note p {
+    max-width: 760px;
+    font-family: var(--disp); font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.5; color: var(--ink-dim);
+  }
+</style>

@@ -22,7 +22,7 @@ const dateLabel = `${formatDate(post.date)}${post.author ? ` · ${post.author}` 
 <BaseLayout
   theme="light"
   title={`${post.title} — Fulvio Rossi Plus`}
-  description={post.excerpt}
+  description={post.metaDescription ?? post.excerpt}
   ogImage={post.featuredImage?.url}
 >
   <article>
