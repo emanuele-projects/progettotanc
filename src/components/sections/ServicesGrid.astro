@@ -1,6 +1,7 @@
 ---
 import SectionHead from '../SectionHead.astro';
 import StockImage from '../StockImage.astro';
+import BrandArt from '../BrandArt.astro';
 import Carousel from '../Carousel.astro';
 import { services } from '../../data/services';
 import { url } from '../../lib/url';
@@ -20,7 +21,11 @@ import { url } from '../../lib/url';
         {services.map((s) => (
           <a href={url(`/servizi/${s.slug}/`)} class="svc car-slide">
             <div class="svc-media">
-              <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" />
+              {s.photo ? (
+                <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" />
+              ) : (
+                <BrandArt variant={s.art} ratio="16 / 10" />
+              )}
             </div>
             <div class="svc-body">
               <span class="num">{s.num}</span>
