@@ -75,8 +75,11 @@ export interface Service {
   closing?: Section;
   /** Scena illustrata di brand (variant di BrandArt) */
   art: 'deal' | 'growth' | 'succession' | 'vault' | 'global' | 'quality' | 'boardroom';
-  /** Foto placeholder (Pixabay, temporanea) */
-  photo: string;
+  /**
+   * Fotografia reale, quando disponibile: prevale sulla scena di brand.
+   * Finché è assente le pagine servizio usano l'illustrazione di `art`.
+   */
+  photo?: string;
 }
 
 /**
@@ -88,7 +91,6 @@ export const services: Service[] = [
   {
     slug: 'ma-e-ricerca-di-capitali',
     art: 'deal',
-    photo: '/images/stock/ma-towers.jpg',
     num: '01',
     title: 'M&A e ricerca di capitali',
     plainTitle: 'M&A e ricerca di capitali',
@@ -175,7 +177,6 @@ export const services: Service[] = [
   {
     slug: 'finanza-e-ristrutturazione-del-debito',
     art: 'growth',
-    photo: '/images/stock/finanza.jpg',
     num: '02',
     title: 'Finanza & ristrutturazione del debito',
     plainTitle: 'Finanza e ristrutturazione del debito',
@@ -259,7 +260,6 @@ export const services: Service[] = [
   {
     slug: 'passaggio-generazionale',
     art: 'succession',
-    photo: '/images/stock/passaggio.jpg',
     num: '03',
     title: 'Passaggio generazionale',
     plainTitle: 'Passaggio generazionale',
@@ -304,7 +304,6 @@ export const services: Service[] = [
   {
     slug: 'protezione-del-patrimonio',
     art: 'vault',
-    photo: '/images/stock/patrimonio.jpg',
     num: '04',
     title: 'Protezione del patrimonio',
     plainTitle: 'Protezione del patrimonio',
@@ -349,7 +348,6 @@ export const services: Service[] = [
   {
     slug: 'internazionalizzazione',
     art: 'global',
-    photo: '/images/stock/internazionale.jpg',
     num: '05',
     title: 'Internazionalizzazione',
     plainTitle: 'Internazionalizzazione',
@@ -422,7 +420,6 @@ export const services: Service[] = [
   {
     slug: 'certificazioni-iso-e-made-in-italy',
     art: 'quality',
-    photo: '/images/stock/certificazioni.jpg',
     num: '06',
     // TODO-CONTENUTO: verificare con il cliente quali schemi vengono
     // effettivamente seguiti. Nel testo sono citati per ambito e non per
@@ -470,11 +467,6 @@ export const services: Service[] = [
   {
     slug: 'riorganizzazione-e-sviluppo',
     art: 'boardroom',
-    // TODO-CONTENUTO: immagine e branding di questa pagina sono una delle due
-    // decisioni ancora aperte con il cliente (cfr. nota del documento copy):
-    // il materiale di partenza li includeva, ma su un sito rivolto a chi valuta
-    // di cedere l'azienda quella voce abbassa il percepito dell'offerta.
-    photo: '/images/stock/boardroom.jpg',
     num: '07',
     title: 'Riorganizzazione e sviluppo',
     plainTitle: 'Riorganizzazione e sviluppo',

@@ -23,9 +23,17 @@ npm run check     # type-check dei componenti Astro
 - `src/pages/` — route: `/`, `/mentoria`, `/servizi/[slug]`, `/news`, `/news/[slug]`, `/contatti`, `404`.
 - Tema per pagina: prop `theme` di `BaseLayout` (`light` default, `dark` per mentoria).
 
+## Marchio
+
+`src/components/Logo.astro` è il marchio FR+ inline. I tracciati sono quelli originali ripuliti: il file di partenza simulava il gradiente con centinaia di poligoni (52 KB), qui sono due path (1 KB). Il riempimento è `currentColor`, così il marchio segue il contesto — bianco sull'header trasparente sopra l'hero navy, blu di brand (`--brand-blue`) sull'header bianco dopo lo scroll, bianco nel footer. Il lockup tiene **sempre** «FULVIO ROSSI PLUS» sotto al marchio.
+
+`public/logo.svg` è la versione autonoma nel blu di brand (usi esterni, social); `public/favicon.svg` è il marchio su fondo navy.
+
 ## Immagini
 
-I segnaposto sono le scene SVG di `BrandArt.astro`. Quando arrivano le foto definitive: metterle in `src/assets/` e usare `<Image>` di `astro:assets` (ridimensiona in build) — mai file pesanti in `public/`.
+Le pagine servizio usano le **scene illustrate di `BrandArt.astro`**, una per servizio tramite il campo `art`. Sono vettoriali: nitide a ogni dimensione, in palette, senza peso di rete. Le foto di `public/images/stock/` erano miniature da ~360px usate a tutta larghezza (sgranate) e fuori registro: restano solo come immagini di copertina degli articoli.
+
+Per passare a fotografie vere su un servizio basta valorizzare `photo` in `src/data/services.ts`: se c'è, prevale sull'illustrazione. Metterle in `src/assets/` e usare `<Image>` di `astro:assets` (ridimensiona in build) — mai file pesanti in `public/`.
 
 ### Ritratti del team
 
@@ -62,7 +70,8 @@ Formato 4/5, lato lungo 1200px (le schede usano un ritaglio 4/5, la citazione in
 
 ### Aperto dal documento copy (v2)
 
-- [ ] **Servizio 07** — confermare se pubblicare immagine e branding nella pagina Riorganizzazione e sviluppo (oggi esclusi) e come trattare la settima voce: con sette servizi la griglia di `/servizi` passa da 3×2 a 3+3+1. O si arriva a otto voci, o la settima va trattata con un blocco a sé, come la Mentoria.
+- [ ] **Servizio 07** — con sette servizi la griglia di `/servizi` passa da 3×2 a 3+3+1. O si arriva a otto voci, o la settima va trattata con un blocco a sé, come la Mentoria.
+- [ ] **Blu del marchio e oro di brand** — il marchio FR+ è blu `#0067F3`, l'accento del sito è oro `#C2A35B` (più il blu CookGroup delle pagine light). Oggi convivono perché il marchio è monocromatico sui fondi navy e blu solo su bianco; se serve una linea unica, è una scelta di palette da fare.
 - [ ] **Certificazioni (06)** — verificare quali schemi sono effettivamente presidiati. In attesa, sia il copy della pagina sia i badge di `src/data/why-us.ts` li indicano per ambito e non per sigla; a verifica fatta si possono riportare sigle e loghi degli enti accreditati.
 - [ ] **Ritratti del team** — sostituire le immagini AI in `public/images/team/` con fotografie reali (vedi sopra).
 - [ ] **Riga di ruolo di Gerard Haoun** in `src/data/team.ts` — da confermare con l'interessato.
