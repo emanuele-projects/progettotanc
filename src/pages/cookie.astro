@@ -1,0 +1,137 @@
+---
+/**
+ * Cookie policy — BOZZA da validare legalmente.
+ *
+ * Descrive gli strumenti che il sito userà (GTM, Google Analytics 4, Google
+ * Maps, YouTube). ATTENZIONE: finché non è attivo un banner di consenso questi
+ * strumenti NON vanno installati — vedi la nota nel README.
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { url } from '../lib/url';
+---
+
+<LegalLayout
+  title="Cookie policy"
+  description="Quali cookie e strumenti di terze parti usa il sito di Fulvio Rossi Plus, a cosa servono, quanto durano e come gestire il consenso."
+  eyebrow="Cookie"
+  lead="Quali cookie usa questo sito, a cosa servono e come si gestisce il consenso, ai sensi dell'articolo 122 del Codice privacy e delle linee guida del Garante."
+>
+  <h2>1. Cosa sono i cookie</h2>
+  <p>
+    I cookie sono piccoli file di testo che i siti salvano sul dispositivo di chi
+    naviga. Servono a far funzionare le pagine, a ricordare le preferenze e, in
+    alcuni casi, a raccogliere statistiche su come il sito viene usato. Accanto ai
+    cookie esistono tecnologie analoghe — pixel, local storage, identificatori —
+    a cui si applicano le stesse regole.
+  </p>
+  <p>
+    I <strong>cookie tecnici</strong> sono installati senza bisogno di consenso.
+    Tutti gli altri, compresi quelli statistici di terze parti, richiedono un
+    consenso preventivo, libero e revocabile.
+  </p>
+
+  <h2>2. Cookie tecnici</h2>
+  <p>
+    Sono necessari all'erogazione del sito e alla registrazione della scelta
+    espressa sul banner. Senza di essi le pagine non funzionano correttamente.
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Cookie</th><th>Titolare</th><th>Finalità</th><th>Durata</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cookie di consenso</td>
+          <td>Questo sito</td>
+          <td>Memorizza le preferenze espresse sul banner</td>
+          <td>6 mesi</td>
+        </tr>
+        <tr>
+          <td>Cookie di sessione dell'hosting</td>
+          <td><span class="todo">DA COMPLETARE — fornitore hosting</span></td>
+          <td>Bilanciamento del carico e sicurezza</td>
+          <td>Sessione</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3. Cookie statistici</h2>
+  <p>
+    Useremo <strong>Google Analytics 4</strong>, gestito attraverso
+    <strong>Google Tag Manager</strong>, per capire quali contenuti vengono letti
+    e come migliorarli. Gli identificatori sono attivati solo dopo il consenso e
+    la raccolta è configurata con IP anonimizzato e senza condivisione dei dati
+    per finalità pubblicitarie di Google.
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Cookie</th><th>Titolare</th><th>Finalità</th><th>Durata</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>_ga</td>
+          <td>Google Ireland Limited</td>
+          <td>Distingue gli utenti</td>
+          <td>2 anni</td>
+        </tr>
+        <tr>
+          <td>_ga_&lt;ID&gt;</td>
+          <td>Google Ireland Limited</td>
+          <td>Mantiene lo stato della sessione</td>
+          <td>2 anni</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Google Tag Manager di per sé non installa cookie di profilazione: è lo
+    strumento con cui vengono gestiti gli altri tag, ciascuno subordinato alla
+    corrispondente categoria di consenso.
+  </p>
+
+  <h2>4. Contenuti di terze parti</h2>
+  <h3>Google Maps</h3>
+  <p>
+    Le mappe incorporate sono fornite da Google e possono installare cookie e
+    raccogliere dati di navigazione. La mappa viene caricata solo dopo il consenso:
+    fino a quel momento al suo posto compare un segnaposto con un pulsante di
+    attivazione.
+  </p>
+  <h3>YouTube</h3>
+  <p>
+    I video incorporati sono ospitati da YouTube. Utilizziamo la modalità con
+    privacy avanzata (dominio <em>youtube-nocookie.com</em>), che rinvia
+    l'installazione degli identificatori al momento della riproduzione; anche in
+    questo caso il player viene caricato solo dopo il consenso.
+  </p>
+  <p>
+    Per il funzionamento di questi servizi il titolare del trattamento dei relativi
+    cookie è Google: le informazioni complete sono nella
+    <a href="https://policies.google.com/privacy" rel="noopener">privacy policy di Google</a>
+    e nella pagina
+    <a href="https://policies.google.com/technologies/cookies" rel="noopener">su come Google usa i cookie</a>.
+  </p>
+
+  <h2>5. Come gestire il consenso</h2>
+  <p>
+    Alla prima visita compare un banner che permette di accettare tutti i cookie,
+    rifiutarli tutti o scegliere per categoria. Rifiutare è tanto semplice quanto
+    accettare, e la scelta può essere cambiata in qualsiasi momento dal link
+    <em>Preferenze cookie</em> presente in fondo a ogni pagina.
+  </p>
+  <p>
+    È inoltre possibile bloccare o eliminare i cookie dalle impostazioni del
+    browser. Disattivare i cookie tecnici può compromettere il funzionamento del
+    sito.
+  </p>
+
+  <h2>6. Modifiche</h2>
+  <p>
+    L'elenco dei cookie viene aggiornato quando cambiano gli strumenti utilizzati.
+    Per il trattamento dei dati personali in generale si rinvia
+    all'<a href={url('/privacy/')}>informativa privacy</a>.
+  </p>
+</LegalLayout>

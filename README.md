@@ -20,7 +20,8 @@ npm run check     # type-check dei componenti Astro
 - `src/data/shared-copy.ts` — elementi trasversali (callout, chiusure, micro-frasi) riusati su più pagine.
 - `src/data/editorial-posts.ts` — articoli redazionali definitivi scritti fuori da WordPress: restano pubblicati anche a blog collegato.
 - `src/lib/wp.ts` — livello dati del blog: con `WP_API_URL` vuota usa i mock, altrimenti legge WordPress in fase di build. In entrambi i casi unisce i redazionali di `editorial-posts.ts` (a parità di slug vince WordPress).
-- `src/pages/` — route: `/`, `/mentoria`, `/servizi/[slug]`, `/news`, `/news/[slug]`, `/contatti`, `404`.
+- `src/pages/` — route: `/`, `/mentoria`, `/servizi/[slug]`, `/news`, `/news/[slug]`, `/contatti`, `/privacy`, `/cookie`, `404`.
+- `src/data/locations.ts` — sedi con indirizzi completi. Le voci marcate `quiet` (Montecarlo, Gibilterra) restano nei recapiti della pagina Contatti ma non compaiono fra i pin del globo, nelle schede di sezione né nell'elenco del footer: usa `featured` per gli elenchi in evidenza, `locations` per i recapiti completi.
 - Tema per pagina: prop `theme` di `BaseLayout` (`light` default, `dark` per mentoria).
 
 ## Marchio
@@ -67,6 +68,12 @@ Formato 4/5, lato lungo 1200px (le schede usano un ritaglio 4/5, la citazione in
 - [ ] Sostituire i `TODO-CONTENUTO` in `src/data/`
 - [ ] Foto reali al posto dei `Placeholder`
 - [ ] Form contatti: collegare un form service o endpoint WP (ora è mailto)
+
+## Privacy e cookie — bozze da validare
+
+`/privacy` e `/cookie` sono **bozze tecniche, non pareri legali**: vanno riviste da un legale prima del go-live. I dati mancanti stanno in `legal` (`src/data/site.ts`) e compaiono in pagina evidenziati come «DA COMPLETARE», così è impossibile pubblicarle per distrazione.
+
+> **GTM, Analytics, Maps e YouTube non sono installati e non vanno installati finché non è attivo un banner di consenso.** Le informative li descrivono come strumenti previsti; installarli prima del CMP significherebbe raccogliere dati senza base giuridica. Serve una CMP con Google Consent Mode v2, il blocco preventivo dei tag, il link «Preferenze cookie» in footer e il caricamento di Maps e YouTube dietro segnaposto.
 
 ### Aperto dal documento copy (v2)
 

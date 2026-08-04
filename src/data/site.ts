@@ -34,3 +34,26 @@ export const nav: NavItem[] = [
 
 export const ctaLabel = 'Incontro riservato';
 export const ctaHref = '/contatti';
+
+/**
+ * Dati per privacy e cookie policy.
+ *
+ * TODO-LEGALE: i campi marcati «DA COMPLETARE» vanno riempiti prima della
+ * pubblicazione — senza di essi l'informativa non è validamente resa
+ * (art. 13 GDPR richiede l'identità del titolare). Vedi il README.
+ */
+export const legal = {
+  /** Ragione sociale completa del titolare del trattamento */
+  entity: 'DA COMPLETARE — ragione sociale',
+  vat: 'DA COMPLETARE — P.IVA',
+  rea: 'DA COMPLETARE — iscrizione REA',
+  /** Sede legale del titolare */
+  registeredOffice: 'DA COMPLETARE — sede legale',
+  /** Indirizzo a cui l'interessato esercita i propri diritti */
+  privacyEmail: 'DA COMPLETARE — email per le richieste privacy',
+  pec: 'DA COMPLETARE — PEC',
+  /** Responsabile della protezione dei dati, se nominato */
+  dpo: null as string | null,
+  /** Ultimo aggiornamento delle informative */
+  updated: '4 agosto 2026',
+} as const;

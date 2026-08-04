@@ -1,11 +1,11 @@
 ---
 import Logo from './Logo.astro';
 import { site, nav } from '../data/site';
-import { locations } from '../data/locations';
+import { featured } from '../data/locations';
 import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
-const cities = locations.map((l) => l.city);
+const cities = featured.map((l) => l.city);
 ---
 
 <footer class="on-navy">
@@ -15,9 +15,11 @@ const cities = locations.map((l) => l.city);
     </div>
     <div class="foot-top">
       <div class="foot-brand">
-        <Logo class="foot-mark" height={30} />
-        <div class="name">{site.brand}</div>
-        <div class="sub">{site.brandSub}</div>
+        <Logo class="foot-mark" height={38} />
+        <div class="foot-brand-text">
+          <div class="name">{site.brand}</div>
+          <div class="sub">{site.brandSub}</div>
+        </div>
       </div>
       <div class="foot-col">
         <h4>Studio</h4>
@@ -37,13 +39,16 @@ const cities = locations.map((l) => l.city);
         <h4>Sedi</h4>
         <p>
           {cities.slice(0, 3).join(' · ')}<br />
-          {cities.slice(3, 5).join(' · ')}<br />
-          {cities.slice(5).join(' · ')}
+          {cities.slice(3).join(' · ')}
         </p>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© {year} — Tutti i diritti riservati</span>
+      <nav class="foot-legal" aria-label="Informative">
+        <a href={url('/privacy/')}>Privacy</a>
+        <a href={url('/cookie/')}>Cookie</a>
+      </nav>
       <span>{site.piva}</span>
     </div>
   </div>
@@ -65,7 +70,8 @@ const cities = locations.map((l) => l.city);
     padding-bottom: 44px;
     border-bottom: 1px solid var(--hair-on-navy);
   }
-  .foot-brand :global(.foot-mark) { color: var(--on-navy); margin-bottom: 12px; }
+  .foot-brand { display: flex; align-items: center; gap: 14px; }
+  .foot-brand :global(.foot-mark) { flex: none; color: var(--on-navy); }
   .foot-brand .name {
     font-family: var(--disp); font-size: 26px; font-weight: 800;
     letter-spacing: 0.03em; color: var(--on-navy);
@@ -82,6 +88,9 @@ const cities = locations.map((l) => l.city);
   .foot-col p { font-size: 16px; line-height: 1.9; font-weight: 300; }
   .foot-col a { transition: color 0.3s; }
   .foot-col a:hover { color: var(--accent-soft); }
+  .foot-legal { display: flex; gap: 20px; }
+  .foot-legal a { transition: color 0.3s; }
+  .foot-legal a:hover { color: var(--accent-soft); }
   .foot-bottom {
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     padding-top: 26px;
