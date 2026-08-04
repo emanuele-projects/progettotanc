@@ -386,7 +386,7 @@ export const services: Service[] = [
         title: 'La nostra rete',
         block: {
           paras: [
-            'Sette sedi tra Europa e Golfo — Torino, Milano, Roma, Cracovia, Montecarlo, Vilnius, Dubai — con ruoli distinti e un’unica regìa. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
+            'Sette sedi tra Europa e Golfo, da Torino a Dubai, con ruoli distinti e un’unica regìa. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
           ],
         },
       },

@@ -6,7 +6,7 @@
  * il rimando alla pagina). Su mobile: globo sopra, testo sotto.
  */
 import Globe from '../Globe.astro';
-import { locations, locationGroups, typeLabels } from '../../data/locations';
+import { featured, locationGroups, typeLabels } from '../../data/locations';
 import { url } from '../../lib/url';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 const { compact = false } = Astro.props;
 
-const markers = locations.map((l) => ({
+const markers = featured.map((l) => ({
   lat: l.lat,
   lng: l.lng,
   city: l.city,

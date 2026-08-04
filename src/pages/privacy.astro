@@ -1,0 +1,163 @@
+---
+/**
+ * Informativa privacy — BOZZA da validare legalmente.
+ * I dati mancanti sono in `legal` (src/data/site.ts) e compaiono in pagina
+ * evidenziati come «DA COMPLETARE»: vanno riempiti prima del go-live.
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site, legal } from '../data/site';
+import { locations } from '../data/locations';
+import { url } from '../lib/url';
+
+const todo = (v: string) => v.startsWith('DA COMPLETARE');
+---
+
+<LegalLayout
+  title="Informativa privacy"
+  description="Come Fulvio Rossi Plus tratta i dati personali di chi visita il sito e richiede un incontro: finalità, basi giuridiche, destinatari e diritti dell'interessato."
+  eyebrow="Privacy"
+  lead="Come trattiamo i dati personali di chi visita questo sito e ci scrive, ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679."
+>
+  <h2>1. Titolare del trattamento</h2>
+  <p>
+    Il titolare del trattamento è
+    {todo(legal.entity) ? <span class="todo">{legal.entity}</span> : <strong>{legal.entity}</strong>},
+    P.IVA {todo(legal.vat) ? <span class="todo">{legal.vat}</span> : legal.vat},
+    con sede legale in {todo(legal.registeredOffice) ? <span class="todo">{legal.registeredOffice}</span> : legal.registeredOffice}.
+  </p>
+  <p>
+    Per esercitare i propri diritti o per qualsiasi domanda su questa informativa
+    è possibile scrivere a
+    {todo(legal.privacyEmail) ? <span class="todo">{legal.privacyEmail}</span> : <a href={`mailto:${legal.privacyEmail}`}>{legal.privacyEmail}</a>}.
+  </p>
+  <p>
+    {legal.dpo
+      ? `Il Responsabile della protezione dei dati (DPO) è raggiungibile a ${legal.dpo}.`
+      : 'Il titolare non ha nominato un Responsabile della protezione dei dati, non ricorrendo i casi previsti dall’articolo 37 del Regolamento.'}
+  </p>
+
+  <h2>2. Quali dati raccogliamo</h2>
+  <h3>Dati che ci fornite voi</h3>
+  <p>
+    Attraverso il modulo della pagina Contatti e attraverso i recapiti pubblicati
+    raccogliamo nome e cognome, indirizzo email, nome dell'azienda e il contenuto
+    del messaggio. Sono gli unici dati che chiediamo: vi invitiamo a non inserire
+    nel messaggio informazioni riservate sull'impresa o categorie particolari di
+    dati personali (articolo 9 del Regolamento) prima di un primo confronto.
+  </p>
+  <h3>Dati raccolti automaticamente</h3>
+  <p>
+    Come ogni sito, durante la navigazione vengono trattati dati tecnici:
+    indirizzo IP, tipo di browser e dispositivo, sistema operativo, pagine
+    visitate, data e ora di accesso, sito di provenienza. Alcuni di questi dati
+    sono necessari al funzionamento del sito e alla sua sicurezza; altri sono
+    trattati a fini statistici tramite gli strumenti descritti nella
+    <a href={url('/cookie/')}>cookie policy</a>, e solo previo consenso.
+  </p>
+
+  <h2>3. Finalità e basi giuridiche</h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Finalità</th><th>Base giuridica</th><th>Conservazione</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rispondere alle richieste di contatto e valutare un possibile incarico</td>
+          <td>Misure precontrattuali su richiesta dell'interessato — art. 6.1.b</td>
+          <td><span class="todo">DA COMPLETARE</span> — indicativamente 24 mesi dall'ultimo contatto</td>
+        </tr>
+        <tr>
+          <td>Erogazione e sicurezza del sito, prevenzione degli abusi</td>
+          <td>Legittimo interesse del titolare — art. 6.1.f</td>
+          <td>Log tecnici: <span class="todo">DA COMPLETARE</span> (di norma 7–30 giorni)</td>
+        </tr>
+        <tr>
+          <td>Statistiche di utilizzo del sito</td>
+          <td>Consenso — art. 6.1.a, revocabile in ogni momento</td>
+          <td>Secondo le durate indicate nella cookie policy</td>
+        </tr>
+        <tr>
+          <td>Adempimento di obblighi di legge, difesa in giudizio</td>
+          <td>Obbligo legale e legittimo interesse — art. 6.1.c e 6.1.f</td>
+          <td>Nei termini di legge</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Il conferimento dei dati del modulo è facoltativo, ma senza di essi non
+    possiamo dare seguito alla richiesta. Non svolgiamo processi decisionali
+    automatizzati né profilazione ai sensi dell'articolo 22 del Regolamento.
+  </p>
+
+  <h2>4. A chi comunichiamo i dati</h2>
+  <p>
+    I dati sono trattati dal personale autorizzato del titolare e possono essere
+    comunicati a soggetti che agiscono come responsabili del trattamento
+    (articolo 28), nominati con apposito accordo:
+  </p>
+  <ul>
+    <li><strong>Fornitore di hosting e posta elettronica</strong> — <span class="todo">DA COMPLETARE: ragione sociale e sede</span></li>
+    <li><strong>Google Ireland Limited</strong> — statistiche di utilizzo, mappe e video incorporati, secondo quanto descritto nella cookie policy</li>
+    <li><strong>Professionisti e consulenti dello studio</strong>, nei limiti necessari alla valutazione e alla gestione dell'incarico</li>
+    <li><strong>Autorità competenti</strong>, quando previsto da un obbligo di legge</li>
+  </ul>
+  <p>
+    I dati non sono diffusi e non sono ceduti a terzi per finalità commerciali
+    proprie.
+  </p>
+
+  <h2>5. Trasferimenti fuori dallo Spazio economico europeo</h2>
+  <p>
+    Gli strumenti di Google possono comportare un trasferimento di dati verso gli
+    Stati Uniti. Il trasferimento avviene sulla base della decisione di adeguatezza
+    della Commissione europea del 10 luglio 2023 relativa al EU–US Data Privacy
+    Framework, cui Google LLC aderisce, e in subordine sulla base delle clausole
+    contrattuali tipo adottate dalla Commissione. Copia delle garanzie adottate può
+    essere richiesta ai recapiti indicati al punto 1.
+  </p>
+  <p>
+    Lo studio ha sedi anche fuori dall'Unione europea
+    ({locations.filter((l) => !['Italia', 'Polonia', 'Lituania'].includes(l.country)).map((l) => l.city).join(', ')}):
+    l'eventuale trasferimento di dati verso tali sedi avviene con le medesime
+    garanzie e solo se necessario alla gestione del rapporto.
+  </p>
+
+  <h2>6. I vostri diritti</h2>
+  <p>
+    In qualunque momento potete esercitare i diritti previsti dagli articoli da 15
+    a 22 del Regolamento:
+  </p>
+  <ul>
+    <li>accedere ai dati che vi riguardano e ottenerne copia</li>
+    <li>chiederne la rettifica o la cancellazione</li>
+    <li>chiedere la limitazione del trattamento</li>
+    <li>opporvi al trattamento fondato sul legittimo interesse</li>
+    <li>ricevere i dati in formato strutturato e trasmetterli a un altro titolare</li>
+    <li>revocare il consenso prestato, senza che ciò pregiudichi la liceità del trattamento svolto prima della revoca</li>
+  </ul>
+  <p>
+    Le richieste si inviano ai recapiti indicati al punto 1 e ricevono riscontro
+    entro un mese. Se ritenete che il trattamento violi il Regolamento potete
+    proporre reclamo al <strong>Garante per la protezione dei dati personali</strong>
+    (Piazza Venezia 11, 00187 Roma — <a href="https://www.garanteprivacy.it" rel="noopener">garanteprivacy.it</a>)
+    o all'autorità di controllo dello Stato in cui risiedete.
+  </p>
+
+  <h2>7. Cookie</h2>
+  <p>
+    L'uso di cookie e tecnologie analoghe è descritto nella
+    <a href={url('/cookie/')}>cookie policy</a>, che costituisce parte integrante
+    di questa informativa.
+  </p>
+
+  <h2>8. Modifiche</h2>
+  <p>
+    Questa informativa può essere aggiornata per adeguarla a modifiche normative o
+    ai servizi utilizzati sul sito. La versione vigente è sempre quella pubblicata
+    a questo indirizzo, con la data di ultimo aggiornamento riportata in fondo.
+    I recapiti generali dello studio sono in <a href={url('/contatti/')}>Contatti</a>;
+    l'indirizzo della sede direzionale è {site.address}.
+  </p>
+</LegalLayout>

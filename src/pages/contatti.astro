@@ -68,7 +68,14 @@ import { locations } from '../data/locations';
         </div>
         <div class="c-block">
           <h4>Le nostre sedi</h4>
-          <p>{locations.map((l) => l.city).join(' · ')}</p>
+          <ul class="c-addresses">
+            {locations.map((l) => (
+              <li>
+                <span class="c-city">{l.city}</span>
+                <span class="c-addr">{l.address}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </aside>
     </div>
@@ -116,6 +123,14 @@ import { locations } from '../data/locations';
     margin-bottom: 12px;
   }
   .c-block p { color: var(--ink-dim); font-size: 17.5px; line-height: 1.8; }
+  .c-addresses { list-style: none; }
+  .c-addresses li { margin-bottom: 14px; }
+  .c-city {
+    display: block;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2);
+  }
+  .c-addr { display: block; color: var(--ink-dim); font-size: 16.5px; line-height: 1.5; margin-top: 3px; }
   .c-block a:hover { color: var(--accent-text); }
 
   @media (max-width: 900px) {

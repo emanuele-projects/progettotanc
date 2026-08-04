@@ -10,6 +10,8 @@ export const typeLabels: Record<LocationType, string> = {
 export interface Location {
   city: string;
   country: string;
+  /** Indirizzo completo, per footer, contatti e dati strutturati */
+  address: string;
   type: LocationType;
   primary?: boolean;
   /** Coordinate geografiche reali (per il globo) */
@@ -17,24 +19,90 @@ export interface Location {
   lng: number;
   /** Riga breve per la scheda del pin sul globo */
   note?: string;
+  /**
+   * Sede da non mettere in evidenza: resta fra i recapiti della pagina
+   * Contatti — è un indirizzo reale — ma non compare fra i pin del globo,
+   * nelle schede di sezione né nell'elenco città del footer.
+   */
+  quiet?: boolean;
 }
 
 /**
- * Sette sedi, ordinate per tipologia. L'ordine guida anche il footer
- * (che le raggruppa a blocchi di città).
+ * Le sedi, con gli indirizzi forniti dal cliente. Montecarlo e Gibilterra
+ * sono marcate `quiet`: presenti nei recapiti, mai in evidenza.
  */
 export const locations: Location[] = [
-  // Direzionali — il cuore operativo e strategico
-  { city: 'Torino', country: 'Italia', type: 'direzionale', primary: true, lat: 45.07, lng: 7.69, note: 'Strategia & coordinamento' },
-  { city: 'Milano', country: 'Italia', type: 'direzionale', lat: 45.46, lng: 9.19, note: 'Finanza & capitali' },
+  // Direzionale — il cuore operativo e strategico
+  {
+    city: 'Torino',
+    country: 'Italia',
+    address: 'Via Garibaldi, 2 — Torino',
+    type: 'direzionale',
+    primary: true,
+    lat: 45.07,
+    lng: 7.69,
+    note: 'Strategia & coordinamento',
+  },
   // Legale — centro societario e amministrativo
-  { city: 'Cracovia', country: 'Polonia', type: 'legale', lat: 50.06, lng: 19.94, note: 'Centro societario & amministrativo' },
+  {
+    city: 'Cracovia',
+    country: 'Polonia',
+    address: 'ul. Podskale 1/14 — Cracovia',
+    type: 'legale',
+    lat: 50.06,
+    lng: 19.94,
+    note: 'Centro societario & amministrativo',
+  },
   // Rappresentanza — presìdi di relazione
-  { city: 'Roma', country: 'Italia', type: 'rappresentanza', lat: 41.9, lng: 12.5, note: 'Relazioni istituzionali' },
-  { city: 'Dubai', country: 'Emirati Arabi Uniti', type: 'rappresentanza', lat: 25.2, lng: 55.27, note: 'Capitali & mercati emergenti' },
-  { city: 'Montecarlo', country: 'Principato di Monaco', type: 'rappresentanza', lat: 43.74, lng: 7.42, note: 'Gestione patrimoniale' },
-  { city: 'Vilnius', country: 'Lituania', type: 'rappresentanza', lat: 54.69, lng: 25.28, note: 'Innovazione & nuovi mercati' },
+  {
+    city: 'Roma',
+    country: 'Italia',
+    address: 'Viale Marconi, 12 — Roma',
+    type: 'rappresentanza',
+    lat: 41.9,
+    lng: 12.5,
+    note: 'Relazioni istituzionali',
+  },
+  {
+    city: 'Dubai',
+    country: 'Emirati Arabi Uniti',
+    address: 'Jumeirah Lakes Towers (JLT) — Dubai',
+    type: 'rappresentanza',
+    lat: 25.2,
+    lng: 55.27,
+    note: 'Capitali & mercati emergenti',
+  },
+  {
+    city: 'Vilnius',
+    country: 'Lituania',
+    address: 'Gedimino prospektas 18, Città Vecchia — Vilnius',
+    type: 'rappresentanza',
+    lat: 54.69,
+    lng: 25.28,
+    note: 'Innovazione & nuovi mercati',
+  },
+  {
+    city: 'Montecarlo',
+    country: 'Principato di Monaco',
+    address: '21 Rue Colonel Bellando de Castro — Monaco',
+    type: 'rappresentanza',
+    lat: 43.74,
+    lng: 7.42,
+    quiet: true,
+  },
+  {
+    city: 'Gibilterra',
+    country: 'Gibilterra',
+    address: '9 Devils Tower Road, GX11 1AA — Gibilterra',
+    type: 'rappresentanza',
+    lat: 36.14,
+    lng: -5.35,
+    quiet: true,
+  },
 ];
+
+/** Le sedi da mettere in evidenza: globo, schede di sezione, elenco footer. */
+export const featured = locations.filter((l) => !l.quiet);
 
 export interface LocationGroup {
   type: LocationType;
@@ -48,23 +116,23 @@ export interface LocationGroup {
 /**
  * Le sedi divise per funzione: è questo il modo in cui vanno raccontate
  * in home e nella pagina Team & Sedi — descrizione generica per gruppo,
- * non scheda per scheda.
+ * non scheda per scheda. I gruppi mostrano solo le sedi in evidenza.
  */
 export const locationGroups: LocationGroup[] = [
   {
     type: 'direzionale',
     tag: 'Direzione',
-    title: 'Sedi direzionali',
+    title: 'Sede direzionale',
     description:
       'Il cuore strategico e operativo dello studio: qui nascono le operazioni e si coordina il lavoro dei team.',
-    cities: locations.filter((l) => l.type === 'direzionale'),
+    cities: featured.filter((l) => l.type === 'direzionale'),
   },
   {
     type: 'legale',
     tag: 'Amministrazione',
     title: 'Sede legale',
     description: 'Il centro societario e amministrativo del gruppo.',
-    cities: locations.filter((l) => l.type === 'legale'),
+    cities: featured.filter((l) => l.type === 'legale'),
   },
   {
     type: 'rappresentanza',
@@ -72,6 +140,6 @@ export const locationGroups: LocationGroup[] = [
     title: 'Sedi di rappresentanza',
     description:
       'Presìdi di relazione sui mercati che contano: capitali, istituzioni e nuove opportunità, vicino a chi decide.',
-    cities: locations.filter((l) => l.type === 'rappresentanza'),
+    cities: featured.filter((l) => l.type === 'rappresentanza'),
   },
 ];
