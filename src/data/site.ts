@@ -5,8 +5,8 @@ export const site = {
   description:
     'Advisor M&A e deep consulting dal 1989: operazioni straordinarie, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Sedi tra Europa e Golfo.',
   foundedYear: 1989,
-  // TODO-CONTENUTO: contatti reali
-  email: 'direzione@fulviorossiplus.it',
+  // TODO-CONTENUTO: telefono reale
+  email: 'info@fulviorossiplus.com',
   phone: '+39 011 000 0000',
   address: 'Via Garibaldi, 2 — Torino',
   piva: 'Ragione sociale · P.IVA da inserire',
@@ -50,7 +50,8 @@ export const legal = {
   /** Sede legale del titolare */
   registeredOffice: 'DA COMPLETARE — sede legale',
   /** Indirizzo a cui l'interessato esercita i propri diritti */
-  privacyEmail: 'DA COMPLETARE — email per le richieste privacy',
+  // Meglio un indirizzo dedicato (es. privacy@) quando sarà disponibile
+  privacyEmail: 'info@fulviorossiplus.com',
   pec: 'DA COMPLETARE — PEC',
   /** Responsabile della protezione dei dati, se nominato */
   dpo: null as string | null,

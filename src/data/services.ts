@@ -90,6 +90,7 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'ma-e-ricerca-di-capitali',
+    photo: '/images/sezioni/ma-e-ricerca-di-capitali.jpg',
     art: 'deal',
     num: '01',
     title: 'M&A e ricerca di capitali',
@@ -176,6 +177,7 @@ export const services: Service[] = [
   },
   {
     slug: 'finanza-e-ristrutturazione-del-debito',
+    photo: '/images/sezioni/finanza-e-ristrutturazione-del-debito.jpg',
     art: 'growth',
     num: '02',
     title: 'Finanza & ristrutturazione del debito',
@@ -259,6 +261,7 @@ export const services: Service[] = [
   },
   {
     slug: 'passaggio-generazionale',
+    photo: '/images/sezioni/passaggio-generazionale.jpg',
     art: 'succession',
     num: '03',
     title: 'Passaggio generazionale',
@@ -303,6 +306,7 @@ export const services: Service[] = [
   },
   {
     slug: 'protezione-del-patrimonio',
+    photo: '/images/sezioni/protezione-del-patrimonio.jpg',
     art: 'vault',
     num: '04',
     title: 'Protezione del patrimonio',
@@ -347,6 +351,7 @@ export const services: Service[] = [
   },
   {
     slug: 'internazionalizzazione',
+    photo: '/images/sezioni/internazionalizzazione.jpg',
     art: 'global',
     num: '05',
     title: 'Internazionalizzazione',
@@ -382,11 +387,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        eyebrow: 'Un solo interlocutore, sette sedi.',
+        eyebrow: 'Un solo interlocutore, otto sedi.',
         title: 'La nostra rete',
         block: {
           paras: [
-            'Sette sedi tra Europa e Golfo, da Torino a Dubai, con ruoli distinti e un’unica regìa. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
+            'Otto sedi tra Europa e Golfo, da Torino a Dubai, con ruoli distinti e un’unica regìa. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
           ],
         },
       },
@@ -419,6 +424,7 @@ export const services: Service[] = [
   },
   {
     slug: 'certificazioni-iso-e-made-in-italy',
+    photo: '/images/sezioni/certificazioni-iso-e-made-in-italy.jpg',
     art: 'quality',
     num: '06',
     // TODO-CONTENUTO: verificare con il cliente quali schemi vengono
@@ -466,6 +472,7 @@ export const services: Service[] = [
   },
   {
     slug: 'riorganizzazione-e-sviluppo',
+    photo: '/images/sezioni/riorganizzazione-e-sviluppo.jpg',
     art: 'boardroom',
     num: '07',
     title: 'Riorganizzazione e sviluppo',

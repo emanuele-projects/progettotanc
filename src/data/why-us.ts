@@ -18,7 +18,7 @@ export const whyUs: WhyPoint[] = [
   },
   {
     title: 'Rete tra Europa e Golfo',
-    text: 'Sette sedi nei centri finanziari che contano: accesso diretto a capitali, partner e mercati, senza intermediari.',
+    text: 'Otto sedi nei centri finanziari che contano: accesso diretto a capitali, partner e mercati, senza intermediari.',
   },
 ];
 
