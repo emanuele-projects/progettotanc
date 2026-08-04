@@ -3,7 +3,7 @@ export const site = {
   brandSub: 'M&A · Deep Consulting',
   title: 'Fulvio Rossi Plus — Advisor M&A e Deep Consulting',
   description:
-    'Advisor M&A e deep consulting dal 1989: operazioni straordinarie, finanza d’impresa, passaggio generazionale e protezione del patrimonio. Sette sedi tra Europa e Golfo.',
+    'Advisor M&A e deep consulting dal 1989: operazioni straordinarie, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Sedi tra Europa e Golfo.',
   foundedYear: 1989,
   // TODO-CONTENUTO: contatti reali
   email: 'direzione@fulviorossiplus.it',

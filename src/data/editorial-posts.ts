@@ -40,7 +40,7 @@ export const editorialPosts: Post[] = [
       `<p><a href="${url('/servizi/internazionalizzazione/')}">Scopri il servizio Internazionalizzazione →</a></p>`,
     ].join(''),
     metaDescription:
-      'Iscrizione all’estero e residenza fiscale non coincidono. Cosa rende davvero difendibile una sede estera: sostanza operativa, decisioni sul posto, documentazione.',
+      'Iscrizione all’estero e residenza fiscale non coincidono. Cosa rende difendibile una sede estera: sostanza operativa, decisioni sul posto, documentazione.',
     date: new Date('2026-08-04'),
     author: 'Redazione',
     featuredImage: {

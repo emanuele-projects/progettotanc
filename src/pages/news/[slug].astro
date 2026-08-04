@@ -17,11 +17,16 @@ interface Props {
 }
 const { post } = Astro.props;
 const dateLabel = `${formatDate(post.date)}${post.author ? ` · ${post.author}` : ''}`;
+
+// Il titolo di un articolo è già lungo: aggiungiamo il brand solo se il tag
+// <title> resta entro i ~60 caratteri utili in SERP.
+const withBrand = `${post.title} — Fulvio Rossi Plus`;
+const pageTitle = withBrand.length <= 60 ? withBrand : post.title;
 ---
 
 <BaseLayout
   theme="light"
-  title={`${post.title} — Fulvio Rossi Plus`}
+  title={pageTitle}
   description={post.metaDescription ?? post.excerpt}
   ogImage={post.featuredImage?.url}
 >

@@ -96,7 +96,7 @@ export const services: Service[] = [
       'Apriamo le porte ai capitali giusti: nuovi soci, fondi, family office. Vi accompagniamo dalla scelta del partner alla firma, con il valore dell’azienda sempre al centro.',
     lead: 'Cessioni, acquisizioni, aperture di capitale: operazioni che si fanno una volta sola e vanno fatte bene.',
     metaDescription:
-      'Cessioni, acquisizioni e apertura del capitale: valutazione, preparazione dell’azienda, ricerca del partner e negoziazione fino al closing. Una rete di investitori tra Europa e Golfo.',
+      'Cessioni, acquisizioni e apertura del capitale: valutazione, preparazione dell’azienda, ricerca del partner e negoziazione fino al closing.',
     intro: [
       'Vendere l’azienda, comprarne una, far entrare un socio: sono decisioni che cambiano la vita di un imprenditore e il perimetro di una famiglia. Si preparano per mesi, si giocano in poche settimane, e il margine per rimediare a un errore è quasi nullo.',
       'Noi entriamo prima che il tavolo si apra. Perché il valore di un’impresa non si negozia: si costruisce nei mesi che precedono la trattativa.',
@@ -183,7 +183,7 @@ export const services: Service[] = [
       'Rimettiamo in equilibrio i conti: analisi di margini e flussi, riequilibrio del debito, trattativa con le banche. Tornano ossigeno alla gestione e margine per crescere.',
     lead: 'Rimettere in equilibrio i conti prima che siano i conti a decidere per voi.',
     metaDescription:
-      'Analisi di margini e flussi, piano economico-finanziario, riscadenzamento del debito e strumenti del Codice della crisi: composizione negoziata, piano attestato, riequilibrio fiscale.',
+      'Margini e flussi, piano economico-finanziario, riscadenzamento del debito e strumenti del Codice della crisi: dalla diagnosi precoce al piano attestato.',
     intro: [
       'Un’azienda può avere ordini, clienti e un buon prodotto, e nonostante questo passare le giornate a inseguire scadenze. Quando la tensione finanziaria entra in azienda smette di essere un problema di numeri e diventa un problema di lucidità: si decide di fretta, si decide peggio.',
       'Il nostro lavoro è restituirvi ossigeno e tempo. In quest’ordine.',
@@ -267,7 +267,7 @@ export const services: Service[] = [
       'Trasferiamo la guida custodendo il valore. Accompagniamo fondatore e successori e teniamo saldi competenze, patrimonio e i rapporti che fanno l’azienda.',
     lead: 'Trasferire la guida senza disperdere ciò che l’ha resa possibile.',
     metaDescription:
-      'Governance familiare, assetto societario, patti di famiglia e accompagnamento dei successori. Trasferiamo la guida dell’impresa custodendo competenze, patrimonio e relazioni.',
+      'Governance familiare, assetto societario, patti di famiglia e successori preparati: trasferiamo la guida custodendo competenze, patrimonio e relazioni.',
     intro: [
       'Nelle imprese familiari il passaggio generazionale è la scadenza che tutti vedono arrivare e nessuno fissa in agenda. Si rimanda perché è delicato, perché tocca gli affetti prima dei bilanci, perché parlarne sembra ammettere qualcosa.',
       'Poi arriva comunque. E se arriva senza regole scritte, decidono le circostanze.',
@@ -312,7 +312,7 @@ export const services: Service[] = [
       'Mettiamo al sicuro ciò che avete costruito: un confine chiaro tra rischio d’impresa e beni personali, governance della ricchezza, valore che attraversa le generazioni.',
     lead: 'Un confine chiaro tra il rischio d’impresa e ciò che avete costruito.',
     metaDescription:
-      'Separazione tra rischio d’impresa e patrimonio familiare: holding, veicoli dedicati, strumenti di segregazione e governance della ricchezza. Soluzioni lecite e difendibili.',
+      'Separazione tra rischio d’impresa e patrimonio familiare: holding, veicoli dedicati, segregazione e governance della ricchezza. Soluzioni lecite e difendibili.',
     intro: [
       'Chi fa impresa accetta il rischio: fa parte del mestiere. Il problema nasce quando quel rischio non ha confini, e un contenzioso, una garanzia firmata anni prima o un evento imprevisto arrivano a toccare la casa di famiglia e i risparmi di trent’anni.',
       'Proteggere il patrimonio non significa sottrarsi alle proprie responsabilità. Significa decidere in anticipo, e alla luce del sole, quali beni rispondono dell’attività e quali no.',
@@ -357,7 +357,7 @@ export const services: Service[] = [
       'Portiamo l’impresa dove cresce il mercato: nuove sedi, nuovi paesi, una rete locale già attiva nei principali hub d’Europa e del Golfo.',
     lead: 'Portare l’impresa dove cresce il mercato, con qualcuno che è già lì.',
     metaDescription:
-      'Apertura e trasferimento di sedi estere: scelta del paese, costituzione societaria, rapporti bancari e atterraggio operativo. Una rete attiva tra Europa e Golfo.',
+      'Apertura e trasferimento di sedi estere: scelta del paese, costituzione societaria, rapporti bancari e atterraggio operativo. Una rete tra Europa e Golfo.',
     intro: [
       'Aprire all’estero è una delle decisioni più costose che un’impresa possa prendere male. Il paese scelto per sentito dire, la società costituita in fretta, il conto corrente che non si riesce ad aprire, i primi sei mesi passati a capire come funziona invece che a vendere.',
       'Noi partiamo dalla domanda giusta: non “dove conviene aprire”, ma “cosa dovete andare a fare”. Il resto è conseguenza.',
@@ -433,7 +433,7 @@ export const services: Service[] = [
       'Trasformiamo la qualità in vantaggio commerciale. Vi guidiamo alle certificazioni internazionali con enti accreditati, per vincere gare, filiere e nuovi mercati.',
     lead: 'Trasformare la qualità che già avete in un vantaggio che si vede.',
     metaDescription:
-      'Certificazioni ISO e valorizzazione dell’origine italiana: analisi degli scostamenti, sistema di gestione, audit con enti accreditati e uso commerciale della certificazione.',
+      'Certificazioni ISO e valorizzazione dell’origine italiana: analisi degli scostamenti, sistema di gestione, audit con enti accreditati e uso commerciale.',
     intro: [
       'Molte imprese lavorano bene da vent’anni e non hanno un solo documento che lo dimostri. Finché il cliente è quello di sempre, non è un problema. Lo diventa il giorno in cui una gara vi esclude, un capofila di filiera chiede il certificato, un buyer estero mette la conformità come condizione d’ingresso.',
       'La certificazione non serve a diventare migliori. Serve a rendere dimostrabile e ripetibile quello che già sapete fare.',
