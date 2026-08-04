@@ -7,6 +7,12 @@ import { badges } from '../../data/why-us';
   <div class="wrap">
     <div class="badges-head em-gold" data-reveal>
       <span class="eyebrow">Certificazioni &amp; riconoscimenti</span>
+      <h2>La qualità, <em>documentata</em></h2>
+      <p>
+        Gli ambiti in cui accompagniamo le imprese alla certificazione, con enti
+        accreditati e indipendenti. Perché un requisito d'accesso, quando è
+        documentato, diventa un argomento di vendita.
+      </p>
     </div>
     <div data-reveal>
       <Carousel
@@ -36,7 +42,16 @@ import { badges } from '../../data/why-us';
     border-bottom: 1px solid var(--hair-faint);
   }
   .badges-head { text-align: center; margin-bottom: 40px; }
-  .badges-head .eyebrow { justify-content: center; }
+  .badges-head :global(.eyebrow) { justify-content: center; }
+  .badges-head h2 {
+    font-family: var(--disp); font-size: clamp(26px, 3.2vw, 38px);
+    color: var(--ink); line-height: 1.15; margin-top: 14px;
+  }
+  .badges-head h2 :global(em) { font-style: normal; color: var(--accent-text); }
+  .badges-head p {
+    max-width: 620px; margin: 16px auto 0;
+    font-size: 17px; line-height: 1.7; color: var(--muted);
+  }
   .badge {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
     padding: 30px 24px;

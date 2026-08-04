@@ -25,7 +25,21 @@ npm run check     # type-check dei componenti Astro
 
 ## Immagini
 
-I segnaposto sono il componente `Placeholder.astro`. Quando arrivano le foto reali: metterle in `src/assets/` e usare `<Image>` di `astro:assets` (ridimensiona in build) — mai file pesanti in `public/`.
+I segnaposto sono le scene SVG di `BrandArt.astro`. Quando arrivano le foto definitive: metterle in `src/assets/` e usare `<Image>` di `astro:assets` (ridimensiona in build) — mai file pesanti in `public/`.
+
+### Ritratti del team
+
+I tre ritratti sono già referenziati in `src/data/team.ts` e vanno depositati in `public/images/team/` con questi nomi esatti:
+
+| File | Persona |
+| --- | --- |
+| `fulvio-rossi.jpg` | Fulvio Rossi — Presidente & Co-fondatore |
+| `carolina-rossi.jpg` | Carolina Rossi — Amministratore Delegato |
+| `gerard-haoun.jpg` | Gerard Haoun — Vice Presidente & Co-fondatore |
+
+Formato 4/5, lato lungo 1200px (le schede usano un ritaglio 4/5, la citazione in home un tondo da 72px). Se un file manca, `src/lib/assets.ts` lo rileva in fase di build e il componente ricade sul monogramma BrandArt: nessuna immagine rotta, e alla prima build utile il ritratto compare senza toccare il codice.
+
+> **I tre ritratti attualmente in repo sono immagini generate con AI, non fotografie.** Sono state ritagliate a inquadratura ravvicinata (esclude piano di lavoro e contrassegno del generatore). Vanno sostituite con ritratti reali prima del go-live: sono presentate come foto di persone reali con nome e ruolo.
 
 ## Blog WordPress headless — come attivarlo
 
@@ -49,5 +63,7 @@ I segnaposto sono il componente `Placeholder.astro`. Quando arrivano le foto rea
 ### Aperto dal documento copy (v2)
 
 - [ ] **Servizio 07** — confermare se pubblicare immagine e branding nella pagina Riorganizzazione e sviluppo (oggi esclusi) e come trattare la settima voce: con sette servizi la griglia di `/servizi` passa da 3×2 a 3+3+1. O si arriva a otto voci, o la settima va trattata con un blocco a sé, come la Mentoria.
-- [ ] **Certificazioni (06)** — verificare quali schemi sono effettivamente presidiati. Il copy della pagina li cita per ambito e non per sigla; i badge di `src/data/why-us.ts` invece elencano ancora ISO 9001/14001/45001 per sigla.
-- [ ] **Meta description** — quelle fornite dal documento superano i ~160 caratteri su cinque pagine servizio (vedi nota nel documento stesso): decidere se accorciarle o tenerle come sono.
+- [ ] **Certificazioni (06)** — verificare quali schemi sono effettivamente presidiati. In attesa, sia il copy della pagina sia i badge di `src/data/why-us.ts` li indicano per ambito e non per sigla; a verifica fatta si possono riportare sigle e loghi degli enti accreditati.
+- [ ] **Ritratti del team** — sostituire le immagini AI in `public/images/team/` con fotografie reali (vedi sopra).
+- [ ] **Riga di ruolo di Gerard Haoun** in `src/data/team.ts` — da confermare con l'interessato.
+- [x] **Meta description** — le meta fornite dal documento superavano i ~160 caratteri su cinque pagine servizio: accorciate mantenendo il senso, stessa passata su home e Team & Sedi.

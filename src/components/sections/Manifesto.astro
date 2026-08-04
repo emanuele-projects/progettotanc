@@ -1,21 +1,41 @@
 ---
 import { url } from '../../lib/url';
+import { hasPublicAsset } from '../../lib/assets';
 
 interface Props {
   eyebrow: string;
   sign?: string;
+  /** Ritratto di chi firma: sostituisce il filetto oro accanto alla firma */
+  signPhoto?: string;
   id?: string;
   ctaLabel?: string;
   ctaHref?: string;
 }
-const { eyebrow, sign, id = 'chi-siamo', ctaLabel, ctaHref } = Astro.props;
+const { eyebrow, sign, signPhoto, id = 'chi-siamo', ctaLabel, ctaHref } = Astro.props;
+
+// finché il ritratto non è stato depositato in public/ resta il filetto oro
+const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
 ---
 
 <section class="manifesto" id={id}>
   <div class="wrap em-gold">
     <span class="eyebrow" data-reveal>{eyebrow}</span>
     <p class="big" data-reveal><slot /></p>
-    {sign && <div class="sign" data-reveal>{sign}</div>}
+    {sign && (
+      <div class:list={['sign', { 'has-photo': portrait }]} data-reveal>
+        {portrait && (
+          <img
+            class="sign-photo"
+            src={url(portrait)}
+            alt={`Ritratto di ${sign.split('—')[0].trim()}`}
+            width="72"
+            height="72"
+            loading="lazy"
+          />
+        )}
+        <span>{sign}</span>
+      </div>
+    )}
     {ctaLabel && ctaHref && (
       <div class="manifesto-cta" data-reveal>
         <a href={url(ctaHref)} class="btn">{ctaLabel}</a>
@@ -46,5 +66,15 @@ const { eyebrow, sign, id = 'chi-siamo', ctaLabel, ctaHref } = Astro.props;
     display: flex; align-items: center; gap: 16px;
   }
   .sign::before { content: ""; width: 42px; height: 1px; background: var(--accent); }
+  /* con il ritratto il filetto oro diventa l'anello attorno alla foto */
+  .sign.has-photo::before { display: none; }
+  .sign-photo {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    border: 1px solid var(--accent);
+    padding: 3px;
+    background: var(--panel);
+  }
   .manifesto-cta { margin-top: 36px; }
 </style>
