@@ -1,9 +1,16 @@
 ---
+/**
+ * Pagina di dettaglio del servizio. L'ordine dei blocchi ricalca il documento
+ * copy: apertura → punto di partenza → come lavoriamo → sezioni aggiuntive →
+ * FAQ → cosa resta in mano vostra → quando ha senso parlarne → chiusura.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import StockImage from '../../components/StockImage.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
+import ServiceBlock from '../../components/sections/ServiceBlock.astro';
 import { services, type Service } from '../../data/services';
+import { serviceCallout, serviceClosing, microCopy } from '../../data/shared-copy';
 import { url } from '../../lib/url';
 
 export function getStaticPaths() {
@@ -23,23 +30,121 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 <BaseLayout
   theme="light"
   title={`${service.plainTitle} — Fulvio Rossi Plus`}
-  description={service.excerpt}
+  description={service.metaDescription}
 >
   <PageHero eyebrow={`Servizi · ${service.num}`} lead={service.lead} photo={service.photo}>
     <Fragment set:html={service.title} />
   </PageHero>
 
-  <section class="svc-body">
+  <!-- APERTURA + PUNTO DI PARTENZA -->
+  <section class="svc-open">
     <div class="wrap svc-cols">
-      <div class="svc-text" data-reveal>
-        {service.body.map((par) => <p>{par}</p>)}
-        <p class="todo-note">Contenuto in sviluppo — questa pagina verrà approfondita con casi, numeri e riferimenti.</p>
+      <div class="svc-text">
+        <div class="svc-intro" data-reveal>
+          {service.intro.map((par) => <p class="lead-par">{par}</p>)}
+        </div>
+
+        <div class="svc-start em-gold" data-reveal>
+          <span class="eyebrow">{microCopy.diagnosi}</span>
+          <h2>Il punto di partenza</h2>
+          <p>{service.startingPoint}</p>
+        </div>
       </div>
+
       <aside class="svc-side" data-reveal>
         <StockImage src={service.photo} alt={service.plainTitle} ratio="4 / 5" />
+        <div class="svc-callout">
+          <span class="eyebrow">{serviceCallout.eyebrow}</span>
+          <p>{serviceCallout.text}</p>
+        </div>
       </aside>
     </div>
   </section>
+
+  <!-- COME LAVORIAMO -->
+  <section class="svc-how">
+    <div class="wrap">
+      <h2 data-reveal>Come lavoriamo</h2>
+      <ol class="steps">
+        {service.steps.map((step, i) => (
+          <li class="step" data-reveal>
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <div class="step-body">
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+              {step.insert && (
+                <div class="panel">
+                  <ServiceBlock block={step.insert} />
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- SEZIONI AGGIUNTIVE -->
+  {service.sections?.map((sec) => (
+    <section class="svc-section">
+      <div class="wrap em-gold">
+        <div class="sec-inner" data-reveal>
+          {sec.eyebrow && <span class="eyebrow">{sec.eyebrow}</span>}
+          <h2>{sec.title}</h2>
+          <ServiceBlock block={sec.block} />
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- FAQ -->
+  {service.faq && (
+    <section class="svc-faq">
+      <div class="wrap em-gold">
+        <div class="faq-inner" data-reveal>
+          {service.faq.eyebrow && <span class="eyebrow">{service.faq.eyebrow}</span>}
+          <h2>{service.faq.title}</h2>
+          <dl>
+            {service.faq.items.map((item) => (
+              <div class="qa">
+                <dt>{item.q}</dt>
+                <dd>{item.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- COSA RESTA IN MANO VOSTRA + QUANDO HA SENSO PARLARNE -->
+  <section class="svc-close">
+    <div class="wrap svc-close-cols">
+      <div class="outcomes em-gold" data-reveal>
+        <h2>Cosa resta in mano vostra</h2>
+        <ul>
+          {service.outcomes.map((o) => <li>{o}</li>)}
+        </ul>
+      </div>
+      <div class="when em-gold" data-reveal>
+        <h2>Quando ha senso parlarne</h2>
+        <p>{service.whenToTalk}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHIUSURA DI PAGINA -->
+  {service.closing && (
+    <section class="svc-closing">
+      <div class="wrap em-gold">
+        <div class="panel closing-inner" data-reveal>
+          {service.closing.eyebrow && <span class="eyebrow">{service.closing.eyebrow}</span>}
+          <h2>{service.closing.title}</h2>
+          <ServiceBlock block={service.closing.block} />
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="related">
     <div class="wrap">
@@ -56,23 +161,127 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
     </div>
   </section>
 
-  <CtaBand
-    lead="Un confronto riservato per capire se e come possiamo esservi utili. Il primo passo è una conversazione."
-  >
+  <CtaBand eyebrow={microCopy.momento} lead={serviceClosing.a}>
     <Fragment slot="title">Parliamone<br /><em>di persona.</em></Fragment>
   </CtaBand>
 </BaseLayout>
 
 <style>
-  .svc-body { padding: 80px 0; }
+  /* --- Apertura: testo + colonna laterale --- */
+  .svc-open { padding: 80px 0 20px; }
   .svc-cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 70px; align-items: start; }
-  .svc-text p { font-size: 20px; line-height: 1.7; color: var(--ink-dim); margin-bottom: 24px; max-width: 640px; }
-  .todo-note {
-    font-family: var(--sans); font-size: 12px !important; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2) !important;
-    border-top: 1px solid var(--hair-faint); padding-top: 20px; margin-top: 38px;
+  .svc-text { max-width: 680px; }
+  .lead-par {
+    font-size: clamp(19px, 2vw, 23px); line-height: 1.65;
+    color: var(--ink-dim); margin-bottom: 24px;
   }
 
+  .svc-start { margin-top: 54px; padding-top: 42px; border-top: 1px solid var(--hair-faint); }
+  .svc-start h2 {
+    font-family: var(--disp); font-size: clamp(26px, 3.2vw, 36px);
+    color: var(--ink); margin-top: 14px; line-height: 1.15;
+  }
+  .svc-start p { font-size: 18px; line-height: 1.75; color: var(--muted); margin-top: 18px; }
+
+  .svc-side { position: sticky; top: 110px; }
+  .svc-callout {
+    margin-top: 26px; padding: 24px 26px 26px;
+    background: var(--panel-2);
+    border: 1px solid var(--hair-faint);
+    border-left: 2px solid var(--accent);
+    border-radius: var(--radius-card);
+  }
+  .svc-callout p {
+    font-family: var(--disp); font-size: 18px; line-height: 1.5;
+    color: var(--ink); margin-top: 12px;
+  }
+
+  /* --- Come lavoriamo --- */
+  .svc-how { padding: 70px 0 80px; }
+  .svc-how > .wrap > h2 {
+    font-family: var(--disp); font-size: clamp(28px, 3.6vw, 42px);
+    color: var(--ink); line-height: 1.12;
+  }
+  .steps { list-style: none; margin-top: 40px; max-width: 820px; }
+  .step {
+    display: grid; grid-template-columns: 68px 1fr; gap: 8px;
+    padding: 30px 0;
+    border-top: 1px solid var(--hair-faint);
+  }
+  .step-num {
+    font-family: var(--sans); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.16em; color: var(--accent-text); padding-top: 6px;
+  }
+  .step-body h3 { font-size: 23px; line-height: 1.25; color: var(--ink); }
+  .step-body > p { font-size: 17.5px; line-height: 1.75; color: var(--muted); margin-top: 12px; }
+
+  /* Blocco di approfondimento in evidenza (fondo chiaro + filetto dorato) */
+  .panel {
+    margin-top: 26px; padding: 28px 30px 30px;
+    background: var(--panel-2);
+    border: 1px solid var(--hair-faint);
+    border-left: 2px solid var(--accent);
+    border-radius: var(--radius-card);
+  }
+
+  /* --- Sezioni aggiuntive --- */
+  .svc-section {
+    padding: 74px 0;
+    background: var(--bg-2);
+    border-top: 1px solid var(--hair-faint);
+    border-bottom: 1px solid var(--hair-faint);
+  }
+  .sec-inner { max-width: 760px; }
+  .svc-section h2 {
+    font-family: var(--disp); font-size: clamp(27px, 3.4vw, 40px);
+    color: var(--ink); margin-top: 14px; line-height: 1.15;
+  }
+
+  /* --- FAQ --- */
+  .svc-faq { padding: 80px 0; }
+  .faq-inner { max-width: 800px; }
+  .svc-faq h2 {
+    font-family: var(--disp); font-size: clamp(27px, 3.4vw, 40px);
+    color: var(--ink); margin-top: 14px; line-height: 1.15;
+  }
+  .svc-faq dl { margin-top: 34px; border-top: 1px solid var(--hair-faint); }
+  .qa { padding: 26px 0; border-bottom: 1px solid var(--hair-faint); }
+  .qa dt { font-family: var(--disp); font-size: 20px; font-weight: 700; color: var(--ink); }
+  .qa dd { font-size: 17.5px; line-height: 1.75; color: var(--muted); margin-top: 12px; }
+
+  /* --- Cosa resta / Quando ha senso --- */
+  .svc-close {
+    padding: 74px 0;
+    background: var(--panel-2);
+    border-top: 1px solid var(--hair-faint);
+  }
+  .svc-close-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .svc-close h2 {
+    font-family: var(--disp); font-size: clamp(24px, 2.8vw, 32px);
+    color: var(--ink); line-height: 1.15;
+  }
+  .outcomes ul { list-style: none; margin-top: 22px; }
+  .outcomes li {
+    position: relative; padding-left: 26px;
+    font-size: 17.5px; line-height: 1.6; color: var(--ink-dim);
+    padding-bottom: 14px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--hair-faint);
+  }
+  .outcomes li:last-child { border-bottom: none; }
+  .outcomes li::before {
+    content: "—"; position: absolute; left: 0; color: var(--accent-text);
+  }
+  .when p { font-size: 17.5px; line-height: 1.8; color: var(--muted); margin-top: 22px; }
+
+  /* --- Chiusura di pagina --- */
+  .svc-closing { padding: 80px 0 20px; }
+  .closing-inner { max-width: 800px; margin: 0 auto; }
+  .svc-closing h2 {
+    font-family: var(--disp); font-size: clamp(26px, 3.2vw, 36px);
+    color: var(--ink); line-height: 1.15; margin-bottom: 6px;
+  }
+
+  /* --- Altri servizi --- */
   .related { padding: 80px 0; background: var(--bg-2); border-top: 1px solid var(--hair-faint); }
   .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 36px; }
   .rel-card {
@@ -98,6 +307,11 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   @media (max-width: 900px) {
     .svc-cols { grid-template-columns: 1fr; gap: 44px; }
+    .svc-side { position: static; }
+    .svc-close-cols { grid-template-columns: 1fr; gap: 44px; }
+    .step { grid-template-columns: 1fr; gap: 0; }
+    .step-num { padding-top: 0; margin-bottom: 8px; }
+    .panel { padding: 24px 22px 26px; }
     .rel-grid { grid-template-columns: 1fr; }
   }
 </style>

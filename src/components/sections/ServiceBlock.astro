@@ -1,0 +1,77 @@
+---
+/**
+ * Rende un blocco di corpo delle pagine servizio: paragrafi, elenco
+ * (con voce in grassetto opzionale), paragrafi di chiusura e callout.
+ * Usato sia dentro i riquadri in evidenza sia nelle sezioni a piena riga.
+ */
+import type { Block } from '../../data/services';
+
+interface Props {
+  block: Block;
+}
+const { block } = Astro.props;
+
+/**
+ * Nel documento copy il grassetto di apertura riga è seguito da una virgola
+ * («Il business plan, costruito perché…») oppure contiene già il punto
+ * («Diagnosi precoce. Verifichiamo…»): il separatore segue quel segno.
+ */
+const sep = (lead: string) => (/[.:!?]$/.test(lead) ? ' ' : ', ');
+---
+
+<div class="sb">
+  {block.paras?.map((p) => <p>{p}</p>)}
+
+  {block.listTitle && <h3>{block.listTitle}</h3>}
+
+  {block.list && (
+    <ul>
+      {block.list.map((item) => (
+        <li>
+          {item.lead ? (
+            <><strong>{item.lead}</strong>{sep(item.lead)}{item.text}</>
+          ) : (
+            item.text
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {block.outro?.map((p) => <p>{p}</p>)}
+
+  {block.callout && <p class="sb-callout">{block.callout}</p>}
+</div>
+
+<style>
+  .sb > p {
+    font-size: 17.5px; line-height: 1.75; color: var(--muted);
+    margin-top: 16px;
+  }
+  .sb > p:first-child { margin-top: 0; }
+
+  .sb h3 {
+    font-family: var(--disp); font-size: 20px; color: var(--ink);
+    margin-top: 26px;
+  }
+
+  .sb ul { list-style: none; margin-top: 16px; }
+  .sb li {
+    position: relative; padding-left: 26px;
+    font-size: 17px; line-height: 1.7; color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .sb li::before {
+    content: "—"; position: absolute; left: 0; color: var(--accent-text);
+  }
+  .sb strong { color: var(--ink); font-weight: 700; }
+
+  .sb-callout {
+    font-family: var(--disp); font-style: italic;
+    font-size: 19px !important; line-height: 1.55;
+    color: var(--ink) !important;
+    margin-top: 26px !important;
+    padding-top: 22px;
+    border-top: 1px solid var(--hair-faint);
+  }
+</style>

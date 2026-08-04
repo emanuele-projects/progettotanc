@@ -5,6 +5,7 @@ import StockImage from '../../components/StockImage.astro';
 import Method from '../../components/sections/Method.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import { services } from '../../data/services';
+import { serviceClosing, microCopy } from '../../data/shared-copy';
 import { url } from '../../lib/url';
 
 const pillars = [
@@ -29,12 +30,12 @@ const pillars = [
 <BaseLayout
   theme="light"
   title="Servizi — Fulvio Rossi Plus"
-  description="Le sei aree di intervento dello studio: M&A, finanza e ristrutturazione del debito, passaggio generazionale, protezione del patrimonio, internazionalizzazione, certificazioni."
+  description="Le sette aree di intervento dello studio: M&A, finanza e debito, passaggio generazionale, patrimonio, internazionalizzazione, certificazioni, riorganizzazione."
 >
   <PageHero
     eyebrow="Aree di intervento"
     photo="/images/stock/skyline.jpg"
-    lead="Sei aree, un'unica regìa: partiamo da una diagnosi onesta e arriviamo a risultati che si misurano."
+    lead="Sette aree, un'unica regìa: partiamo da una diagnosi onesta e arriviamo a risultati che si misurano."
   >
     I nostri <em>servizi</em>
   </PageHero>
@@ -67,9 +68,7 @@ const pillars = [
     <Fragment slot="title">Deep Consulting</Fragment>
   </Method>
 
-  <CtaBand
-    lead="Un confronto riservato, senza impegno: mettiamo a fuoco insieme il valore da liberare e le mosse da fare."
-  >
+  <CtaBand eyebrow={microCopy.momento} lead={serviceClosing.b}>
     <Fragment slot="title">Pronti a incontrare<br />i vostri <em>advisor?</em></Fragment>
   </CtaBand>
 </BaseLayout>

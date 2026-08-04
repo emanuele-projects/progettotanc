@@ -6,6 +6,10 @@
  *                             se la API risponde con errore la build FALLISCE
  *                             (mai pubblicare silenziosamente un sito stale).
  *
+ * In entrambi i casi agli articoli si aggiungono i redazionali definitivi di
+ * src/data/editorial-posts.ts: restano pubblicati anche a WordPress collegato,
+ * salvo che la redazione pubblichi un articolo con lo stesso slug.
+ *
  * Esempio: WP_API_URL=https://www.fulviorossiplus.it/wp/wp-json/wp/v2
  */
 
@@ -17,6 +21,8 @@ export interface Post {
   date: Date;
   author: string | null;
   featuredImage: { url: string; alt: string } | null;
+  /** Meta description dedicata; se assente si usa l'excerpt. */
+  metaDescription?: string;
 }
 
 const API = (import.meta.env.WP_API_URL ?? '').replace(/\/$/, '');
@@ -32,9 +38,11 @@ export async function getPost(slug: string): Promise<Post | undefined> {
 }
 
 async function load(): Promise<Post[]> {
+  const { editorialPosts } = await import('../data/editorial-posts');
+
   if (!API) {
     const { mockPosts } = await import('../data/mock-posts');
-    return [...mockPosts].sort((a, b) => b.date.getTime() - a.date.getTime());
+    return byDate([...editorialPosts, ...mockPosts]);
   }
 
   const posts: Post[] = [];
@@ -53,7 +61,13 @@ async function load(): Promise<Post[]> {
     page++;
   } while (page <= totalPages);
 
-  return posts.sort((a, b) => b.date.getTime() - a.date.getTime());
+  // Se la redazione ripubblica un redazionale, la versione WordPress vince.
+  const fromWp = new Set(posts.map((p) => p.slug));
+  return byDate([...posts, ...editorialPosts.filter((p) => !fromWp.has(p.slug))]);
+}
+
+function byDate(posts: Post[]): Post[] {
+  return [...posts].sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 /* --- Mapping dalla shape REST di WordPress --- */
