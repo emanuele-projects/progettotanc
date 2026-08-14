@@ -27,6 +27,15 @@ interface Props {
   video?: string;
   /** object-position del video (default 'center') */
   videoPosition?: string;
+  /** Punto da tenere in inquadratura per la foto di sfondo */
+  focus?: string;
+  /**
+   * Ritratto affiancato al testo, invece che sfondo a tutta larghezza:
+   * il testo resta a sinistra e la foto occupa la colonna di destra.
+   */
+  sidePhoto?: string;
+  sidePhotoAlt?: string;
+  sidePhotoFocus?: string;
 }
 const {
   eyebrow,
@@ -37,6 +46,10 @@ const {
   art,
   video,
   videoPosition = 'center',
+  focus = '50% 50%',
+  sidePhoto,
+  sidePhotoAlt = '',
+  sidePhotoFocus = '50% 50%',
 } = Astro.props;
 ---
 
@@ -56,7 +69,11 @@ const {
   )}
 
   {!video && photo && (
-    <div class="hero-photo" style={`background-image:url('${url(photo)}')`} aria-hidden="true"></div>
+    <div
+      class="hero-photo"
+      style={`background-image:url('${url(photo)}');background-position:${focus}`}
+      aria-hidden="true"
+    ></div>
   )}
 
   {!video && !photo && art && (
@@ -73,7 +90,7 @@ const {
     </div>
   )}
 
-  <div class="wrap">
+  <div class:list={['wrap', { 'hero-split': sidePhoto }]}>
     <div class="hero-inner em-gold">
       <span class="eyebrow" data-reveal>{eyebrow}</span>
       <h1 data-reveal><slot name="title" /></h1>
@@ -103,6 +120,12 @@ const {
         </div>
       )}
     </div>
+
+    {sidePhoto && (
+      <figure class="hero-side" data-reveal>
+        <img src={url(sidePhoto)} alt={sidePhotoAlt} style={`object-position:${sidePhotoFocus}`} />
+      </figure>
+    )}
   </div>
 </section>
 
@@ -135,6 +158,28 @@ const {
   }
   .hero .wrap { width: 100%; }
   .hero-inner { max-width: 860px; }
+
+  /* Ritratto affiancato: testo a sinistra, foto contenuta a destra */
+  .hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-split .hero-inner { max-width: none; }
+  .hero-side {
+    margin: 0;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--hair-on-navy);
+    box-shadow: 0 24px 60px rgba(3, 12, 30, 0.45);
+  }
+  .hero-side img {
+    display: block; width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.02);
+  }
   .hero :global(.eyebrow) { color: var(--accent-soft); }
   .hero h1 {
     font-size: clamp(44px, 6.4vw, 78px);
@@ -177,6 +222,9 @@ const {
 
   @media (max-width: 900px) {
     .hero { min-height: 0; padding: 140px 0 70px; }
+    .hero-split { grid-template-columns: 1fr; gap: 38px; }
+    .hero-side { max-width: 320px; }
+    .hero-side img { aspect-ratio: 4 / 3; }
   }
 
   @media (prefers-reduced-motion: reduce) {

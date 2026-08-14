@@ -35,7 +35,7 @@ const pillars = [
 >
   <PageHero
     eyebrow="Aree di intervento"
-    photo="/images/sezioni/riorganizzazione-e-sviluppo.jpg"
+    photo="/images/sezioni/riorganizzazione-e-sviluppo.jpg" focus="54% 32%"
     lead="Sette aree, un'unica regìa: partiamo da una diagnosi onesta e arriviamo a risultati che si misurano."
   >
     I nostri <em>servizi</em>
@@ -48,7 +48,7 @@ const pillars = [
           <a href={url(`/servizi/${s.slug}/`)} class="svc" data-reveal>
             <div class="svc-media">
               {s.photo ? (
-                <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" />
+                <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" focus={s.focus} />
               ) : (
                 <BrandArt variant={s.art} ratio="16 / 10" />
               )}
