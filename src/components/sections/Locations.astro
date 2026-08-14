@@ -2,11 +2,11 @@
 /**
  * Sezione sedi: globo 3D interattivo FULL-BLEED a sinistra (arriva al
  * bordo dello schermo, senza i margini del sito) + testo a destra
- * (titolo, lead e — su Team & Sedi — i gruppi per tipologia; in home
+ * (titolo, lead e — su Team & Sedi — l'elenco delle sedi; in home
  * il rimando alla pagina). Su mobile: globo sopra, testo sotto.
  */
 import Globe from '../Globe.astro';
-import { featured, locationGroups, typeLabels } from '../../data/locations';
+import { locations, typeLabels } from '../../data/locations';
 import { url } from '../../lib/url';
 
 interface Props {
@@ -14,11 +14,11 @@ interface Props {
 }
 const { compact = false } = Astro.props;
 
-const markers = featured.map((l) => ({
+const markers = locations.map((l) => ({
   lat: l.lat,
   lng: l.lng,
   city: l.city,
-  country: l.country,
+  country: l.cc,
   typeLabel: typeLabels[l.type],
   note: l.note,
   primary: l.primary,
@@ -34,7 +34,7 @@ const markers = featured.map((l) => ({
     <div class="text-col">
       <div class="tc-head" data-reveal>
         <span class="eyebrow">Le nostre sedi</span>
-        <h2>Otto sedi tra<br />Europa e Golfo</h2>
+        <h2>Presenza diffusa tra<br />Europa e Golfo</h2>
         <p class="tc-lead">
           Presidiamo i centri industriali e finanziari che contano: una rete
           di sedi con ruoli distinti, sotto un'unica regìa. Trascina il globo
@@ -43,23 +43,16 @@ const markers = featured.map((l) => ({
       </div>
 
       {!compact && (
-        <div class="groups" data-reveal>
-          {locationGroups.map((g) => (
-            <article class="group">
-              <span class="g-tag">{g.tag}</span>
-              <h3 class="g-title">{g.title}</h3>
-              <p class="g-desc">{g.description}</p>
-              <ul class="g-cities">
-                {g.cities.map((c) => (
-                  <li class:list={['g-city', { primary: c.primary }]}>
-                    <span class="gc-name">{c.city}</span>
-                    <span class="gc-cc">{c.country}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+        <ul class="g-cities places" data-reveal>
+          {locations.map((l) => (
+            <li class:list={['g-city', { primary: l.primary, lounge: l.type === 'lounge' }]}>
+              <span class="gc-name">{l.city}</span>
+              <span class="gc-cc">{l.cc}</span>
+              <span class="gc-addr">{l.address.split(' — ')[0]}</span>
+              {l.type !== 'sede' && <span class="gc-role">{typeLabels[l.type]}</span>}
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       {compact && (
@@ -177,6 +170,22 @@ const markers = featured.map((l) => ({
     font-family: var(--sans); font-size: 9px; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase; color: rgba(216, 190, 132, 0.7);
   }
+
+  /* Elenco unico delle sedi: la lounge di Monaco sta qui dentro, etichettata */
+  .places {
+    margin-top: 38px;
+    border-top: 1px solid rgba(236, 229, 214, 0.14);
+    padding-top: 26px;
+  }
+  .g-city .gc-addr {
+    font-size: 13px; color: rgba(242, 237, 225, 0.6); line-height: 1.4; margin-top: 3px;
+  }
+  .g-city .gc-role {
+    font-family: var(--sans); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #C2A35B; margin-top: 6px;
+  }
+  .g-city.lounge { border-style: dashed; }
 
   .presence-more { margin-top: 34px; }
 

@@ -26,7 +26,7 @@ export const editorialPosts: Post[] = [
       '<p>Il punto è che quel certificato dice dove la società è <em>iscritta</em>. Non dice dove la società <em>vive</em>. E per il fisco italiano conta la seconda cosa.</p>',
 
       '<h2>La regola, semplificata</h2>',
-      '<p>Una società si considera fiscalmente residente in Italia se in Italia si trova la sua direzione effettiva o la gestione ordinaria in via principale — cioè se le decisioni che contano si prendono qui. Non importa dove sia la sede legale. Se gli amministratori operano da Torino, i contratti si negoziano da Torino e le scelte strategiche maturano a Torino, quella società è italiana, anche se il certificato dice altro.</p>',
+      '<p>Una società si considera fiscalmente residente in Italia se in Italia si trova la sua direzione effettiva o la gestione ordinaria in via principale — cioè se le decisioni che contano si prendono qui. Non importa dove sia la sede legale. Se gli amministratori operano da Milano, i contratti si negoziano da Milano e le scelte strategiche maturano a Milano, quella società è italiana, anche se il certificato dice altro.</p>',
       '<p>Le conseguenze di una riqualificazione non sono formali: tassazione in Italia dei redditi mondiali, recupero delle imposte per le annualità aperte, sanzioni, obblighi dichiarativi mai assolti. E il contenzioso, sempre, arriva anni dopo — quando la struttura ha già prodotto tutti i suoi effetti.</p>',
 
       '<h2>Cosa rende una sede estera difendibile</h2>',
@@ -79,7 +79,7 @@ export const editorialPosts: Post[] = [
       '<p>Tra la decisione e la firma passano in genere dodici-ventiquattro mesi. È in quella finestra che si costruisce il prezzo: numeri riconciliati, contratti formalizzati, dipendenza dal fondatore ridotta, perimetro societario leggibile in fretta. Ogni zona d’ombra che resta, al tavolo, diventa uno sconto.</p>',
       '<p>Per questo la risposta onesta alla domanda iniziale non è quasi mai «sì» o «no». È: parliamone adesso, così quando deciderete sarete pronti.</p>',
 
-      link('/servizi/ma-e-ricerca-di-capitali/', 'Scopri il servizio M&A e ricerca di capitali'),
+      link('/servizi/cessioni-e-acquisizioni/', 'Scopri il servizio Cessioni e acquisizioni'),
     ].join(''),
     metaDescription:
       'Il momento giusto per cedere non si riconosce dallo stato d’animo, ma dalla curva su cui si trova l’azienda: i segnali, i tempi e cosa si prepara prima.',
@@ -144,7 +144,7 @@ export const editorialPosts: Post[] = [
 
       '<p>Prepararsi a questo tipo di interlocutore non richiede di cambiare l’azienda. Richiede di renderla dimostrabile: la stessa impresa, raccontata con documenti che reggono le domande che verranno fatte.</p>',
 
-      link('/servizi/ma-e-ricerca-di-capitali/', 'Scopri il servizio M&A e ricerca di capitali'),
+      link('/servizi/cessioni-e-acquisizioni/', 'Scopri il servizio Cessioni e acquisizioni'),
     ].join(''),
     metaDescription:
       'Family office e fondi sovrani guardano al Made in Italy: cosa valutano davvero, come cambiano tempi e due diligence, cosa preparare prima del tavolo.',

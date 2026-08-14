@@ -12,7 +12,8 @@ interface Cta {
   solid?: boolean;
 }
 interface Meta {
-  value: string;
+  /** Cifra in evidenza; se assente resta la sola formula testuale */
+  value?: string;
   label: string;
 }
 interface Props {
@@ -87,14 +88,14 @@ const {
       {meta.length > 0 && (
         <div class="hero-meta" data-reveal>
           {meta.map((m) => {
-            const match = m.value.match(/^(\d+)(.*)$/);
+            const match = m.value?.match(/^(\d+)(.*)$/);
             return (
-              <span>
-                {match ? (
+              <span class:list={{ 'no-value': !m.value }}>
+                {m.value && (match ? (
                   <b data-countup={match[1]} data-suffix={match[2]}>{m.value}</b>
                 ) : (
                   <b>{m.value}</b>
-                )}
+                ))}
                 {m.label}
               </span>
             );
@@ -158,6 +159,15 @@ const {
     color: var(--on-navy-muted);
     border-top: 1px solid var(--hair-on-navy);
     padding-top: 24px; max-width: 720px;
+  }
+  /* Voce senza cifra: allineata alle altre, con lo stesso peso ottico */
+  .hero-meta span.no-value {
+    align-self: center;
+    max-width: 220px;
+    color: var(--accent-soft);
+    text-transform: none;
+    font-family: var(--disp); font-size: 17px; font-weight: 400;
+    letter-spacing: 0; line-height: 1.35;
   }
   .hero-meta span b {
     color: var(--accent-soft); font-weight: 700; display: block;

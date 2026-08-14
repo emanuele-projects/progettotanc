@@ -10,13 +10,13 @@ const posts = await getPosts();
 
 <BaseLayout
   theme="light"
-  title="News & approfondimenti — Fulvio Rossi Plus"
-  description="Analisi e riflessioni su M&A, finanza d'impresa, passaggio generazionale e continuità: gli articoli dello studio."
+  title="Blog & approfondimenti — Fulvio Rossi Plus"
+  description="Analisi e riflessioni su operazioni straordinarie, finanza d'impresa, passaggio generazionale e continuità: gli articoli dello studio."
 >
   <PageHero
-    eyebrow="News & approfondimenti"
+    eyebrow="Blog & approfondimenti"
     photo="/images/sezioni/finanza-e-ristrutturazione-del-debito.jpg"
-    lead="Analisi e riflessioni su M&A, finanza d’impresa, continuità e mercati esteri: quello che vediamo lavorando, raccontato senza giri di parole."
+    lead="Analisi e riflessioni su operazioni straordinarie, finanza d’impresa, continuità e mercati esteri: quello che vediamo lavorando, raccontato senza giri di parole."
   >
     Il punto di vista <em>dello studio</em>
   </PageHero>
@@ -25,7 +25,7 @@ const posts = await getPosts();
     <div class="wrap">
       <div class="list">
         {posts.map((p) => (
-          <a href={url(`/news/${p.slug}/`)} class="row" data-reveal>
+          <a href={url(`/blog/${p.slug}/`)} class="row" data-reveal>
             <time class="date" datetime={p.date.toISOString()}>{formatDate(p.date)}</time>
             <div class="row-main">
               <h2>{p.title}</h2>

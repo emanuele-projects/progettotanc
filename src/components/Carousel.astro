@@ -81,8 +81,9 @@ const {
   .car-next { right: -20px; }
 
   .car-dots {
-    display: flex; gap: 10px; justify-content: center;
+    display: flex; gap: 10px; justify-content: center; align-items: center;
     margin-top: 30px;
+    min-height: 9px;                 /* riserva lo spazio: la riga non salta */
   }
   .car-dot {
     width: 9px; height: 9px; border-radius: 50%;
@@ -91,7 +92,7 @@ const {
     padding: 0; cursor: pointer;
     transition: all 0.3s ease;
   }
-  .car-dot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+  .car-dot.active { background: var(--accent); border-color: var(--accent); }
 
   @media (max-width: 1024px) {
     .car-viewport > .car-slide { flex-basis: var(--slide-w-t); }
@@ -114,20 +115,39 @@ const {
     const slides = [...vp.querySelectorAll<HTMLElement>('.car-slide')];
     if (!slides.length) return;
 
-    const dots: HTMLButtonElement[] = [];
-    if (dotsWrap) {
-      slides.forEach((slide, i) => {
+    /* Un pallino per PAGINA, non per slide: con 6 slide che stanno quasi
+       tutte in viewport i pallini per slide erano sei ma solo i primi due
+       si accendevano, e l'attivo saltava. Le pagine si ricalcolano al
+       resize, quando cambia quante slide entrano. */
+    let dots: HTMLButtonElement[] = [];
+
+    /* Le pagine non possono essere più delle slide, e con viewport a zero
+       (pannello nascosto, contenitore non ancora misurato) il rapporto
+       esploderebbe: senza questi limiti si finisce con decine di pallini. */
+    const pageCount = () => {
+      const w = vp.clientWidth;
+      if (w < 1) return 1;
+      return Math.min(slides.length, Math.max(1, Math.ceil(vp.scrollWidth / w - 0.02)));
+    };
+
+    const buildDots = () => {
+      if (!dotsWrap) return;
+      const n = pageCount();
+      if (dots.length === n) return;
+      dotsWrap.textContent = '';
+      dots = Array.from({ length: n }, (_, i) => {
         const dot = document.createElement('button');
         dot.className = 'car-dot';
         dot.type = 'button';
-        dot.setAttribute('aria-label', `Vai all'elemento ${i + 1}`);
-        dot.addEventListener('click', () =>
-          vp.scrollTo({ left: slide.offsetLeft - vp.offsetLeft, behavior })
-        );
+        dot.setAttribute('aria-label', `Vai alla pagina ${i + 1} di ${n}`);
+        dot.addEventListener('click', () => {
+          const max = vp.scrollWidth - vp.clientWidth;
+          vp.scrollTo({ left: n > 1 ? (max * i) / (n - 1) : 0, behavior });
+        });
         dotsWrap.appendChild(dot);
-        dots.push(dot);
+        return dot;
       });
-    }
+    };
 
     const step = () => Math.max(vp.clientWidth * 0.9, slides[0].clientWidth + 30);
     prev.addEventListener('click', () => vp.scrollBy({ left: -step(), behavior }));
@@ -142,14 +162,15 @@ const {
       if (!overflow) return;
       prev.toggleAttribute('disabled', vp.scrollLeft <= 4);
       next.toggleAttribute('disabled', vp.scrollLeft >= maxScroll - 4);
-      if (dots.length) {
-        let best = 0;
-        let bestDist = Infinity;
-        slides.forEach((s, i) => {
-          const d = Math.abs(s.offsetLeft - vp.offsetLeft - vp.scrollLeft);
-          if (d < bestDist) { bestDist = d; best = i; }
-        });
-        dots.forEach((d, i) => d.classList.toggle('active', i === best));
+      buildDots();
+      if (dots.length > 1) {
+        /* L'indice si ricava dalla frazione di scorrimento, non da
+           scrollLeft/clientWidth: quando l'eccedenza è minore di una schermata
+           quel rapporto resta 0 e l'ultimo pallino non si accenderebbe mai. */
+        const page = Math.round((vp.scrollLeft / maxScroll) * (dots.length - 1));
+        dots.forEach((d, i) => d.classList.toggle('active', i === page));
+      } else if (dots.length === 1) {
+        dots[0].classList.add('active');
       }
     };
 

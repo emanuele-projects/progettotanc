@@ -1,0 +1,23 @@
+---
+/**
+ * La sezione News è diventata Blog: questo indirizzo resta come
+ * reindirizzamento per non rompere i link esistenti.
+ */
+import { url } from '../lib/url';
+const target = url('/blog/');
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <meta name="robots" content="noindex" />
+    <title>Blog — Fulvio Rossi Plus</title>
+  </head>
+  <body>
+    <p>La sezione News è diventata il <a href={target}>Blog</a>.</p>
+  </body>
+</html>
