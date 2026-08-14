@@ -9,16 +9,16 @@ const posts = (await getPosts()).slice(0, 3);
 
 <section id="news">
   <div class="wrap">
-    <SectionHead eyebrow="News &amp; approfondimenti">
+    <SectionHead eyebrow="Blog &amp; approfondimenti">
       <Fragment slot="title">Il punto di vista dello studio</Fragment>
       <p slot="lead">
-        Analisi e riflessioni su M&amp;A, finanza d'impresa e continuità:
+        Analisi e riflessioni su operazioni straordinarie, finanza d'impresa e continuità:
         gli articoli della redazione.
       </p>
     </SectionHead>
     <div class="news-grid">
       {posts.map((p) => (
-        <a href={url(`/news/${p.slug}/`)} class="news-card" data-reveal>
+        <a href={url(`/blog/${p.slug}/`)} class="news-card" data-reveal>
           <div class="news-media">
             {p.featuredImage ? (
               <img src={url(p.featuredImage.url)} alt={p.featuredImage.alt} loading="lazy" />
@@ -36,7 +36,7 @@ const posts = (await getPosts()).slice(0, 3);
       ))}
     </div>
     <div class="news-all" data-reveal>
-      <a href={url('/news/')} class="btn">Tutte le news</a>
+      <a href={url('/blog/')} class="btn">Tutto il blog</a>
     </div>
   </div>
 </section>

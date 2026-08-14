@@ -9,7 +9,7 @@
 export const serviceCallout = {
   /** micro-frase usata come occhiello del callout */
   eyebrow: 'Sediamo al tavolo con voi, non dietro di voi.',
-  text: 'Un nucleo stabile, una rete ampia, una sola regìa. Coordiniamo noi legali, fiscalisti e specialisti: voi avete un interlocutore, non una rubrica.',
+  text: 'Un Think Tank stabile, una rete ampia, una sola regìa. Coordiniamo noi legali, fiscalisti e specialisti: voi avete un interlocutore, non una rubrica.',
 } as const;
 
 /**
@@ -31,7 +31,7 @@ export const microCopy = {
   /** occhiello del callout, pagine servizio */
   tavolo: 'Sediamo al tavolo con voi, non dietro di voi.',
   /** occhiello di «La nostra rete», pagina Internazionalizzazione */
-  interlocutore: 'Un solo interlocutore, otto sedi.',
+  interlocutore: 'Un solo interlocutore, ovunque serva.',
   /** occhiello della CTA di chiusura, pagine servizio */
   momento: 'Se il momento non è quello giusto, ve lo diciamo.',
   /** occhiello di «Quando la tensione diventa crisi conclamata», pagina Finanza */

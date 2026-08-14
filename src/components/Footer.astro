@@ -1,11 +1,11 @@
 ---
 import Logo from './Logo.astro';
 import { site, nav } from '../data/site';
-import { featured } from '../data/locations';
+import { locations } from '../data/locations';
 import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
-const cities = featured.map((l) => l.city);
+const cities = locations.map((l) => l.city);
 ---
 
 <footer class="on-navy">
@@ -15,11 +15,7 @@ const cities = featured.map((l) => l.city);
     </div>
     <div class="foot-top">
       <div class="foot-brand">
-        <Logo class="foot-mark" height={38} />
-        <div class="foot-brand-text">
-          <div class="name">{site.brand}</div>
-          <div class="sub">{site.brandSub}</div>
-        </div>
+        <Logo class="foot-mark" height={58} />
       </div>
       <div class="foot-col">
         <h4>Studio</h4>
@@ -31,9 +27,16 @@ const cities = featured.map((l) => l.city);
         <h4>Contatti</h4>
         <p>
           <a href={`mailto:${site.email}`}>{site.email}</a><br />
-          {site.address}<br />
-          {site.phone}
+          {site.address}
         </p>
+        <ul class="foot-phones">
+          {site.phones.map((p) => (
+            <li>
+              <span class="fp-area">{p.area}</span>
+              <a href={`tel:${p.tel}`}>{p.number}</a>
+            </li>
+          ))}
+        </ul>
       </div>
       <div class="foot-col">
         <h4>Sedi</h4>
@@ -70,7 +73,7 @@ const cities = featured.map((l) => l.city);
     padding-bottom: 44px;
     border-bottom: 1px solid var(--hair-on-navy);
   }
-  .foot-brand { display: flex; align-items: center; gap: 14px; }
+  .foot-brand { display: flex; align-items: center; }
   .foot-brand :global(.foot-mark) { flex: none; color: var(--on-navy); }
   .foot-brand .name {
     font-family: var(--disp); font-size: 26px; font-weight: 800;
@@ -88,6 +91,17 @@ const cities = featured.map((l) => l.city);
   .foot-col p { font-size: 16px; line-height: 1.9; font-weight: 300; }
   .foot-col a { transition: color 0.3s; }
   .foot-col a:hover { color: var(--accent-soft); }
+  .foot-phones { list-style: none; margin-top: 14px; }
+  .foot-phones li { margin-bottom: 8px; }
+  .foot-phones .fp-area {
+    display: block;
+    font-family: var(--sans); font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--on-navy-muted);
+  }
+  .foot-phones a { font-size: 16px; }
+  .foot-phones a:hover { color: var(--accent-soft); }
+
   .foot-legal { display: flex; gap: 20px; }
   .foot-legal a { transition: color 0.3s; }
   .foot-legal a:hover { color: var(--accent-soft); }

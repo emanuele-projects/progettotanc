@@ -58,12 +58,19 @@ import { locations } from '../data/locations';
         <div class="c-block">
           <h4>Contatti diretti</h4>
           <p>
-            <a href={`mailto:${site.email}`}>{site.email}</a><br />
-            {site.phone}
+            <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
+          <ul class="c-phones">
+            {site.phones.map((p) => (
+              <li>
+                <span class="c-city">{p.area}</span>
+                <a class="c-addr" href={`tel:${p.tel}`}>{p.number}</a>
+              </li>
+            ))}
+          </ul>
         </div>
         <div class="c-block">
-          <h4>Sede direzionale</h4>
+          <h4>Sede direzionale — Milano</h4>
           <p>{site.address}</p>
         </div>
         <div class="c-block">
@@ -123,7 +130,10 @@ import { locations } from '../data/locations';
     margin-bottom: 12px;
   }
   .c-block p { color: var(--ink-dim); font-size: 17.5px; line-height: 1.8; }
-  .c-addresses { list-style: none; }
+  .c-addresses, .c-phones { list-style: none; }
+  .c-phones { margin-top: 12px; }
+  .c-phones li { margin-bottom: 12px; }
+  .c-phones a.c-addr:hover { color: var(--accent-text); }
   .c-addresses li { margin-bottom: 14px; }
   .c-city {
     display: block;

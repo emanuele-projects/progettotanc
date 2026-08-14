@@ -1,14 +1,25 @@
 export const site = {
   brand: 'FULVIO ROSSI PLUS',
-  brandSub: 'M&A · Deep Consulting',
-  title: 'Fulvio Rossi Plus — Advisor M&A e Deep Consulting',
+  brandSub: 'Deep Consulting & Mentoria',
+  title: 'Fulvio Rossi Plus — Deep Consulting e finanza d’impresa',
   description:
-    'Advisor M&A e deep consulting dal 1989: operazioni straordinarie, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Sedi tra Europa e Golfo.',
+    'Deep consulting dal 1989: compravendita di aziende, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Presenza diffusa tra Europa e Golfo.',
   foundedYear: 1989,
-  // TODO-CONTENUTO: telefono reale
   email: 'info@fulviorossiplus.com',
-  phone: '+39 011 000 0000',
-  address: 'Via Garibaldi, 2 — Torino',
+  /**
+   * I tre recapiti forniti dal cliente. Il primo è quello di riferimento
+   * dove serve un numero solo.
+   *
+   * NOTA: il terzo è indicato dal cliente come «Saudi Arabia», ma il prefisso
+   * +971 e la bandiera sono degli Emirati Arabi Uniti, dove sta la sede di
+   * Dubai. Qui è riportato come EAU — da confermare.
+   */
+  phones: [
+    { area: 'Italia', number: '+39 351 667 9335', tel: '+393516679335' },
+    { area: 'Polonia', number: '+48 530 888 863', tel: '+48530888863' },
+    { area: 'Emirati Arabi Uniti', number: '+971 4 347 0169', tel: '+97143470169' },
+  ],
+  address: 'Via Settembrini, 7 — Milano',
   piva: 'Ragione sociale · P.IVA da inserire',
 } as const;
 
@@ -27,7 +38,7 @@ export const nav: NavItem[] = [
   { label: 'Chi siamo', href: '/chi-siamo' },
   // Team e Sedi confluiti in un'unica pagina "Team & Sedi"
   { label: 'Team & Sedi', href: '/team' },
-  { label: 'News', href: '/news' },
+  { label: 'Blog', href: '/blog' },
   // "Contatti" rimosso: duplicava il CTA "Incontro riservato" (→ /contatti)
   { label: 'Mentoria', href: '/mentoria', highlight: true },
 ];

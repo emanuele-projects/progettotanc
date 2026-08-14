@@ -20,15 +20,21 @@ npm run check     # type-check dei componenti Astro
 - `src/data/shared-copy.ts` — elementi trasversali (callout, chiusure, micro-frasi) riusati su più pagine.
 - `src/data/editorial-posts.ts` — articoli redazionali definitivi scritti fuori da WordPress: restano pubblicati anche a blog collegato.
 - `src/lib/wp.ts` — livello dati del blog: con `WP_API_URL` vuota usa i mock, altrimenti legge WordPress in fase di build. In entrambi i casi unisce i redazionali di `editorial-posts.ts` (a parità di slug vince WordPress).
-- `src/pages/` — route: `/`, `/mentoria`, `/servizi/[slug]`, `/news`, `/news/[slug]`, `/contatti`, `/privacy`, `/cookie`, `404`.
-- `src/data/locations.ts` — sedi con indirizzi completi. Le voci marcate `quiet` (Montecarlo, Gibilterra) restano nei recapiti della pagina Contatti ma non compaiono fra i pin del globo, nelle schede di sezione né nell'elenco del footer: usa `featured` per gli elenchi in evidenza, `locations` per i recapiti completi.
+- `src/pages/` — route: `/`, `/mentoria`, `/servizi/[slug]`, `/blog`, `/blog/[slug]`, `/contatti`, `/privacy`, `/cookie`, `404`. `/news` e `/news/[slug]` restano come reindirizzamenti verso il blog.
+- `src/data/locations.ts` — cinque sedi più la lounge di Monaco, in un elenco unico. I paesi stanno in sigla (`cc`): IT vale per Milano e Roma. `type` distingue `direzionale`, `sede` e `lounge`; l'etichetta compare in pagina solo quando non è una sede semplice.
 - Tema per pagina: prop `theme` di `BaseLayout` (`light` default, `dark` per mentoria).
 
 ## Marchio
 
-`src/components/Logo.astro` è il marchio FR+ inline. I tracciati sono quelli originali ripuliti: il file di partenza simulava il gradiente con centinaia di poligoni (52 KB), qui sono due path (1 KB). Il riempimento è `currentColor`, così il marchio segue il contesto — bianco sull'header trasparente sopra l'hero navy, blu di brand (`--brand-blue`) sull'header bianco dopo lo scroll, bianco nel footer. Il lockup tiene **sempre** «FULVIO ROSSI PLUS» sotto al marchio.
+`src/components/Logo.astro` rende il marchio fornito dal cliente (colonna + «Fulviorossi PLUS» + payoff). Il file di partenza è un JPEG a tinta piena su fondo bianco: viene usato come **maschera CSS**, non come immagine, così il colore arriva da `currentColor` e il marchio segue il contesto — bianco sull'header trasparente, blu di brand (`--brand-blue`, `#004AAD`) sull'header bianco, bianco nel footer.
 
-`public/logo.svg` è la versione autonoma nel blu di brand (usi esterni, social); `public/favicon.svg` è il marchio su fondo navy.
+Tre declinazioni, perché il lockup intero sotto i ~90px di altezza perde il payoff:
+
+| Variante | Dove | File |
+| --- | --- | --- |
+| `compatto` | header — colonna + lettering, senza payoff | `logo-simbolo.png` + `logo-testo.png` |
+| `lockup` | footer — marchio completo | `logo-lockup.png` |
+| `simbolo` | spazi stretti, favicon | `logo-simbolo.png` |
 
 ## Immagini
 

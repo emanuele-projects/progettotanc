@@ -84,24 +84,24 @@ export interface Service {
 
 /**
  * I servizi principali, riordinati per centralità strategica:
- * l'M&A apre, seguito dalla finanza straordinaria e dai servizi
+ * la compravendita d'azienda apre, seguita dalla finanza straordinaria e dai servizi
  * di continuità e tutela. Il Deep Consulting è l'approccio comune.
  */
 export const services: Service[] = [
   {
-    slug: 'ma-e-ricerca-di-capitali',
+    slug: 'cessioni-e-acquisizioni',
     photo: '/images/sezioni/ma-e-ricerca-di-capitali.jpg',
     art: 'deal',
     num: '01',
-    title: 'M&A e ricerca di capitali',
-    plainTitle: 'M&A e ricerca di capitali',
+    title: 'Cessioni, acquisizioni e ricerca di capitali',
+    plainTitle: 'Cessioni, acquisizioni e ricerca di capitali',
     excerpt:
       'Apriamo le porte ai capitali giusti: nuovi soci, fondi, family office. Vi accompagniamo dalla scelta del partner alla firma, con il valore dell’azienda sempre al centro.',
     lead: 'Cessioni, acquisizioni, aperture di capitale: operazioni che si fanno una volta sola e vanno fatte bene.',
     metaDescription:
       'Cessioni, acquisizioni e apertura del capitale: valutazione, preparazione dell’azienda, ricerca del partner e negoziazione fino al closing.',
     intro: [
-      'Vendere l’azienda, comprarne una, far entrare un socio: sono decisioni che cambiano la vita di un imprenditore e il perimetro di una famiglia. Si preparano per mesi, si giocano in poche settimane, e il margine per rimediare a un errore è quasi nullo.',
+      'Facciamo da tramite per comprare e vendere aziende, e troviamo acquirenti nelle operazioni di ristrutturazione. Vendere l’azienda, comprarne una, far entrare un socio: sono decisioni che cambiano la vita di un imprenditore e il perimetro di una famiglia. Si preparano per mesi, si giocano in poche settimane, e il margine per rimediare a un errore è quasi nullo.',
       'Noi entriamo prima che il tavolo si apra. Perché il valore di un’impresa non si negozia: si costruisce nei mesi che precedono la trattativa.',
     ],
     startingPoint:
@@ -387,11 +387,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        eyebrow: 'Un solo interlocutore, otto sedi.',
+        eyebrow: 'Un solo interlocutore, ovunque serva.',
         title: 'La nostra rete',
         block: {
           paras: [
-            'Otto sedi tra Europa e Golfo, da Torino a Dubai, con ruoli distinti e un’unica regìa. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
+            'Presenza diffusa tra Europa e Golfo: la direzione a Milano, le sedi di Roma, Cracovia, Vilnius e Dubai, la lounge di Monaco per i primi incontri e le firme. Non uffici di rappresentanza sulla carta: presìdi con persone e relazioni locali.',
           ],
         },
       },

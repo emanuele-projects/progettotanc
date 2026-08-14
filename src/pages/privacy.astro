@@ -119,7 +119,7 @@ const todo = (v: string) => v.startsWith('DA COMPLETARE');
   </p>
   <p>
     Lo studio ha sedi anche fuori dall'Unione europea
-    ({locations.filter((l) => !['Italia', 'Polonia', 'Lituania'].includes(l.country)).map((l) => l.city).join(', ')}):
+    ({locations.filter((l) => !['IT', 'PL', 'LT'].includes(l.cc)).map((l) => l.city).join(', ')}):
     l'eventuale trasferimento di dati verso tali sedi avviene con le medesime
     garanzie e solo se necessario alla gestione del rapporto.
   </p>
