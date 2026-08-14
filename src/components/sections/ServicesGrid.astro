@@ -22,7 +22,7 @@ import { url } from '../../lib/url';
           <a href={url(`/servizi/${s.slug}/`)} class="svc car-slide">
             <div class="svc-media">
               {s.photo ? (
-                <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" />
+                <StockImage src={s.photo} alt={s.plainTitle} ratio="16 / 10" focus={s.focus} />
               ) : (
                 <BrandArt variant={s.art} ratio="16 / 10" />
               )}

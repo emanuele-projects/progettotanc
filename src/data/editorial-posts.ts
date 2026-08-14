@@ -48,8 +48,8 @@ export const editorialPosts: Post[] = [
     date: new Date('2026-08-04'),
     author: 'Redazione',
     featuredImage: {
-      url: '/images/sezioni/internazionalizzazione.jpg',
-      alt: 'Sede direzionale di un hub finanziario internazionale',
+      url: '/images/sezioni/blog-sede-estera.jpg',
+      alt: 'Torri direzionali di vetro di un distretto d\u2019affari',
     },
   },
 
@@ -85,7 +85,7 @@ export const editorialPosts: Post[] = [
       'Il momento giusto per cedere non si riconosce dallo stato d’animo, ma dalla curva su cui si trova l’azienda: i segnali, i tempi e cosa si prepara prima.',
     date: new Date('2026-06-18'),
     author: 'Redazione',
-    featuredImage: { url: '/images/sezioni/ma-e-ricerca-di-capitali.jpg', alt: 'Stretta di mano al tavolo di un\u2019operazione' },
+    featuredImage: { url: '/images/sezioni/blog-vendere-azienda.jpg', alt: 'Tavolo di trattativa in uno studio' },
   },
 
   {
@@ -117,7 +117,7 @@ export const editorialPosts: Post[] = [
       'Rimandare, non scrivere le regole, confondere eredità e guida: i tre errori più frequenti nelle imprese familiari e come si prevengono per tempo.',
     date: new Date('2026-05-30'),
     author: 'Redazione',
-    featuredImage: { url: '/images/sezioni/passaggio-generazionale.jpg', alt: 'Passaggio di competenze in azienda' },
+    featuredImage: { url: '/images/sezioni/blog-passaggio.jpg', alt: 'Passaggio di competenze in azienda' },
   },
 
   {
@@ -150,6 +150,6 @@ export const editorialPosts: Post[] = [
       'Family office e fondi sovrani guardano al Made in Italy: cosa valutano davvero, come cambiano tempi e due diligence, cosa preparare prima del tavolo.',
     date: new Date('2026-05-12'),
     author: 'Redazione',
-    featuredImage: { url: '/images/sezioni/protezione-del-patrimonio.jpg', alt: 'Grattacieli di un distretto direzionale' },
+    featuredImage: { url: '/images/sezioni/blog-capitali-golfo.jpg', alt: 'Studio direzionale affacciato sullo skyline' },
   },
 ];

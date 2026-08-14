@@ -67,6 +67,8 @@ export interface Service {
   /** Sezioni H2 aggiuntive, dopo le fasi e prima di «Cosa resta in mano vostra» */
   sections?: Section[];
   faq?: Faq;
+  /** Frase dello stacco a lettering, a metà pagina */
+  claim: string;
   /** «Cosa resta in mano vostra» */
   outcomes: string[];
   /** «Quando ha senso parlarne» */
@@ -80,6 +82,13 @@ export interface Service {
    * Finché è assente le pagine servizio usano l'illustrazione di `art`.
    */
   photo?: string;
+  /**
+   * Punto della foto da tenere sempre in inquadratura. Serve perché lo
+   * stesso scatto viene ritagliato in tre proporzioni molto diverse —
+   * hero panoramico, card 16/10 e colonna 4/5 — e senza questo riferimento
+   * il soggetto finisce fuori dal taglio.
+   */
+  focus?: string;
 }
 
 /**
@@ -91,6 +100,7 @@ export const services: Service[] = [
   {
     slug: 'cessioni-e-acquisizioni',
     photo: '/images/sezioni/ma-e-ricerca-di-capitali.jpg',
+    focus: '60% 30%',
     art: 'deal',
     num: '01',
     title: 'Cessioni, acquisizioni e ricerca di capitali',
@@ -155,6 +165,8 @@ export const services: Service[] = [
         text: 'Gestiamo manifestazioni d’interesse, lettera d’intenti, due diligence e contrattualistica fino alla firma, coordinando legali e fiscalisti. Presidiamo le clausole che contano davvero: earn-out, garanzie, patti parasociali, ruolo del fondatore dopo il closing.',
       },
     ],
+    claim:
+      'Il valore di un’impresa non si negozia: si costruisce nei mesi che precedono la trattativa.',
     outcomes: [
       'Una valutazione documentata, non un’opinione',
       'Una rosa di controparti reali, filtrate e riservate',
@@ -178,6 +190,7 @@ export const services: Service[] = [
   {
     slug: 'finanza-e-ristrutturazione-del-debito',
     photo: '/images/sezioni/finanza-e-ristrutturazione-del-debito.jpg',
+    focus: '50% 42%',
     art: 'growth',
     num: '02',
     title: 'Finanza & ristrutturazione del debito',
@@ -249,6 +262,8 @@ export const services: Service[] = [
         },
       },
     ],
+    claim:
+      'Il debito quasi mai è la malattia: è il sintomo. Si cura risalendo alla causa.',
     outcomes: [
       'Chiarezza su dove si genera e dove si brucia margine',
       'Un piano finanziario sostenibile, non una speranza',
@@ -262,6 +277,7 @@ export const services: Service[] = [
   {
     slug: 'passaggio-generazionale',
     photo: '/images/sezioni/passaggio-generazionale.jpg',
+    focus: '46% 34%',
     art: 'succession',
     num: '03',
     title: 'Passaggio generazionale',
@@ -295,6 +311,8 @@ export const services: Service[] = [
         text: 'Deleghe progressive, affiancamento operativo, percorso di crescita per successori e prime linee. La continuità non si firma: si costruisce nei mesi in cui il fondatore c’è ancora e può ancora insegnare.',
       },
     ],
+    claim:
+      'La continuità non si firma: si costruisce nei mesi in cui il fondatore c’è ancora.',
     outcomes: [
       'Regole scritte prima che servano',
       'Un assetto societario che regge il cambio di guida',
@@ -307,6 +325,7 @@ export const services: Service[] = [
   {
     slug: 'protezione-del-patrimonio',
     photo: '/images/sezioni/protezione-del-patrimonio.jpg',
+    focus: '50% 42%',
     art: 'vault',
     num: '04',
     title: 'Protezione del patrimonio',
@@ -340,6 +359,8 @@ export const services: Service[] = [
         text: 'Le strutture invecchiano, le norme cambiano, le famiglie si allargano. Rivediamo periodicamente l’assetto per mantenerlo coerente con la realtà.',
       },
     ],
+    claim:
+      'La protezione si costruisce quando le acque sono calme. Sotto pressione è già tardi.',
     outcomes: [
       'Una mappa completa e aggiornata di beni ed esposizioni',
       'Una separazione netta e documentata tra impresa e famiglia',
@@ -352,6 +373,7 @@ export const services: Service[] = [
   {
     slug: 'internazionalizzazione',
     photo: '/images/sezioni/internazionalizzazione.jpg',
+    focus: '72% 40%',
     art: 'global',
     num: '05',
     title: 'Internazionalizzazione',
@@ -413,6 +435,8 @@ export const services: Service[] = [
         },
       ],
     },
+    claim:
+      'La domanda giusta non è dove conviene aprire, ma cosa andate a fare.',
     outcomes: [
       'Una scelta del paese motivata dai vostri obiettivi, non dalla moda',
       'Una struttura societaria e bancaria operativa, non solo costituita',
@@ -425,6 +449,7 @@ export const services: Service[] = [
   {
     slug: 'certificazioni-iso-e-made-in-italy',
     photo: '/images/sezioni/certificazioni-iso-e-made-in-italy.jpg',
+    focus: '48% 30%',
     art: 'quality',
     num: '06',
     // TODO-CONTENUTO: verificare con il cliente quali schemi vengono
@@ -461,6 +486,8 @@ export const services: Service[] = [
         text: 'Vi accompagniamo alla verifica con enti di certificazione accreditati e indipendenti, e restiamo per le sorveglianze successive. Poi la parte che quasi tutti dimenticano: usare la certificazione. Nei bandi, nei capitolati, nella documentazione commerciale, nella relazione con i clienti esteri.',
       },
     ],
+    claim:
+      'La certificazione non serve a diventare migliori: serve a renderlo dimostrabile.',
     outcomes: [
       'Gli schemi giusti per i mercati che vi interessano',
       'Un sistema di gestione che rispecchia l’azienda vera',
@@ -473,6 +500,7 @@ export const services: Service[] = [
   {
     slug: 'riorganizzazione-e-sviluppo',
     photo: '/images/sezioni/riorganizzazione-e-sviluppo.jpg',
+    focus: '54% 32%',
     art: 'boardroom',
     num: '07',
     title: 'Riorganizzazione e sviluppo',
@@ -505,6 +533,8 @@ export const services: Service[] = [
         text: 'Le riorganizzazioni falliscono nell’esecuzione, non nel disegno. Restiamo nei mesi in cui il nuovo assetto va reso abitudine.',
       },
     ],
+    claim:
+      'Le riorganizzazioni falliscono nell’esecuzione, non nel disegno.',
     outcomes: [
       'Responsabilità assegnate e messe per iscritto',
       'Pochi indicatori, letti con regolarità',

@@ -10,6 +10,7 @@ import StockImage from '../../components/StockImage.astro';
 import BrandArt from '../../components/BrandArt.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import ServiceBlock from '../../components/sections/ServiceBlock.astro';
+import LetterBreak from '../../components/sections/LetterBreak.astro';
 import { services, type Service } from '../../data/services';
 import { serviceCallout, serviceClosing, microCopy } from '../../data/shared-copy';
 import { url } from '../../lib/url';
@@ -37,6 +38,7 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
     eyebrow={`Servizi · ${service.num}`}
     lead={service.lead}
     photo={service.photo}
+    focus={service.focus}
     art={service.photo ? undefined : service.art}
   >
     <Fragment set:html={service.title} />
@@ -59,7 +61,12 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
       <aside class="svc-side" data-reveal>
         {service.photo ? (
-          <StockImage src={service.photo} alt={service.plainTitle} ratio="4 / 5" />
+          <StockImage
+            src={service.photo}
+            alt={service.plainTitle}
+            ratio="4 / 5"
+            focus={service.focus}
+          />
         ) : (
           <BrandArt variant={service.art} ratio="4 / 5" />
         )}
@@ -93,6 +100,9 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
       </ol>
     </div>
   </section>
+
+  <!-- STACCO A LETTERING: spezza la lettura a metà pagina -->
+  <LetterBreak num={service.num} title={service.plainTitle} claim={service.claim} />
 
   <!-- SEZIONI AGGIUNTIVE -->
   {service.sections?.map((sec) => (

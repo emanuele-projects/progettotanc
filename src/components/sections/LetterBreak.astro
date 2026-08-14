@@ -1,0 +1,90 @@
+---
+/**
+ * Stacco a lettering nel corpo delle pagine servizio: una grande iniziale
+ * a filo, il numero del servizio e il titolo. Serve a spezzare la lettura
+ * a metà pagina senza aggiungere una fotografia.
+ *
+ * È la direzione indicata dal cliente («grandi lettere maiuscole, es. una R
+ * per Riorganizzazione»): resta nella palette del sito e non ha peso di rete,
+ * perché è tipografia e non un'immagine.
+ */
+interface Props {
+  /** Iniziale in grande; se assente si ricava dal titolo */
+  letter?: string;
+  num: string;
+  title: string;
+  /** Frase breve a fianco della lettera */
+  claim: string;
+}
+const { letter, num, title, claim } = Astro.props;
+const initial = (letter ?? title.trim().charAt(0)).toUpperCase();
+---
+
+<section class="letter-break on-navy" aria-hidden="false">
+  <div class="wrap lb-inner">
+    <span class="lb-letter" aria-hidden="true">{initial}</span>
+    <div class="lb-text" data-reveal>
+      <span class="lb-num">Servizi · {num}</span>
+      <p class="lb-claim">{claim}</p>
+      <span class="lb-title">{title}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .letter-break {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--on-navy);
+    padding: 74px 0;
+  }
+  .lb-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    gap: 50px;
+    align-items: center;
+  }
+
+  /* L'iniziale è l'elemento grafico: grande, cava, tagliata dal contenitore */
+  .lb-letter {
+    font-family: var(--disp);
+    font-size: clamp(150px, 22vw, 290px);
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: -0.03em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent-soft);
+    opacity: 0.85;
+    user-select: none;
+  }
+
+  .lb-num {
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-soft);
+  }
+  .lb-claim {
+    font-family: var(--disp);
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.35;
+    color: var(--on-navy);
+    margin: 16px 0 18px;
+    max-width: 620px;
+  }
+  .lb-title {
+    display: inline-block;
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--on-navy-muted);
+    border-top: 1px solid var(--hair-on-navy);
+    padding-top: 14px;
+  }
+
+  @media (max-width: 860px) {
+    .letter-break { padding: 56px 0; }
+    .lb-inner { grid-template-columns: 1fr; gap: 18px; }
+    .lb-letter { font-size: clamp(110px, 34vw, 170px); }
+  }
+</style>

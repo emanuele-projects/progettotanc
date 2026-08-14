@@ -23,12 +23,20 @@ interface Props {
     | 'portrait'
     | 'mentoria'
     | 'editorial';
+  /** Punto da tenere in inquadratura: valore di `background-position` */
+  focus?: string;
 }
-const { eyebrow, lead, photo, art } = Astro.props;
+const { eyebrow, lead, photo, art, focus = '50% 50%' } = Astro.props;
 ---
 
 <section class:list={['page-hero', 'on-navy', { 'has-photo': photo }]}>
-  {photo && <div class="ph-photo" style={`background-image:url('${url(photo)}')`} aria-hidden="true"></div>}
+  {photo && (
+    <div
+      class="ph-photo"
+      style={`background-image:url('${url(photo)}');background-position:${focus}`}
+      aria-hidden="true"
+    ></div>
+  )}
   {!photo && art && (
     <div class="ph-art" aria-hidden="true">
       <BrandArt variant={art} />
