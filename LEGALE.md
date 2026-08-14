@@ -17,7 +17,8 @@ oggi segnati «DA COMPLETARE» e visibili in pagina.
 
 - Ragione sociale completa e forma giuridica del soggetto che gestisce il sito
 - Partita IVA e codice fiscale
-- Sede legale
+- ~~Sede legale~~ — **Vilnius**, Gedimino prospektas 18, Città Vecchia (LT):
+  già in `legal.registeredOffice` e segnalata nell'elenco sedi
 - Numero REA e Registro imprese di iscrizione
 - Capitale sociale, se S.p.A. o S.r.l. (art. 2250 c.c.)
 - PEC
@@ -30,7 +31,7 @@ oggi segnati «DA COMPLETARE» e visibili in pagina.
 Oggi in `src/data/site.ts` ci sono segnaposto (`+39 011 000 0000`).
 
 - ~~Email generale~~ — `info@fulviorossiplus.com`, già in uso sul sito
-- Telefono (oggi è un segnaposto: `+39 011 000 0000`)
+- ~~Telefoni~~ — i tre recapiti sono in pagina (IT, PL, EAU)
 - Valutare un indirizzo dedicato alle richieste privacy (es. `privacy@`): oggi
   l'informativa rimanda a `info@`, che è valido ma meno tracciabile
 - Se esiste un DPO: nome e recapito (altrimenti si conferma che non è stato
@@ -43,7 +44,9 @@ art. 28 e citato in informativa.
 
 - ~~Hosting e posta~~ — **Register**. Serve la ragione sociale esatta
   (Register S.p.A.?), la sede e la conferma di dove stanno i server, per
-  citarli in informativa e firmare il DPA che Register mette a disposizione
+  citarli in informativa e firmare il DPA che Register mette a disposizione.
+  **Attenzione**: se il titolare è la società lituana e l'hosting è italiano,
+  va verificato quale autorità di controllo è competente
 - Servizio del form contatti: **ancora da scegliere**. «Richiesta di consulenza
   e/o incontro» è la finalità, non il fornitore: serve sapere se il form passerà
   da un servizio esterno (Formspree, Web3Forms…) o da un endpoint WordPress

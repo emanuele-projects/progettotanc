@@ -1,8 +1,9 @@
-export type LocationType = 'direzionale' | 'sede' | 'lounge';
+export type LocationType = 'direzionale' | 'legale' | 'sede' | 'lounge';
 
 /** Etichetta al singolare, usata accanto ai punti sul globo */
 export const typeLabels: Record<LocationType, string> = {
   direzionale: 'Sede direzionale',
+  legale: 'Sede legale',
   sede: 'Sede',
   lounge: 'Lounge',
 };
@@ -59,10 +60,10 @@ export const locations: Location[] = [
     city: 'Vilnius',
     cc: 'LT',
     address: 'Gedimino prospektas 18, Città Vecchia — Vilnius',
-    type: 'sede',
+    type: 'legale',
     lat: 54.69,
     lng: 25.28,
-    note: 'Innovazione & nuovi mercati',
+    note: 'Sede legale · innovazione & nuovi mercati',
   },
   {
     city: 'Dubai',
