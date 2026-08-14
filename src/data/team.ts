@@ -14,7 +14,7 @@ export interface Member {
 export const team: Member[] = [
   {
     mono: 'FR',
-    name: 'Fulvio Rossi',
+    name: 'Fulvio Tancredi Rossi',
     role: 'Presidente & Co-fondatore',
     note: 'Visione, regìa e garanzia dello studio',
     photo: '/images/team/fulvio-rossi.jpg',

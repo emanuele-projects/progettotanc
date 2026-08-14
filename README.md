@@ -52,7 +52,7 @@ I tre ritratti sono già referenziati in `src/data/team.ts` e vanno depositati i
 
 | File | Persona |
 | --- | --- |
-| `fulvio-rossi.jpg` | Fulvio Rossi — Presidente & Co-fondatore |
+| `fulvio-rossi.jpg` | Fulvio Tancredi Rossi — Presidente & Co-fondatore |
 | `carolina-rossi.jpg` | Carolina Rossi — Amministratore Delegato |
 | `gerard-haoun.jpg` | Gerard Haoun — Vice Presidente & Co-fondatore |
 

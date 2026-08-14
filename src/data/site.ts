@@ -59,7 +59,7 @@ export const legal = {
   vat: 'DA COMPLETARE — P.IVA',
   rea: 'DA COMPLETARE — iscrizione REA',
   /** Sede legale del titolare */
-  registeredOffice: 'DA COMPLETARE — sede legale',
+  registeredOffice: 'Gedimino prospektas 18, Città Vecchia — Vilnius (Lituania)',
   /** Indirizzo a cui l'interessato esercita i propri diritti */
   // Meglio un indirizzo dedicato (es. privacy@) quando sarà disponibile
   privacyEmail: 'info@fulviorossiplus.com',
