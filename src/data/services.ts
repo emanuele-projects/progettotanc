@@ -99,7 +99,7 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'cessioni-e-acquisizioni',
-    photo: '/images/sezioni/ma-e-ricerca-di-capitali.jpg',
+    photo: '/images/sezioni/cessioni-e-acquisizioni.jpg',
     focus: '60% 30%',
     art: 'deal',
     num: '01',
