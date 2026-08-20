@@ -15,7 +15,101 @@ import { url } from '../lib/url';
 const link = (href: string, label: string) =>
   `<p><a href="${url(href)}">${label} →</a></p>`;
 
+/**
+ * Figura dentro il corpo dell'articolo. `max` tiene l'immagine entro la sua
+ * risoluzione nativa: alcuni materiali d'archivio sono piccoli e ingranditi
+ * si sfarinano. width/height servono a non far ballare il layout in caricamento.
+ */
+const fig = (
+  src: string,
+  alt: string,
+  size: [number, number],
+  caption: string,
+  max?: number,
+) =>
+  `<figure class="post-fig"${max ? ` style="max-width:${max}px"` : ''}>` +
+  `<img src="${url(src)}" alt="${alt}" width="${size[0]}" height="${size[1]}" loading="lazy" />` +
+  `<figcaption>${caption}</figcaption></figure>`;
+
 export const editorialPosts: Post[] = [
+  {
+    slug: 'nasce-fulviorossiplus',
+    title: 'Nasce FulviorossiPLUS: crescita per acquisizioni e nuovi partner',
+    excerpt:
+      'Quattro operazioni chiuse in cinque mesi, quattro nuovi partner e il primo Consiglio di Amministrazione: prende forma la nuova struttura del gruppo.',
+    contentHtml: [
+      '<p><strong>Milano, 20 agosto 2026.</strong> Prende forma <strong>FulviorossiPLUS</strong>, la nuova realtà fondata da Fulvio Tancredi Rossi, che ne assume il ruolo di fondatore e Presidente. La società entrerà a pieno regime entro la fine di agosto.</p>',
+
+      '<h2>Una crescita per acquisizioni</h2>',
+      '<p>Negli ultimi cinque mesi FulviorossiPLUS ha portato a termine un’intensa attività di crescita per acquisizioni:</p>',
+      '<ul>',
+      '<li><strong>100% di Think s.r.l.</strong> — acquisito</li>',
+      '<li><strong>65% di Molteni Colombo Brandi e Rossi s.a.r.l.</strong> — acquisito</li>',
+      '<li><strong>75% di Calibro 35 eventi s.r.l.</strong> — acquisito</li>',
+      '<li><strong>50% di Novaomnia</strong> — ceduto, partecipazione detenuta da Fulvio Rossi s.r.l.</li>',
+      '</ul>',
+      '<p>Un percorso che consolida il perimetro del gruppo e ne ridisegna gli assetti societari, segnando al tempo stesso la chiusura di una fase precedente e l’apertura di un nuovo capitolo imprenditoriale.</p>',
+
+      '<h2>Nuovi partner in squadra</h2>',
+      '<p>Al progetto si uniscono quattro nuovi partner — <strong>Luca Basso</strong>, <strong>Pablo Docimo</strong>, <strong>Michelangelo Chasseur</strong> e <strong>Giuseppe Catizone</strong> — che rafforzano il team con competenze ed esperienze destinate ad ampliare l’offerta della società.</p>',
+      '<p>Il primo Consiglio di Amministrazione conferma <strong>Carolina Rossi</strong> nel ruolo di amministratore delegato e <strong>Fulvio Tancredi Rossi</strong> in quello di Presidente.</p>',
+      link('/team/', 'Le persone dello studio'),
+
+      '<h2>Da dove arriva questa struttura</h2>',
+      '<p>La nuova struttura nasce sulla base di circa trentotto anni di esperienza maturata da Fulvio Rossi nel mondo del marketing, degli eventi e dell’ottimizzazione dei processi, attraverso collaborazioni con le più importanti agenzie italiane — Castadiva, Uvet Amex, Synapsy, Yeg, Jakala — e mandati per brand internazionali tra cui American Express, Nestlé, Barilla, Juventus, Piaggio, Iveco e RCS Giro d’Italia.</p>',
+      fig(
+        '/images/sezioni/comunicato-premi.jpg',
+        'Fulvio Tancredi Rossi a una premiazione di settore',
+        [900, 1600],
+        'Trentotto anni tra marketing, eventi e ottimizzazione dei processi.',
+        380,
+      ),
+
+      '<blockquote>«Tutto il resto è rumore, noi lavoriamo.»<br /><em>Fulvio Rossi, Presidente di FulviorossiPLUS</em></blockquote>',
+      '<p>È la frase che il gruppo si porta dietro da tempo, e che ciascuno declina a modo proprio.</p>',
+      fig(
+        '/images/sezioni/comunicato-claim.jpg',
+        'Ritratto di Carolina Rossi con il claim «Il resto è rumore. Io lavoro.»',
+        [569, 566],
+        '«Il resto è rumore. Io lavoro.» — la versione di Carolina Rossi.',
+        520,
+      ),
+
+      '<h2>Le sedi</h2>',
+      '<ul>',
+      '<li><strong>Sede legale:</strong> Cracovia</li>',
+      '<li><strong>Sedi commerciali:</strong> Milano, Roma</li>',
+      '<li><strong>Sedi periferiche presidiate:</strong> Dubai, Vilnius, Monaco</li>',
+      '</ul>',
+      link('/team/#sedi', 'Dove siamo'),
+
+      '<h2>Oltre il perimetro dell’impresa</h2>',
+      '<p>Accanto al lavoro sulle operazioni resta l’impegno pubblico delle persone che compongono il gruppo. Carolina Rossi è tra le protagoniste di <em>100 Donne per Tutte</em> ed è intervenuta al primo convegno europeo sulla violenza di genere a Montecitorio.</p>',
+      fig(
+        '/images/sezioni/comunicato-100donne.jpg',
+        'Carolina Rossi tra le protagoniste di 100 Donne per Tutte e al convegno di Montecitorio',
+        [321, 527],
+        '«100 Donne per Tutte» e il primo convegno europeo sulla violenza di genere a Montecitorio.',
+        320,
+      ),
+
+      fig(
+        '/images/sezioni/comunicato-integrale.jpg',
+        'Comunicato stampa 01/2026 di FulviorossiPLUS, pagina intera',
+        [1400, 1980],
+        'Comunicato stampa 01/2026 — Milano, 20 agosto 2026.',
+      ),
+    ].join(''),
+    metaDescription:
+      'Quattro acquisizioni in cinque mesi, quattro nuovi partner e il primo Consiglio di Amministrazione: il comunicato stampa 01/2026 di FulviorossiPLUS.',
+    date: new Date('2026-08-20'),
+    author: 'Ufficio stampa',
+    featuredImage: {
+      url: '/images/sezioni/blog-comunicato.jpg',
+      alt: 'Marchio FulviorossiPLUS su fondo blu',
+    },
+  },
+
   {
     slug: 'sede-legale-all-estero',
     title: 'La sede legale all’estero: quando è considerata vera',

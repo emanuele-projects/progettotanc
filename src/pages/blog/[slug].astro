@@ -70,5 +70,28 @@ const pageTitle = withBrand.length <= 60 ? withBrand : post.title;
   }
   .post-content :global(ul), .post-content :global(ol) { padding-left: 24px; margin-bottom: 26px; }
   .post-content :global(li) { font-size: 19px; line-height: 1.7; color: var(--ink-dim); margin-bottom: 8px; }
-  .post-content :global(img) { border: 1px solid var(--hair-faint); margin: 30px 0; }
+  .post-content :global(img) {
+    border: 1px solid var(--hair-faint);
+    margin: 30px 0;
+    max-width: 100%; height: auto;
+  }
+
+  /* Figure del corpo: immagine centrata nella colonna, didascalia a filo.
+     La larghezza massima arriva inline, per non ingrandire oltre il nativo
+     i materiali d'archivio a bassa risoluzione. */
+  .post-content :global(.post-fig) { margin: 42px auto; }
+  .post-content :global(.post-fig img) { display: block; width: 100%; margin: 0; }
+  .post-content :global(.post-fig figcaption) {
+    font-family: var(--sans);
+    font-size: 14px; line-height: 1.55;
+    color: var(--muted);
+    margin-top: 12px; padding-left: 14px;
+    border-left: 2px solid var(--accent);
+  }
+  .post-content :global(blockquote em) {
+    display: inline-block; margin-top: 10px;
+    font-family: var(--sans); font-size: 14px;
+    font-style: normal; letter-spacing: 0.02em;
+    color: var(--muted);
+  }
 </style>
