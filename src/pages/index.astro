@@ -14,7 +14,6 @@ import NewsTeaser from '../components/sections/NewsTeaser.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import DecoBand from '../components/DecoBand.astro';
 import { site } from '../data/site';
-import { locations } from '../data/locations';
 ---
 
 <BaseLayout theme="light">
@@ -32,12 +31,12 @@ import { locations } from '../data/locations';
       { value: '360°', label: 'Strategia · Finanza · Tutela' },
     ]}
   >
-    <Fragment slot="title">Advisor in operazioni di compravendita <br> e ristrutturazione d'impresa.</Fragment>
+    <Fragment slot="title">Advisor in compravendita <br> e ristrutturazione d'impresa.</Fragment>
   </Hero>
 
   <Manifesto
     eyebrow="Chi siamo"
-    sign="Fulvio Tancredi Rossi — Presidente e Co-fondatore"
+    sign="Fulvio Tancredi Rossi, Presidente e Co-fondatore"
     signPhoto="/images/team/fulvio-rossi.jpg"
     ctaLabel="Scopri lo studio"
     ctaHref="/chi-siamo/"

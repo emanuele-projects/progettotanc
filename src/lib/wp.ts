@@ -49,7 +49,7 @@ async function load(): Promise<Post[]> {
     const url = `${API}/posts?_embed=1&status=publish&per_page=100&page=${page}`;
     const res = await fetch(url);
     if (!res.ok) {
-      throw new Error(`WP API: ${res.status} ${res.statusText} — ${url}`);
+      throw new Error(`WP API: ${res.status} ${res.statusText} · ${url}`);
     }
     totalPages = Number(res.headers.get('X-WP-TotalPages') ?? '1');
     const batch = (await res.json()) as WpPost[];

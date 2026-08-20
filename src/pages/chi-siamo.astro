@@ -6,12 +6,13 @@ import WhyUs from '../components/sections/WhyUs.astro';
 import Badges from '../components/sections/Badges.astro';
 import Quotes from '../components/sections/Quotes.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
+import StockImage from '../components/StockImage.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout
   theme="light"
-  title="Chi siamo — Fulvio Rossi Plus"
+  title="Chi siamo · Fulvio Rossi Plus"
   description={`Dal ${site.foundedYear} accanto alle imprese familiari italiane: un team multidisciplinare di fiscalisti, legali, revisori e business coach con una sola regìa.`}
 >
   <PageHero
@@ -22,17 +23,33 @@ import { site } from '../data/site';
     Lo studio, <em>prima di tutto</em>
   </PageHero>
 
-  <Manifesto eyebrow="La nostra idea di consulenza" sign="Fulvio Tancredi Rossi — Presidente e Co-fondatore" id="manifesto">
+  <Manifesto eyebrow="La nostra idea di consulenza" sign="Fulvio Tancredi Rossi, Presidente e Co-fondatore" id="manifesto">
     Fulvio Rossi Plus è un <em>Think Tank</em> di consulenza strategica e
-    finanza d'impresa: un serbatoio di idee e di competenze — fiscalisti,
-    legali, revisori, business coach — che affianca la vostra azienda e
+    finanza d'impresa: un serbatoio di idee e di competenze (fiscalisti,
+    legali, revisori, business coach) che affianca la vostra azienda e
     costruisce con voi una business strategy su misura. Diagnosi oneste,
     decisioni prese insieme, risultati che si misurano.
   </Manifesto>
 
+  <!-- Stacco fotografico: lo studio, prima del discorso sul metodo -->
+  <section class="story-band">
+    <div class="wrap">
+      <div data-reveal>
+        <StockImage
+          src="/images/sezioni/team.jpg"
+          alt="Il gruppo di lavoro dello studio"
+          ratio="21 / 9"
+          focus="50% 34%"
+          tint={0.3}
+        />
+      </div>
+    </div>
+  </section>
+
   <!-- LA RETE: come lo studio lavora con i professionisti esterni -->
   <section class="network">
     <div class="wrap em-gold">
+      <div class="net-grid">
       <div class="net-inner" data-reveal>
         <h2>Come lavoriamo con gli <em>altri</em></h2>
         <p class="net-lead">
@@ -42,7 +59,7 @@ import { site } from '../data/site';
         <p class="net-body">
           Noi abbiamo scelto una strada diversa: un Think Tank stabile che segue il
           cliente dal primo incontro alla firma, e attorno una rete di
-          professionisti costruita in trentacinque anni — legali, fiscalisti,
+          professionisti costruita in trentacinque anni: legali, fiscalisti,
           attestatori, notai, consulenti settoriali in Italia e
           all'estero. Persone con cui abbiamo già lavorato, di cui conosciamo il
           metodo, i tempi e i costi.
@@ -54,6 +71,17 @@ import { site } from '../data/site';
           pezzi. Quel ruolo lo teniamo noi: un solo interlocutore per voi, la
           responsabilità del risultato che resta in capo a chi vi ha portato fin lì.
         </p>
+      </div>
+        <div class="net-photo" data-reveal>
+          <StockImage
+            src="/images/sezioni/comunicato-premi.jpg"
+            alt="Fulvio Tancredi Rossi a una premiazione di settore"
+            ratio="1 / 1"
+            focus="50% 9%"
+            tint={0.26}
+          />
+          <p class="net-cap">Trentotto anni tra marketing, eventi e ottimizzazione dei processi.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -70,7 +98,7 @@ import { site } from '../data/site';
       <p data-reveal>
         Lavoriamo con imprese in fasi di vita diverse: aziende mature che
         affrontano un'operazione straordinaria e realtà giovani che cercano i
-        primi capitali. Sono percorsi diversi per dimensione, non per metodo —
+        primi capitali. Sono percorsi diversi per dimensione, non per metodo,
         e restano sotto la stessa regìa.
       </p>
     </div>
@@ -84,7 +112,27 @@ import { site } from '../data/site';
 </BaseLayout>
 
 <style>
+  /* --- Stacco fotografico --- */
+  .story-band { padding: 8px 0 68px; }
+
   /* --- Come lavoriamo con gli altri --- */
+  .net-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 54px;
+    align-items: center;
+  }
+  .net-photo { min-width: 0; }
+  .net-cap {
+    font-family: var(--sans); font-size: 13.5px; line-height: 1.5;
+    color: var(--muted); margin-top: 12px;
+    padding-left: 12px; border-left: 2px solid var(--accent);
+  }
+  @media (max-width: 900px) {
+    .net-grid { grid-template-columns: 1fr; gap: 34px; }
+    .net-photo { max-width: 340px; }
+  }
+
   .network {
     background: var(--panel-2);
     border-top: 1px solid var(--hair-faint);

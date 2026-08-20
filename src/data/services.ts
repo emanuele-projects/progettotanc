@@ -136,7 +136,7 @@ export const services: Service[] = [
             },
             {
               lead: 'Il modello economico-finanziario',
-              text: 'con proiezioni che si possono discutere una a una — perché in due diligence verranno discusse una a una.',
+              text: 'con proiezioni che si possono discutere una a una, perché in due diligence verranno discusse una a una.',
             },
             {
               lead: 'Il documento di presentazione',
@@ -158,7 +158,7 @@ export const services: Service[] = [
       },
       {
         title: 'Apertura dei tavoli',
-        text: 'Selezioniamo una rosa ristretta di controparti — industriali, fondi, family office, investitori tra Europa e Golfo — e le contattiamo in riservatezza, sotto NDA. Non mandiamo l’azienda “sul mercato”: portiamo pochi interlocutori credibili a sedersi. La nostra rete apre porte che dall’interno resterebbero chiuse.',
+        text: 'Selezioniamo una rosa ristretta di controparti (industriali, fondi, family office, investitori tra Europa e Golfo) e le contattiamo in riservatezza, sotto NDA. Non mandiamo l’azienda “sul mercato”: portiamo pochi interlocutori credibili a sedersi. La nostra rete apre porte che dall’interno resterebbero chiuse.',
       },
       {
         title: 'Negoziazione e closing',
@@ -179,7 +179,7 @@ export const services: Service[] = [
       title: 'Anche prima del primo round',
       block: {
         paras: [
-          'Il nostro mestiere nasce con le imprese mature, ma la ricerca di capitali ha le stesse regole a ogni età. Cambia la posta, non il metodo: chi valuta guarda i numeri, il mercato e chi c’è dietro — e decide in fretta.',
+          'Il nostro mestiere nasce con le imprese mature, ma la ricerca di capitali ha le stesse regole a ogni età. Cambia la posta, non il metodo: chi valuta guarda i numeri, il mercato e chi c’è dietro, e decide in fretta.',
           'Per questo affianchiamo anche imprese giovani nella preparazione al primo investitore. Non con un percorso diverso, ma con lo stesso: capire quanto vale davvero l’idea, costruire i documenti che reggono la verifica, scegliere gli interlocutori giusti e sedersi al tavolo preparati. Con una differenza che pesa: un’impresa giovane ha meno storia da mostrare, e quindi meno margine di errore su ciò che mostra.',
         ],
         callout:
@@ -209,7 +209,7 @@ export const services: Service[] = [
     steps: [
       {
         title: 'La fotografia onesta',
-        text: 'Ricostruiamo margini reali per linea di business, flussi di cassa, posizione finanziaria netta ed esposizione verso il sistema bancario. È la fase in cui diciamo cose che non sempre fanno piacere sentirsi dire — ed è esattamente per questo che serve qualcuno di esterno.',
+        text: 'Ricostruiamo margini reali per linea di business, flussi di cassa, posizione finanziaria netta ed esposizione verso il sistema bancario. È la fase in cui diciamo cose che non sempre fanno piacere sentirsi dire, ed è esattamente per questo che serve qualcuno di esterno.',
       },
       {
         title: 'Il piano',
@@ -257,7 +257,7 @@ export const services: Service[] = [
             },
           ],
           outro: [
-            'Il nostro ruolo è quello dell’advisor dell’imprenditore: costruiamo il piano, prepariamo i numeri e conduciamo la trattativa. L’attestazione e le nomine indipendenti spettano per legge ad altri soggetti — ed è bene che sia così, perché è proprio quella terzietà a dare valore al piano davanti ai creditori.',
+            'Il nostro ruolo è quello dell’advisor dell’imprenditore: costruiamo il piano, prepariamo i numeri e conduciamo la trattativa. L’attestazione e le nomine indipendenti spettano per legge ad altri soggetti, ed è bene che sia così, perché è proprio quella terzietà a dare valore al piano davanti ai creditori.',
           ],
         },
       },
@@ -272,7 +272,7 @@ export const services: Service[] = [
       'Gli strumenti di legge attivati finché servono a qualcosa',
     ],
     whenToTalk:
-      'Quando la cassa detta l’agenda. Quando le banche chiedono un piano e non sapete come scriverlo. Quando i ricavi crescono ma i margini no. Quando avete saltato una scadenza fiscale o contributiva. Quando vi hanno parlato di composizione negoziata e non sapete cosa comporti — e comunque prima di arrivare al punto in cui l’unica strada è la liquidazione.',
+      'Quando la cassa detta l’agenda. Quando le banche chiedono un piano e non sapete come scriverlo. Quando i ricavi crescono ma i margini no. Quando avete saltato una scadenza fiscale o contributiva. Quando vi hanno parlato di composizione negoziata e non sapete cosa comporti. E comunque prima di arrivare al punto in cui l’unica strada è la liquidazione.',
   },
   {
     slug: 'passaggio-generazionale',
@@ -304,7 +304,7 @@ export const services: Service[] = [
       },
       {
         title: 'Trasferire nei tempi giusti',
-        text: 'Definiamo strumenti e tempistiche del trasferimento — quote, immobili, patrimonio — coordinando gli aspetti fiscali e successori con i professionisti di riferimento. Un passaggio graduale e pianificato ha un costo; uno improvviso ne ha uno molto maggiore.',
+        text: 'Definiamo strumenti e tempistiche del trasferimento (quote, immobili, patrimonio), coordinando gli aspetti fiscali e successori con i professionisti di riferimento. Un passaggio graduale e pianificato ha un costo; uno improvviso ne ha uno molto maggiore.',
       },
       {
         title: 'Accompagnare chi prende la guida',
@@ -344,7 +344,7 @@ export const services: Service[] = [
     steps: [
       {
         title: 'Mappare rischi e beni',
-        text: 'Ricostruiamo l’inventario completo: società, immobili, partecipazioni, marchi, liquidità, polizze — e dall’altra parte esposizioni, garanzie personali rilasciate, contenziosi potenziali. Quasi sempre questa mappa, da sola, sorprende chi ce l’ha davanti.',
+        text: 'Ricostruiamo l’inventario completo: società, immobili, partecipazioni, marchi, liquidità, polizze. Dall’altra parte esposizioni, garanzie personali rilasciate, contenziosi potenziali. Quasi sempre questa mappa, da sola, sorprende chi ce l’ha davanti.',
       },
       {
         title: 'Costruire i confini',
@@ -427,7 +427,7 @@ export const services: Service[] = [
         },
         {
           q: 'Cosa rende una sede estera difendibile?',
-          a: 'Una ragione economica reale, amministratori che operano sul posto, sostanza operativa — uffici, persone, contratti, costi — rapporti bancari attivi e documentazione ordinata. Tutto questo va dimostrabile a distanza di anni: la difesa di una struttura si costruisce quando la si crea, non quando arriva la verifica.',
+          a: 'Una ragione economica reale, amministratori che operano sul posto, sostanza operativa (uffici, persone, contratti, costi), rapporti bancari attivi e documentazione ordinata. Tutto questo va dimostrabile a distanza di anni: la difesa di una struttura si costruisce quando la si crea, non quando arriva la verifica.',
         },
         {
           q: 'Conviene aprire solo per motivi fiscali?',
@@ -471,7 +471,7 @@ export const services: Service[] = [
     steps: [
       {
         title: 'Capire cosa vi serve davvero',
-        text: 'Partiamo dal mercato, non dallo standard: quali gare volete vincere, quali filiere presidiare, quali clienti ve lo stanno chiedendo. Da lì scegliamo gli schemi utili — qualità, ambiente, sicurezza sul lavoro, sicurezza delle informazioni, anticorruzione, o la valorizzazione dell’origine italiana — e scartiamo quelli che sarebbero solo un costo.',
+        text: 'Partiamo dal mercato, non dallo standard: quali gare volete vincere, quali filiere presidiare, quali clienti ve lo stanno chiedendo. Da lì scegliamo gli schemi utili (qualità, ambiente, sicurezza sul lavoro, sicurezza delle informazioni, anticorruzione, o la valorizzazione dell’origine italiana) e scartiamo quelli che sarebbero solo un costo.',
       },
       {
         title: 'Analisi degli scostamenti',
@@ -511,10 +511,10 @@ export const services: Service[] = [
     metaDescription:
       'Riorganizzazione aziendale, deleghe e controllo di gestione, business plan e accompagnamento al cambiamento. Perché l’impresa regga la crescita che ha davanti.',
     intro: [
-      'Molte imprese crescono per accumulo. Si aggiungono prodotti, mercati, persone, e l’organizzazione resta quella di quando si era la metà. Finché il fondatore riesce a tenere tutto in testa, funziona. Poi smette di funzionare — e il sintomo non è mai l’organizzazione: sono i margini che calano, le decisioni che rallentano, le persone brave che se ne vanno.',
+      'Molte imprese crescono per accumulo. Si aggiungono prodotti, mercati, persone, e l’organizzazione resta quella di quando si era la metà. Finché il fondatore riesce a tenere tutto in testa, funziona. Poi smette di funzionare, e il sintomo non è mai l’organizzazione: sono i margini che calano, le decisioni che rallentano, le persone brave che se ne vanno.',
     ],
     startingPoint:
-      'Riorganizzare non significa disegnare un organigramma. Significa rispondere a tre domande scomode: chi decide cosa, come si misura se sta andando bene, e cosa succede il giorno in cui il fondatore non c’è. Un’azienda che non sa rispondere è un’azienda che vale meno — al tavolo di una trattativa, davanti a una banca, agli occhi di un successore.',
+      'Riorganizzare non significa disegnare un organigramma. Significa rispondere a tre domande scomode: chi decide cosa, come si misura se sta andando bene, e cosa succede il giorno in cui il fondatore non c’è. Un’azienda che non sa rispondere è un’azienda che vale meno: al tavolo di una trattativa, davanti a una banca, agli occhi di un successore.',
     steps: [
       {
         title: 'Leggere l’azienda com’è',
@@ -542,6 +542,6 @@ export const services: Service[] = [
       'Un’azienda che non dipende da una sola testa',
     ],
     whenToTalk:
-      'Quando il fatturato cresce e il margine no. Quando ogni decisione passa dalla stessa scrivania. Quando state per aprire il capitale, passare il testimone o entrare in un mercato nuovo — e sapete che così com’è, l’azienda non regge il passo successivo.',
+      'Quando il fatturato cresce e il margine no. Quando ogni decisione passa dalla stessa scrivania. Quando state per aprire il capitale, passare il testimone o entrare in un mercato nuovo, e sapete che così com’è, l’azienda non regge il passo successivo.',
   },
 ];

@@ -17,7 +17,7 @@ export const serviceCallout = {
  * A: pagine di dettaglio · B: indice servizi.
  */
 export const serviceClosing = {
-  a: 'Ogni impresa è un caso a sé. Prima di proporvi qualcosa vogliamo capire se e come possiamo esservi utili — e se non lo siamo, ve lo diciamo.',
+  a: 'Ogni impresa è un caso a sé. Prima di proporvi qualcosa vogliamo capire se e come possiamo esservi utili. E se non lo siamo, ve lo diciamo.',
   b: 'Il primo incontro serve a fare una diagnosi, non a vendervi un mandato.',
 } as const;
 
