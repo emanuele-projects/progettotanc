@@ -6,7 +6,7 @@ import Locations from '../components/sections/Locations.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import { url } from '../lib/url';
 import { hasPublicAsset } from '../lib/assets';
-import { team } from '../data/team';
+import { guida, partner } from '../data/team';
 ---
 
 <BaseLayout
@@ -35,19 +35,53 @@ import { team } from '../data/team';
       </div>
 
       <div class="lead-grid">
-        {team.map((m) => (
+        {guida.map((m) => (
           <article class="member" data-reveal>
             <div class="member-photo">
               {m.photo && hasPublicAsset(m.photo) ? (
                 <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
               ) : (
-                <BrandArt variant="portrait" ratio="4 / 5" label={m.note} />
+                <BrandArt variant="portrait" ratio="4 / 5" label={m.note ?? m.name} />
               )}
             </div>
             <div class="member-body">
               <h3>{m.name}</h3>
               <div class="pos">{m.role}</div>
-              <div class="note">{m.note}</div>
+              {m.note && <div class="note">{m.note}</div>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER: la compagine attorno al consiglio -->
+  <section class="partners">
+    <div class="wrap">
+      <div class="tl-head" data-reveal>
+        <span class="eyebrow">La compagine</span>
+        <h2>I partner</h2>
+        <p>
+          Attorno al consiglio, i partner dello studio: competenze ed esperienze
+          diverse, che ampliano ciò che possiamo seguire senza spezzare la regìa.
+          È il Think Tank nella sua forma stabile — le stesse persone, dal primo
+          incontro alla firma.
+        </p>
+      </div>
+
+      <div class="partner-grid">
+        {partner.map((m) => (
+          <article class="member member--slim" data-reveal>
+            <div class="member-photo">
+              {m.photo && hasPublicAsset(m.photo) ? (
+                <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
+              ) : (
+                <BrandArt variant="portrait" ratio="4 / 5" label={m.mono} />
+              )}
+            </div>
+            <div class="member-body">
+              <h3>{m.name}</h3>
+              <div class="pos">{m.role}</div>
             </div>
           </article>
         ))}
@@ -69,7 +103,7 @@ import { team } from '../data/team';
         </p>
         <p class="net-body">
           Il team si estende così: non un organico rigido, ma una squadra che si
-          compone attorno alla vostra operazione. I partner sono molti più dei
+          compone attorno alla vostra operazione. La rete è molto più ampia dei
           volti in questa pagina; a voi arriva sempre una regìa unica, che tiene
           insieme le competenze e risponde del risultato.
         </p>
@@ -119,6 +153,10 @@ import { team } from '../data/team';
   .member-photo img {
     display: block; width: 100%; aspect-ratio: 4 / 5;
     object-fit: cover;
+    /* I ritratti arrivano da set diversi — studio in bianco e nero, interni
+       caldi, uno scatto su parete chiara. Il bianco e nero uniforme li tiene
+       insieme: per tornare a colori, togliere questa riga. */
+    filter: grayscale(1) contrast(1.06);
   }
   .member-body { padding: 18px 20px 22px; }
   .member h3 { font-size: 20px; }
@@ -132,6 +170,22 @@ import { team } from '../data/team';
     margin-top: 12px;
     border-top: 1px solid var(--hair-faint); padding-top: 10px;
   }
+
+  /* --- I partner: stessa scheda, passo più stretto --- */
+  .partners { padding: 0 0 84px; }
+  .partners .tl-head {
+    border-top: 1px solid var(--hair-faint);
+    padding-top: 54px;
+    margin-bottom: 36px;
+  }
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .member--slim .member-body { padding: 14px 16px 18px; }
+  .member--slim h3 { font-size: 17px; line-height: 1.25; }
+  .member--slim .pos { font-size: 10px; margin-top: 6px; }
 
   /* --- La rete --- */
   .network {
@@ -149,10 +203,14 @@ import { team } from '../data/team';
   .net-lead { font-size: clamp(18px, 2vw, 22px); color: var(--ink-dim); line-height: 1.55; margin-top: 20px; }
   .net-body { font-size: 17px; color: var(--muted); line-height: 1.7; margin-top: 18px; }
 
+  @media (max-width: 1040px) {
+    .partner-grid { grid-template-columns: repeat(3, 1fr); }
+  }
   @media (max-width: 860px) {
     .lead-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
   }
   @media (max-width: 560px) {
     .lead-grid { grid-template-columns: 1fr; max-width: 360px; }
+    .partner-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   }
 </style>
