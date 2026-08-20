@@ -15,7 +15,8 @@ const cities = locations.map((l) => l.city);
     </div>
     <div class="foot-top">
       <div class="foot-brand">
-        <Logo class="foot-mark" height={58} />
+        <Logo variant="compatto" class="foot-mark" height={44} />
+        <p class="foot-payoff">{site.brandSub}</p>
       </div>
       <div class="foot-col">
         <h4>Studio</h4>
@@ -73,15 +74,14 @@ const cities = locations.map((l) => l.city);
     padding-bottom: 44px;
     border-bottom: 1px solid var(--hair-on-navy);
   }
-  .foot-brand { display: flex; align-items: center; }
+  .foot-brand { display: flex; flex-direction: column; align-items: flex-start; }
   .foot-brand :global(.foot-mark) { flex: none; color: var(--on-navy); }
-  .foot-brand .name {
-    font-family: var(--disp); font-size: 26px; font-weight: 800;
-    letter-spacing: 0.03em; color: var(--on-navy);
-  }
-  .foot-brand .sub {
-    font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.28em;
-    color: var(--on-navy-muted); text-transform: uppercase; margin-top: 8px;
+  /* Il payoff del marchio è testo, non maschera: dentro il lockup varrebbe
+     il 5% dell'altezza e a queste misure non si leggerebbe. */
+  .foot-payoff {
+    font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em;
+    color: var(--on-navy-muted); text-transform: uppercase;
+    margin-top: 14px; line-height: 1.6;
   }
   .foot-col h4 {
     font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.18em;

@@ -6,6 +6,7 @@ import Method from '../components/sections/Method.astro';
 import PercorsoSteps from '../components/sections/PercorsoSteps.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import DecoBand from '../components/DecoBand.astro';
+import StockImage from '../components/StockImage.astro';
 import { site } from '../data/site';
 
 const pillars = [
@@ -92,6 +93,21 @@ const steps = [
     <Fragment slot="title">Mentoria<br />&amp; trasferimento</Fragment>
   </Method>
 
+  <!-- Stacco fotografico fra le tre dimensioni e il percorso -->
+  <section class="mn-band">
+    <div class="wrap">
+      <div data-reveal>
+        <StockImage
+          src="/images/sezioni/evento-mentoria.jpg"
+          alt="Intervento davanti a una platea durante un incontro con i clienti"
+          ratio="16 / 9"
+          focus="50% 25%"
+          tint={0.3}
+        />
+      </div>
+    </div>
+  </section>
+
   <PercorsoSteps
     eyebrow="Il percorso"
     lead="Quattro tempi, dal primo colloquio all'autonomia. Riservatezza assoluta in ogni fase."
@@ -109,3 +125,8 @@ const steps = [
     <Fragment slot="title">Parliamo di chi<br /><em>guida.</em></Fragment>
   </CtaBand>
 </BaseLayout>
+
+<style>
+  /* Stacco fotografico fra le tre dimensioni e il percorso */
+  .mn-band { padding: 76px 0 4px; }
+</style>

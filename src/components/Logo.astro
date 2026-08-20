@@ -2,16 +2,19 @@
 /**
  * Marchio Fulviorossi Plus, nelle sue declinazioni.
  *
- * Il file fornito è un JPEG a tinta piena su fondo bianco: qui viene usato
+ * Il file fornito è un PNG a tinta piena su fondo bianco: qui viene usato
  * come **maschera CSS**, non come immagine. Il colore arriva da `currentColor`,
- * quindi il marchio segue il contesto — bianco sull'header trasparente sopra
- * l'hero, blu di brand sull'header bianco dopo lo scroll, bianco nel footer —
- * senza mantenere due file per i due fondi.
+ * quindi il marchio segue il contesto: bianco sull'header trasparente sopra
+ * l'hero, blu di brand sull'header bianco dopo lo scroll, bianco nel footer,
+ * senza mantenere due file per i due fondi. Il tondo «PLUS» resta cavo,
+ * perché le lettere bianche dentro il cerchio diventano fori nella maschera.
  *
- * `lockup`   colonna + lettering + payoff. Vuole spazio: sotto i ~90px di
- *            altezza il payoff non si legge, quindi sta nel footer.
- * `compatto` colonna + «Fulviorossi PLUS», senza payoff: è la resa per
- *            l'header, dove l'altezza utile è una quarantina di pixel.
+ * `lockup`   il marchio intero, colonna + lettering + payoff. Nel disegno
+ *            nuovo è quasi quadrato e il payoff vale il 5% dell'altezza:
+ *            sotto i ~160px non si legge. In pagina non lo usiamo, il payoff
+ *            viaggia come testo vero (vedi Footer.astro).
+ * `compatto` colonna e «Fulviorossi PLUS» affiancati, alla stessa altezza:
+ *            è la resa orizzontale, quella che sta in header e footer.
  * `simbolo`  la sola colonna, per gli spazi stretti.
  */
 import { url } from '../lib/url';
@@ -22,12 +25,12 @@ interface Props {
   height?: number;
   class?: string;
 }
-const { variant = 'lockup', height = 40, class: className } = Astro.props;
+const { variant = 'compatto', height = 40, class: className } = Astro.props;
 
 const ART = {
-  lockup: { src: '/logo-lockup.png', w: 1184, h: 469 },
-  simbolo: { src: '/logo-simbolo.png', w: 352, h: 469 },
-  testo: { src: '/logo-testo.png', w: 743, h: 66 },
+  lockup: { src: '/logo-lockup.png', w: 1600, h: 1118 },
+  simbolo: { src: '/logo-simbolo.png', w: 600, h: 800 },
+  testo: { src: '/logo-testo.png', w: 1200, h: 351 },
 };
 
 const mask = (a: { src: string }) => {
@@ -41,12 +44,14 @@ const label = 'Fulviorossi Plus · Deep Consulting & Mentoria';
 ---
 
 {variant === 'compatto' ? (
-  <span class:list={['logo', 'logo-compatto', className]} role="img" aria-label={label}>
+  <span
+    class:list={['logo', 'logo-compatto', className]}
+    role="img"
+    aria-label={label}
+    style={`--logo-gap:${Math.round(height * 0.34)}px`}
+  >
     <span class="logo-mark" style={`${box(ART.simbolo, height)};${mask(ART.simbolo)}`}></span>
-    <span
-      class="logo-mark"
-      style={`${box(ART.testo, Math.round(height * 0.45))};${mask(ART.testo)}`}
-    ></span>
+    <span class="logo-mark" style={`${box(ART.testo, height)};${mask(ART.testo)}`}></span>
   </span>
 ) : (
   <span
@@ -73,6 +78,6 @@ const label = 'Fulviorossi Plus · Deep Consulting & Mentoria';
   .logo-compatto {
     display: flex;
     align-items: center;
-    gap: 0.32em;
+    gap: var(--logo-gap, 12px);
   }
 </style>
