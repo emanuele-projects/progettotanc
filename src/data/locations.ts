@@ -31,7 +31,7 @@ export const locations: Location[] = [
   {
     city: 'Milano',
     cc: 'IT',
-    address: 'Via Settembrini, 7 — Milano',
+    address: 'Via Settembrini 7, Milano',
     type: 'direzionale',
     primary: true,
     lat: 45.46,
@@ -41,7 +41,7 @@ export const locations: Location[] = [
   {
     city: 'Roma',
     cc: 'IT',
-    address: 'Viale Marconi, 12 — Roma',
+    address: 'Viale Marconi 12, Roma',
     type: 'sede',
     lat: 41.9,
     lng: 12.5,
@@ -50,7 +50,7 @@ export const locations: Location[] = [
   {
     city: 'Cracovia',
     cc: 'PL',
-    address: 'ul. Podskale 1/14 — Cracovia',
+    address: 'ul. Podskale 1/14, Cracovia',
     type: 'legale',
     lat: 50.06,
     lng: 19.94,
@@ -59,7 +59,7 @@ export const locations: Location[] = [
   {
     city: 'Vilnius',
     cc: 'LT',
-    address: 'Gedimino prospektas 18, Città Vecchia — Vilnius',
+    address: 'Gedimino prospektas 18 (Città Vecchia), Vilnius',
     type: 'sede',
     lat: 54.69,
     lng: 25.28,
@@ -68,7 +68,7 @@ export const locations: Location[] = [
   {
     city: 'Dubai',
     cc: 'EAU',
-    address: 'Jumeirah Lakes Towers (JLT) — Dubai',
+    address: 'Jumeirah Lakes Towers (JLT), Dubai',
     type: 'sede',
     lat: 25.2,
     lng: 55.27,
@@ -77,7 +77,7 @@ export const locations: Location[] = [
   {
     city: 'Monaco',
     cc: 'Principato',
-    address: '21 Rue Colonel Bellando de Castro — Monaco',
+    address: '21 Rue Colonel Bellando de Castro, Monaco',
     type: 'lounge',
     lat: 43.74,
     lng: 7.42,

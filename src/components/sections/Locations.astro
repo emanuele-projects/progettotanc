@@ -48,7 +48,7 @@ const markers = locations.map((l) => ({
             <li class:list={['g-city', { primary: l.primary, lounge: l.type === 'lounge' }]}>
               <span class="gc-name">{l.city}</span>
               <span class="gc-cc">{l.cc}</span>
-              <span class="gc-addr">{l.address.split(' — ')[0]}</span>
+              <span class="gc-addr">{l.address.slice(0, l.address.lastIndexOf(', '))}</span>
               {l.type !== 'sede' && <span class="gc-role">{typeLabels[l.type]}</span>}
             </li>
           ))}

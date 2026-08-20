@@ -40,7 +40,7 @@ const { markers, label = 'Globo interattivo delle sedi: trascina per ruotare, to
         data-note={p.note ?? ''}
         data-lat={String(p.lat)}
         data-lng={String(p.lng)}
-        aria-label={`${p.city} — ${p.typeLabel}`}
+        aria-label={`${p.city}, ${p.typeLabel}`}
       >
         <span class="gpin-halo" aria-hidden="true"></span>
         <svg class="gpin-glyph" viewBox="0 0 24 32" aria-hidden="true">

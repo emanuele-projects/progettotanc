@@ -27,7 +27,7 @@ const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
           <img
             class="sign-photo"
             src={url(portrait)}
-            alt={`Ritratto di ${sign.split('—')[0].trim()}`}
+            alt={`Ritratto di ${sign.split(',')[0].trim()}`}
             width="72"
             height="72"
             loading="lazy"

@@ -16,7 +16,7 @@ interface Props {
 const { title, description, eyebrow, lead } = Astro.props;
 ---
 
-<BaseLayout theme="light" title={`${title} — Fulvio Rossi Plus`} description={description}>
+<BaseLayout theme="light" title={`${title} · Fulvio Rossi Plus`} description={description}>
   <PageHero eyebrow={eyebrow} art="editorial" lead={lead}>
     {title}
   </PageHero>
@@ -55,7 +55,7 @@ const { title, description, eyebrow, lead } = Astro.props;
     font-size: 16.5px; line-height: 1.7; color: var(--muted); margin-bottom: 10px;
   }
   .legal-body :global(li)::before {
-    content: "—"; position: absolute; left: 0; color: var(--accent-text);
+    content: "·"; position: absolute; left: 0; color: var(--accent-text);
   }
   .legal-body :global(strong) { color: var(--ink); font-weight: 700; }
   .legal-body :global(a) { color: var(--accent-text); border-bottom: 1px solid var(--hair); }

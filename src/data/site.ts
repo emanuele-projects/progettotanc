@@ -1,7 +1,7 @@
 export const site = {
   brand: 'FULVIO ROSSI PLUS',
   brandSub: 'Deep Consulting & Mentoria',
-  title: 'Fulvio Rossi Plus — Deep Consulting e finanza d’impresa',
+  title: 'Fulvio Rossi Plus · Deep Consulting e finanza d’impresa',
   description:
     'Deep consulting dal 1989: compravendita di aziende, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Presenza diffusa tra Europa e Golfo.',
   foundedYear: 1989,
@@ -19,7 +19,7 @@ export const site = {
     { area: 'Polonia', number: '+48 530 888 863', tel: '+48530888863' },
     { area: 'Emirati Arabi Uniti', number: '+971 4 347 0169', tel: '+97143470169' },
   ],
-  address: 'Via Settembrini, 7 — Milano',
+  address: 'Via Settembrini 7, Milano',
   piva: 'Ragione sociale · P.IVA da inserire',
 } as const;
 
@@ -55,15 +55,15 @@ export const ctaHref = '/contatti';
  */
 export const legal = {
   /** Ragione sociale completa del titolare del trattamento */
-  entity: 'DA COMPLETARE — ragione sociale',
-  vat: 'DA COMPLETARE — P.IVA',
-  rea: 'DA COMPLETARE — iscrizione REA',
+  entity: 'DA COMPLETARE: ragione sociale',
+  vat: 'DA COMPLETARE: P.IVA',
+  rea: 'DA COMPLETARE: iscrizione REA',
   /** Sede legale del titolare */
-  registeredOffice: 'ul. Podskale 1/14 — Cracovia (Polonia)',
+  registeredOffice: 'ul. Podskale 1/14, Cracovia (Polonia)',
   /** Indirizzo a cui l'interessato esercita i propri diritti */
   // Meglio un indirizzo dedicato (es. privacy@) quando sarà disponibile
   privacyEmail: 'info@fulviorossiplus.com',
-  pec: 'DA COMPLETARE — PEC',
+  pec: 'DA COMPLETARE: PEC',
   /** Responsabile della protezione dei dati, se nominato */
   dpo: null as string | null,
   /** Ultimo aggiornamento delle informative */

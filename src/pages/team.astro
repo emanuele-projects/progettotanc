@@ -6,75 +6,42 @@ import Locations from '../components/sections/Locations.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import { url } from '../lib/url';
 import { hasPublicAsset } from '../lib/assets';
-import { guida, partner } from '../data/team';
+import { team } from '../data/team';
 ---
 
 <BaseLayout
   theme="light"
-  title="Team & Sedi — Fulvio Rossi Plus"
+  title="Team & Sedi · Fulvio Rossi Plus"
   description="Le persone che vi seguono e i luoghi da cui operiamo: una guida riconoscibile e una rete di professionisti che si compone attorno alla vostra operazione."
 >
   <PageHero
     eyebrow="Persone & presenza"
     photo="/images/sezioni/team.jpg" focus="50% 36%"
-    lead="La fiducia nasce dai volti e dalla vicinanza. Una guida riconoscibile, una rete di professionisti alle spalle e sedi con ruoli distinti — sotto un'unica regìa."
+    lead="La fiducia nasce dai volti e dalla vicinanza. Una guida riconoscibile, una rete di professionisti alle spalle e sedi con ruoli distinti, sotto un'unica regìa."
   >
     Le persone e i <em>luoghi</em>
   </PageHero>
 
-  <!-- TEAM: le tre figure principali -->
+  <!-- TEAM: elenco unico, ordinato per ruolo -->
   <section class="team-lead">
     <div class="wrap">
       <div class="tl-head" data-reveal>
-        <span class="eyebrow">La guida</span>
+        <span class="eyebrow">Lo studio</span>
         <h2>Chi risponde di voi</h2>
         <p>
-          Poche figure di riferimento, sempre le stesse dall'inizio alla fine:
-          è a loro che rispondete, ed è di voi che rispondono.
+          Le stesse persone dall'inizio alla fine: è a loro che rispondete, ed è
+          di voi che rispondono. Competenze ed esperienze diverse, che ampliano
+          ciò che possiamo seguire senza spezzare la regìa. È il Think Tank nella
+          sua forma stabile.
         </p>
       </div>
 
       <div class="lead-grid">
-        {guida.map((m) => (
+        {team.map((m) => (
           <article class="member" data-reveal>
             <div class="member-photo">
               {m.photo && hasPublicAsset(m.photo) ? (
-                <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
-              ) : (
-                <BrandArt variant="portrait" ratio="4 / 5" label={m.note ?? m.name} />
-              )}
-            </div>
-            <div class="member-body">
-              <h3>{m.name}</h3>
-              <div class="pos">{m.role}</div>
-              {m.note && <div class="note">{m.note}</div>}
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTNER: la compagine attorno al consiglio -->
-  <section class="partners">
-    <div class="wrap">
-      <div class="tl-head" data-reveal>
-        <span class="eyebrow">La compagine</span>
-        <h2>I partner</h2>
-        <p>
-          Attorno al consiglio, i partner dello studio: competenze ed esperienze
-          diverse, che ampliano ciò che possiamo seguire senza spezzare la regìa.
-          È il Think Tank nella sua forma stabile — le stesse persone, dal primo
-          incontro alla firma.
-        </p>
-      </div>
-
-      <div class="partner-grid">
-        {partner.map((m) => (
-          <article class="member member--slim" data-reveal>
-            <div class="member-photo">
-              {m.photo && hasPublicAsset(m.photo) ? (
-                <img src={url(m.photo)} alt={`${m.name} — ${m.role}`} loading="lazy" />
+                <img src={url(m.photo)} alt={`${m.name}, ${m.role}`} loading="lazy" />
               ) : (
                 <BrandArt variant="portrait" ratio="4 / 5" label={m.mono} />
               )}
@@ -97,8 +64,8 @@ import { guida, partner } from '../data/team';
         <h2>Una rete che si <em>estende</em></h2>
         <p class="net-lead">
           Il nostro valore non è solo nelle persone che incontrate: è nella
-          capacità di mettervi in connessione con i professionisti giusti —
-          fiscalisti, avvocati, revisori, banche d'affari, investitori — nel
+          capacità di mettervi in connessione con i professionisti giusti (fiscalisti,
+          avvocati, revisori, banche d'affari, investitori) nel
           momento esatto in cui servono.
         </p>
         <p class="net-body">
@@ -133,9 +100,8 @@ import { guida, partner } from '../data/team';
 
   .lead-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-    max-width: 900px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
   }
   .member {
     background: var(--panel);
@@ -158,34 +124,13 @@ import { guida, partner } from '../data/team';
        insieme: per tornare a colori, togliere questa riga. */
     filter: grayscale(1) contrast(1.06);
   }
-  .member-body { padding: 18px 20px 22px; }
-  .member h3 { font-size: 20px; }
+  .member-body { padding: 16px 18px 20px; }
+  .member h3 { font-size: 18px; line-height: 1.25; }
   .pos {
-    font-family: var(--sans); font-size: 11px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent-text); margin-top: 7px;
+    font-family: var(--sans); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-text); margin-top: 7px; line-height: 1.4;
   }
-  .note {
-    color: var(--muted); font-size: 13.5px; line-height: 1.5;
-    margin-top: 12px;
-    border-top: 1px solid var(--hair-faint); padding-top: 10px;
-  }
-
-  /* --- I partner: stessa scheda, passo più stretto --- */
-  .partners { padding: 0 0 84px; }
-  .partners .tl-head {
-    border-top: 1px solid var(--hair-faint);
-    padding-top: 54px;
-    margin-bottom: 36px;
-  }
-  .partner-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
-  .member--slim .member-body { padding: 14px 16px 18px; }
-  .member--slim h3 { font-size: 17px; line-height: 1.25; }
-  .member--slim .pos { font-size: 10px; margin-top: 6px; }
 
   /* --- La rete --- */
   .network {
@@ -204,13 +149,9 @@ import { guida, partner } from '../data/team';
   .net-body { font-size: 17px; color: var(--muted); line-height: 1.7; margin-top: 18px; }
 
   @media (max-width: 1040px) {
-    .partner-grid { grid-template-columns: repeat(3, 1fr); }
+    .lead-grid { grid-template-columns: repeat(3, 1fr); }
   }
-  @media (max-width: 860px) {
-    .lead-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-  }
-  @media (max-width: 560px) {
-    .lead-grid { grid-template-columns: 1fr; max-width: 360px; }
-    .partner-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) {
+    .lead-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   }
 </style>
