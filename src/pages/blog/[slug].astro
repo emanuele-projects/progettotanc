@@ -94,4 +94,15 @@ const pageTitle = withBrand.length <= 60 ? withBrand : post.title;
     font-style: normal; letter-spacing: 0.02em;
     color: var(--muted);
   }
+
+  @media (max-width: 560px) {
+    .post-content { padding: 44px 0 64px; }
+    .post-content :global(p) { font-size: 17px; line-height: 1.7; margin-bottom: 20px; }
+    .post-content :global(li) { font-size: 16.5px; }
+    .post-content :global(h2) { font-size: 23px; margin: 34px 0 14px; }
+    .post-content :global(h3) { font-size: 19px; margin: 28px 0 10px; }
+    .post-content :global(blockquote) { font-size: 20px; padding-left: 18px; margin: 28px 0; }
+    .post-content :global(.post-fig) { margin: 30px auto; }
+    .post-content :global(.post-fig figcaption) { font-size: 13px; }
+  }
 </style>

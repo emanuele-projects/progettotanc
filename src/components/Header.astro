@@ -86,7 +86,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
   .navbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 
   /* Il marchio porta già colonna, lettering e payoff: nessun testo accanto */
-  .brand { display: flex; align-items: center; }
+  .brand { display: flex; align-items: center; padding: 8px 0; }
   .brand :global(.brand-mark) {
     flex: none;
     color: currentColor;              /* bianco sull'header trasparente */
@@ -172,7 +172,9 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
     font-family: var(--sans); font-size: 14px; font-weight: 700;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: inherit;
-    background: none; border: none; cursor: pointer; padding: 6px 2px;
+    background: none; border: none; cursor: pointer;
+    /* bersaglio da 44px: prima erano 29px di altezza */
+    padding: 14px 6px; margin-right: -6px;
   }
 
   @media (max-width: 980px) {
@@ -182,7 +184,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
     .navlinks.open {
       display: flex;
       position: absolute; top: calc(100% + 4px); right: 24px;
-      flex-direction: column; align-items: flex-end; gap: 18px;
+      flex-direction: column; align-items: flex-end; gap: 6px;
       background: var(--header-bg);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -206,7 +208,9 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
       padding: 8px 0 0;
       min-width: 0;
     }
-    .drop-item { justify-content: flex-end; padding: 7px 0; font-size: 13.5px; }
+    /* voci con altezza da dito, non da mouse */
+    .navlinks.open > a, .navlinks.open .nav-drop > a { padding: 11px 0; }
+    .drop-item { justify-content: flex-end; padding: 10px 0; font-size: 13.5px; }
     .caret { display: none; }
   }
 </style>

@@ -46,7 +46,7 @@ const { eyebrow, lead, pillars, id = 'metodo' } = Astro.props;
     font-family: var(--disp); font-size: 42px;
     color: var(--accent-text); font-weight: 800;
   }
-  .pillar h3 { font-size: 26px; margin: 14px 0 12px; }
+  .pillar h3 { font-size: clamp(20px, calc(17.8px + 0.59vw), 26px); margin: 14px 0 12px; }
   .pillar p { color: var(--muted); font-size: 17.5px; line-height: 1.55; }
 
   @media (max-width: 900px) {

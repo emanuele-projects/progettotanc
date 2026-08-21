@@ -44,7 +44,7 @@ import { badges } from '../../data/why-us';
   .badges-head { text-align: center; margin-bottom: 40px; }
   .badges-head :global(.eyebrow) { justify-content: center; }
   .badges-head h2 {
-    font-family: var(--disp); font-size: clamp(26px, 3.2vw, 38px);
+    font-family: var(--disp); font-size: clamp(23px, calc(17.5px + 1.46vw), 38px);
     color: var(--ink); line-height: 1.15; margin-top: 14px;
   }
   .badges-head h2 :global(em) { font-style: normal; color: var(--accent-text); }
@@ -63,7 +63,7 @@ import { badges } from '../../data/why-us';
     min-height: 120px;
   }
   .badge:hover { border-color: var(--hair); box-shadow: 0 12px 28px rgba(6, 27, 61, 0.07); }
-  .b-label { font-family: var(--disp); font-size: 21px; font-weight: 700; color: var(--ink); }
+  .b-label { font-family: var(--disp); font-size: clamp(18px, calc(16.9px + 0.29vw), 21px); font-weight: 700; color: var(--ink); }
   .b-note {
     font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--muted);

@@ -103,4 +103,18 @@ const cities = locations.map((l) => l.city);
     font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
     color: var(--on-navy-muted); text-transform: uppercase;
   }
+
+  @media (max-width: 560px) {
+    /* il marchio intero a 150px prende metà schermo */
+    .foot-brand :global(.foot-mark) { width: 158px !important; height: 110px !important; }
+    /* bersagli da dito: prima ogni voce era alta 19px */
+    .foot-phones a, .foot-legal a { display: inline-block; padding: 10px 0; }
+    /* le voci di menu portano un <br> dentro l'anchor: da inline-block il
+       ritorno a capo sparisce e i nomi si attaccano. Qui vanno a blocco. */
+    .foot-col p a { display: block; width: fit-content; padding: 8px 0; }
+    .foot-col p a br { display: none; }
+    .foot-phones li { margin-bottom: 2px; }
+    .foot-col p { line-height: 1.5; }
+    .foot-col h4 { margin-bottom: 10px; }
+  }
 </style>
