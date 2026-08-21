@@ -50,7 +50,7 @@ const { eyebrow, lead, steps } = Astro.props;
     font-weight: 800; color: var(--accent-text);
     flex: 0 0 64px;
   }
-  .step-body h3 { font-size: 28px; margin-bottom: 10px; }
+  .step-body h3 { font-size: clamp(21px, calc(18.4px + 0.68vw), 28px); margin-bottom: 10px; }
   .step-body p { color: var(--muted); font-size: 18px; line-height: 1.6; max-width: 560px; }
 
   @media (max-width: 900px) {

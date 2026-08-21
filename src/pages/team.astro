@@ -104,7 +104,7 @@ import { team } from '../data/team';
   .team-lead { padding: 80px 0 70px; }
   .tl-head { max-width: 720px; margin-bottom: 44px; }
   .tl-head h2 {
-    font-family: var(--disp); font-size: clamp(28px, 3.4vw, 40px);
+    font-family: var(--disp); font-size: clamp(25px, calc(19.5px + 1.46vw), 40px);
     color: var(--ink); margin-top: 14px; line-height: 1.12;
   }
   .tl-head p { color: var(--muted); font-size: 18px; line-height: 1.6; margin-top: 16px; }
@@ -113,8 +113,6 @@ import { team } from '../data/team';
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
-    /* le schede non si allungano l'una sull'altra quando una si apre */
-    align-items: start;
   }
   .member {
     background: var(--panel);
@@ -147,14 +145,16 @@ import { team } from '../data/team';
 
 
   /* --- Profilo esteso: <details>, così funziona anche senza JS --- */
-  .bio { margin-top: 14px; }
+  .bio { margin-top: 4px; }
   .bio summary {
     list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
     font-family: var(--sans); font-size: 11px; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--accent-text);
     border-bottom: 1px solid var(--hair);
-    padding-bottom: 3px;
+    /* il bersaglio arriva a 44px con lo spazio sopra e sotto, la riga
+       sottolineata resta stretta sul testo */
+    padding: 12px 0 4px;
     transition: color 0.25s ease, border-color 0.25s ease;
   }
   .bio summary::-webkit-details-marker { display: none; }
@@ -201,17 +201,32 @@ import { team } from '../data/team';
   }
   .net-inner { max-width: 760px; }
   .network h2 {
-    font-family: var(--disp); font-size: clamp(28px, 3.6vw, 44px);
+    font-family: var(--disp); font-size: clamp(25px, calc(18.1px + 1.85vw), 44px);
     color: var(--ink); margin-top: 14px; line-height: 1.12;
   }
   .network h2 :global(em) { font-style: normal; color: var(--accent-text); }
-  .net-lead { font-size: clamp(18px, 2vw, 22px); color: var(--ink-dim); line-height: 1.55; margin-top: 20px; }
+  .net-lead { font-size: clamp(16.5px, calc(14.5px + 0.54vw), 22px); color: var(--ink-dim); line-height: 1.55; margin-top: 20px; }
   .net-body { font-size: 17px; color: var(--muted); line-height: 1.7; margin-top: 18px; }
 
   @media (max-width: 1040px) {
     .lead-grid { grid-template-columns: repeat(3, 1fr); }
   }
+  @media (max-width: 860px) {
+    /* ritratto e biografia in colonna: affiancati resterebbero 110px di testo */
+    .member:has(.bio[open]) { grid-template-columns: 1fr; }
+    .member:has(.bio[open]) .member-photo { max-width: 260px; }
+  }
   @media (max-width: 720px) {
     .lead-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  }
+
+  @media (max-width: 560px) {
+    .tl-head p { font-size: 16.5px; }
+    .net-body { font-size: 16.5px; }
+    .lead-grid { gap: 14px; }
+    .member-body { padding: 14px 14px 18px; }
+    .member h3 { font-size: 16.5px; }
+    .pos { font-size: 10px; letter-spacing: 0.1em; }
+    .bio-text p { font-size: 15px; }
   }
 </style>

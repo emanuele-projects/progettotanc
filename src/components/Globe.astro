@@ -206,6 +206,11 @@ const { markers, label = 'Globo interattivo delle sedi: trascina per ruotare, to
     pointer-events: none;
     transition: opacity 0.5s ease;
     white-space: nowrap;
+    max-width: calc(100% - 32px);
+  }
+  @media (max-width: 560px) {
+    /* a tutta riga la pillola usciva dallo schermo: qui va a capo */
+    .gs-hint { white-space: normal; text-align: center; line-height: 1.5; padding: 7px 12px; }
   }
   .gs-hint.hide { opacity: 0; }
 

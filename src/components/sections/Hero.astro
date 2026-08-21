@@ -182,14 +182,14 @@ const {
   }
   .hero :global(.eyebrow) { color: var(--accent-soft); }
   .hero h1 {
-    font-size: clamp(44px, 6.4vw, 78px);
+    font-size: clamp(32px, calc(15.2px + 4.49vw), 78px);
     font-weight: 800;
     color: var(--on-navy);
     margin: 26px 0 0;
     line-height: 1.08;
   }
   .lead {
-    font-size: clamp(19px, 2vw, 23px);
+    font-size: clamp(17px, calc(14.8px + 0.59vw), 23px);
     font-weight: 300;
     color: var(--on-navy-dim);
     max-width: 640px;
@@ -216,15 +216,19 @@ const {
   }
   .hero-meta span b {
     color: var(--accent-soft); font-weight: 700; display: block;
-    font-family: var(--disp); font-size: 30px; letter-spacing: 0;
+    font-family: var(--disp); font-size: clamp(25px, calc(23.2px + 0.49vw), 30px); letter-spacing: 0;
     margin-bottom: 4px; text-transform: none;
   }
 
   @media (max-width: 900px) {
-    .hero { min-height: 0; padding: 140px 0 70px; }
+    .hero { min-height: 0; padding: 132px 0 64px; }
     .hero-split { grid-template-columns: 1fr; gap: 38px; }
     .hero-side { max-width: 320px; }
     .hero-side img { aspect-ratio: 4 / 3; }
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding: 112px 0 48px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

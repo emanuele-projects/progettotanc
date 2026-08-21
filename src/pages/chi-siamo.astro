@@ -141,13 +141,13 @@ import { site } from '../data/site';
   }
   .net-inner { max-width: 760px; }
   .network h2 {
-    font-family: var(--disp); font-size: clamp(28px, 3.6vw, 44px);
+    font-family: var(--disp); font-size: clamp(25px, calc(18.1px + 1.85vw), 44px);
     color: var(--ink); line-height: 1.12;
   }
   .network h2 :global(em) { font-style: normal; color: var(--accent-text); }
   .net-lead {
     font-family: var(--disp); font-style: italic;
-    font-size: clamp(19px, 2.1vw, 23px); color: var(--ink-dim);
+    font-size: clamp(17px, calc(14.8px + 0.59vw), 23px); color: var(--ink-dim);
     line-height: 1.5; margin-top: 22px;
   }
   .net-body { font-size: 17px; color: var(--muted); line-height: 1.75; margin-top: 20px; }
@@ -156,7 +156,13 @@ import { site } from '../data/site';
   .closing-note { padding: 70px 0 10px; }
   .closing-note p {
     max-width: 760px;
-    font-family: var(--disp); font-size: clamp(20px, 2.2vw, 26px);
+    font-family: var(--disp); font-size: clamp(18px, calc(15.1px + 0.78vw), 26px);
     line-height: 1.5; color: var(--ink-dim);
+  }
+
+  @media (max-width: 560px) {
+    .net-body { font-size: 16.5px; line-height: 1.7; }
+    .story-band { padding: 4px 0 44px; }
+    .net-cap { font-size: 12.5px; }
   }
 </style>

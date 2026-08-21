@@ -105,7 +105,7 @@ const markers = locations.map((l) => ({
   .tc-head :global(.eyebrow::before) { border-color: #C2A35B; }
   .tc-head h2 {
     font-family: var(--disp);
-    font-size: clamp(30px, 3.4vw, 44px);
+    font-size: clamp(25px, calc(18.1px + 1.85vw), 44px);
     line-height: 1.1;
     color: #FFFFFF;
     margin-top: 16px;
@@ -200,5 +200,11 @@ const markers = locations.map((l) => ({
     .text-col {
       padding: 12px 24px 56px;
     }
+  }
+
+  @media (max-width: 560px) {
+    /* le pastiglie delle sedi erano alte 33px: sotto il polpastrello */
+    .g-city { padding: 11px 14px; }
+    .gs-scene { border-radius: 0; }
   }
 </style>
