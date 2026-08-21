@@ -17,7 +17,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
 <header data-header>
   <div class="wrap navbar">
     <a href={url('/')} class="brand" aria-label={`${site.brand}, home`}>
-      <Logo variant="lettering" class="brand-mark" height={30} />
+      <Logo variant="compatto" class="brand-mark" height={64} />
     </a>
     <nav class="navlinks" id="navlinks" aria-label="Navigazione principale">
       {links.map((item) =>
@@ -70,7 +70,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
      bianco solido al primo scroll. Mentoria = pill oro in evidenza. */
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-    padding: 20px 0;
+    padding: 12px 0;
     transition: all 0.4s ease;
     border-bottom: 1px solid transparent;
     color: var(--on-navy);
@@ -86,7 +86,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
   .navbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 
   /* Il marchio porta già colonna, lettering e payoff: nessun testo accanto */
-  .brand { display: flex; align-items: center; padding: 8px 0; }
+  .brand { display: flex; align-items: center; }
   .brand :global(.brand-mark) {
     flex: none;
     color: currentColor;              /* bianco sull'header trasparente */
@@ -212,6 +212,13 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
     .navlinks.open > a, .navlinks.open .nav-drop > a { padding: 11px 0; }
     .drop-item { justify-content: flex-end; padding: 10px 0; font-size: 13.5px; }
     .caret { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    /* il marchio compatto è quasi quadrato: in una fascia fissa si porta via
+       altezza, quindi sul telefono scende */
+    header { padding: 12px 0; }
+    .brand :global(.brand-mark) { width: 44px !important; height: 44px !important; }
   }
 </style>
 

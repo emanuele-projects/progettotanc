@@ -17,14 +17,16 @@
  *
  * `lockup`    il marchio intero. Vuole spazio: il payoff vale il 5%
  *             dell'altezza, sotto i ~140px non si legge. Sta nel footer.
- * `lettering` «Fulviorossi» e il tondo PLUS: è il marchio dell'header, dove
- *             servono trenta pixel di altezza e un nome leggibile.
+ * `compatto`  colonna e lettering nelle loro posizioni e proporzioni
+ *             originali, senza filetto né payoff: è il marchio dell'header.
+ *             Quasi quadrato, quindi in una fascia si porta via altezza.
+ * `lettering` il solo «Fulviorossi PLUS», per gli spazi bassi e larghi.
  * `simbolo`   la sola colonna, per favicon e spazi stretti.
  */
 import { url } from '../lib/url';
 
 interface Props {
-  variant?: 'lockup' | 'lettering' | 'simbolo';
+  variant?: 'lockup' | 'compatto' | 'lettering' | 'simbolo';
   /** Altezza resa; le larghezze seguono le proporzioni del disegno */
   height?: number;
   class?: string;
@@ -33,6 +35,7 @@ const { variant = 'lockup', height = 40, class: className } = Astro.props;
 
 const ART = {
   lockup: { src: '/logo-lockup.png', w: 1600, h: 1118 },
+  compatto: { src: '/logo-compatto.png', w: 1200, h: 1194 },
   lettering: { src: '/logo-testo.png', w: 1200, h: 353 },
   simbolo: { src: '/logo-simbolo.png', w: 600, h: 800 },
 };
