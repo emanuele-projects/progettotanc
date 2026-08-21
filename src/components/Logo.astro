@@ -5,64 +5,50 @@
  * Il file fornito è un PNG a tinta piena su fondo bianco: qui viene usato
  * come **maschera CSS**, non come immagine. Il colore arriva da `currentColor`,
  * quindi il marchio segue il contesto: bianco sull'header trasparente sopra
- * l'hero, blu di brand sull'header bianco dopo lo scroll, bianco nel footer,
- * senza mantenere due file per i due fondi. Il tondo «PLUS» resta cavo,
- * perché le lettere bianche dentro il cerchio diventano fori nella maschera.
+ * l'hero, blu di brand sull'header bianco dopo lo scroll, bianco nel footer.
+ * Il tondo «PLUS» resta cavo, perché le lettere bianche dentro il cerchio
+ * diventano fori nella maschera.
  *
- * `lockup`   il marchio intero, colonna + lettering + payoff. Nel disegno
- *            nuovo è quasi quadrato e il payoff vale il 5% dell'altezza:
- *            sotto i ~160px non si legge. In pagina non lo usiamo, il payoff
- *            viaggia come testo vero (vedi Footer.astro).
- * `compatto` colonna e «Fulviorossi PLUS» affiancati, alla stessa altezza:
- *            è la resa orizzontale, quella che sta in header e footer.
- * `simbolo`  la sola colonna, per gli spazi stretti.
+ * Ogni variante è un **ritaglio unico** del disegno originale, mai una
+ * ricomposizione: così le proporzioni fra gli elementi restano quelle
+ * disegnate. Nel marchio il lettering è alto il 38% della colonna, il che
+ * rende impossibile affiancarli in una fascia da 40px senza falsare il
+ * rapporto o rendere illeggibile il nome. Da qui la scelta delle varianti.
+ *
+ * `lockup`    il marchio intero. Vuole spazio: il payoff vale il 5%
+ *             dell'altezza, sotto i ~140px non si legge. Sta nel footer.
+ * `lettering` «Fulviorossi» e il tondo PLUS: è il marchio dell'header, dove
+ *             servono trenta pixel di altezza e un nome leggibile.
+ * `simbolo`   la sola colonna, per favicon e spazi stretti.
  */
 import { url } from '../lib/url';
 
 interface Props {
-  variant?: 'lockup' | 'compatto' | 'simbolo';
-  /** Altezza resa; le larghezze seguono le proporzioni */
+  variant?: 'lockup' | 'lettering' | 'simbolo';
+  /** Altezza resa; le larghezze seguono le proporzioni del disegno */
   height?: number;
   class?: string;
 }
-const { variant = 'compatto', height = 40, class: className } = Astro.props;
+const { variant = 'lockup', height = 40, class: className } = Astro.props;
 
 const ART = {
   lockup: { src: '/logo-lockup.png', w: 1600, h: 1118 },
+  lettering: { src: '/logo-testo.png', w: 1200, h: 353 },
   simbolo: { src: '/logo-simbolo.png', w: 600, h: 800 },
-  testo: { src: '/logo-testo.png', w: 1200, h: 351 },
 };
-
-const mask = (a: { src: string }) => {
-  const u = url(a.src);
-  return `-webkit-mask-image:url('${u}');mask-image:url('${u}')`;
-};
-const box = (a: { w: number; h: number }, hh: number) =>
-  `width:${Math.round((a.w / a.h) * hh)}px;height:${hh}px`;
+const a = ART[variant];
+const u = url(a.src);
 
 const label = 'Fulviorossi Plus · Deep Consulting & Mentoria';
 ---
 
-{variant === 'compatto' ? (
-  <span
-    class:list={['logo', 'logo-compatto', className]}
-    role="img"
-    aria-label={label}
-    style={`--logo-gap:${Math.round(height * 0.34)}px`}
-  >
-    <span class="logo-mark" style={`${box(ART.simbolo, height)};${mask(ART.simbolo)}`}></span>
-    <span class="logo-mark" style={`${box(ART.testo, height)};${mask(ART.testo)}`}></span>
-  </span>
-) : (
-  <span
-    class:list={['logo', 'logo-mark', className]}
-    role="img"
-    aria-label={label}
-    style={`${box(variant === 'simbolo' ? ART.simbolo : ART.lockup, height)};${mask(
-      variant === 'simbolo' ? ART.simbolo : ART.lockup
-    )}`}
-  ></span>
-)}
+<span
+  class:list={['logo', 'logo-mark', className]}
+  role="img"
+  aria-label={label}
+  style={`width:${Math.round((a.w / a.h) * height)}px;height:${height}px;` +
+    `-webkit-mask-image:url('${u}');mask-image:url('${u}')`}
+></span>
 
 <style>
   .logo-mark {
@@ -74,10 +60,5 @@ const label = 'Fulviorossi Plus · Deep Consulting & Mentoria';
     mask-size: contain;
     -webkit-mask-position: center;
     mask-position: center;
-  }
-  .logo-compatto {
-    display: flex;
-    align-items: center;
-    gap: var(--logo-gap, 12px);
   }
 </style>

@@ -49,6 +49,17 @@ import { team } from '../data/team';
             <div class="member-body">
               <h3>{m.name}</h3>
               <div class="pos">{m.role}</div>
+              {m.bio && (
+                <details class="bio">
+                  <summary>
+                    <span class="bio-open">Altro</span>
+                    <span class="bio-close">Chiudi</span>
+                  </summary>
+                  <div class="bio-text">
+                    {m.bio.map((par) => <p class:list={{ quote: par.includes('«') }}>{par}</p>)}
+                  </div>
+                </details>
+              )}
             </div>
           </article>
         ))}
@@ -102,6 +113,8 @@ import { team } from '../data/team';
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
+    /* le schede non si allungano l'una sull'altra quando una si apre */
+    align-items: start;
   }
   .member {
     background: var(--panel);
@@ -131,6 +144,53 @@ import { team } from '../data/team';
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--accent-text); margin-top: 7px; line-height: 1.4;
   }
+
+
+  /* --- Profilo esteso: <details>, così funziona anche senza JS --- */
+  .bio { margin-top: 14px; }
+  .bio summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-text);
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 3px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .bio summary::-webkit-details-marker { display: none; }
+  .bio summary::after {
+    content: ""; width: 7px; height: 7px; flex: none;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.25s ease;
+  }
+  .bio[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+  .bio summary:hover { color: var(--ink); border-color: var(--ink); }
+  .bio summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .bio-close, .bio[open] .bio-open { display: none; }
+  .bio[open] .bio-close { display: inline; }
+  .bio-text { margin-top: 16px; max-width: 62ch; }
+  .bio-text p {
+    font-size: 14.5px; line-height: 1.72; color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .bio-text p:last-child { margin-bottom: 0; }
+  /* La citazione chiude il profilo di chi ne ha una, e va in carattere da display */
+  .bio-text p.quote {
+    margin-top: 16px;
+    font-family: var(--disp); font-size: 17px; line-height: 1.45;
+    color: var(--ink-dim);
+  }
+  /* Aperta, la scheda prende due colonne e affianca ritratto e testo: una
+     biografia in colonna da 240px non si legge, e il ritratto a piena
+     larghezza mangerebbe lo schermo. Dove :has() non c'è, la scheda cresce. */
+  .member:has(.bio[open]) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    align-items: start;
+  }
+  .member:has(.bio[open]) .member-body { padding: 18px 22px 24px; }
 
   /* --- La rete --- */
   .network {
