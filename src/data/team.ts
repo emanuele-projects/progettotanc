@@ -53,15 +53,9 @@ export const team: Member[] = [
     ],
   },
   {
-    mono: 'GH',
-    name: 'Gerard Haoun',
-    role: 'Vice Presidente e Co-fondatore',
-    photo: '/images/team/gerard-haoun.jpg',
-  },
-  {
     mono: 'PD',
     name: 'Pablo Docimo',
-    role: 'Partner',
+    role: 'Partner Executive',
     photo: '/images/team/pablo-docimo.jpg',
     bio: [
       'Ex C-Level in aziende del Gruppo TIM, dove come Direttore Generale di Trainet e COO di TILS è stato fra i pionieri dell’economia digitale in Europa e America Latina.',
@@ -70,9 +64,15 @@ export const team: Member[] = [
     ],
   },
   {
+    mono: 'LB',
+    name: 'Luca Basso',
+    role: 'Partner Executive',
+    photo: '/images/team/luca-basso.jpg',
+  },
+  {
     mono: 'GC',
     name: 'Giuseppe Catizone',
-    role: 'Partner',
+    role: 'Partner & Politics Relationships',
     photo: '/images/team/giuseppe-catizone.jpg',
     bio: [
       'Ha maturato un’esperienza pluriennale nelle relazioni istituzionali, nello sviluppo internazionale e nella consulenza strategica, costruita in oltre un decennio di interazione fra istituzioni, imprese e mercati internazionali. Laureato e specializzato in relazioni internazionali, ha sviluppato un percorso che unisce una profonda conoscenza dei processi istituzionali e decisionali a una solida comprensione delle dinamiche economiche, dei modelli di innovazione e dei sistemi di relazione fra settore pubblico e privato.',
@@ -81,18 +81,17 @@ export const team: Member[] = [
       'Interpretare scenari istituzionali, economici e geopolitici, costruire relazioni ad alto livello, connettere interessi, competenze e opportunità: è questo il tratto distintivo della sua attività. Si muove con naturalezza in contesti multiculturali e internazionali. Parla italiano, inglese, francese, spagnolo e portoghese, con una conoscenza di base del russo.',
     ],
   },
-  // In coda fra i partner finché non arriva il ritratto: il monogramma di
-  // ripiego, in fila con sette fotografie, è meno evidente all’ultimo posto.
-  {
-    mono: 'LB',
-    name: 'Luca Basso',
-    role: 'Partner',
-  },
   {
     mono: 'MC',
     name: 'Michelangelo Chasseur',
-    role: 'Head of Digital Transformation e AI',
+    role: 'Partner & Digital Transformation',
     photo: '/images/team/michelangelo-chasseur.jpg',
+  },
+  {
+    mono: 'GH',
+    name: 'Gerard Hanoun',
+    role: 'Partner UAE',
+    photo: '/images/team/gerard-hanoun.jpg',
   },
   {
     mono: 'SG',

@@ -75,20 +75,11 @@ export interface Service {
   whenToTalk: string;
   /** Sezione in chiusura di pagina, dopo «Quando ha senso parlarne» */
   closing?: Section;
-  /** Scena illustrata di brand (variant di BrandArt) */
+  /**
+   * Scena illustrata di brand (variant di BrandArt). Le pagine servizio
+   * montano ora la piastra di marca, quindi resta solo per compatibilità.
+   */
   art: 'deal' | 'growth' | 'succession' | 'vault' | 'global' | 'quality' | 'boardroom';
-  /**
-   * Fotografia reale, quando disponibile: prevale sulla scena di brand.
-   * Finché è assente le pagine servizio usano l'illustrazione di `art`.
-   */
-  photo?: string;
-  /**
-   * Punto della foto da tenere sempre in inquadratura. Serve perché lo
-   * stesso scatto viene ritagliato in tre proporzioni molto diverse —
-   * hero panoramico, card 16/10 e colonna 4/5 — e senza questo riferimento
-   * il soggetto finisce fuori dal taglio.
-   */
-  focus?: string;
 }
 
 /**
@@ -99,8 +90,6 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'cessioni-e-acquisizioni',
-    photo: '/images/sezioni/cessioni-e-acquisizioni.jpg',
-    focus: '60% 30%',
     art: 'deal',
     num: '01',
     title: 'Cessioni, acquisizioni e ricerca di capitali',
@@ -189,8 +178,6 @@ export const services: Service[] = [
   },
   {
     slug: 'finanza-e-ristrutturazione-del-debito',
-    photo: '/images/sezioni/finanza-e-ristrutturazione-del-debito.jpg',
-    focus: '50% 42%',
     art: 'growth',
     num: '02',
     title: 'Finanza & ristrutturazione del debito',
@@ -276,8 +263,6 @@ export const services: Service[] = [
   },
   {
     slug: 'passaggio-generazionale',
-    photo: '/images/sezioni/passaggio-generazionale.jpg',
-    focus: '46% 34%',
     art: 'succession',
     num: '03',
     title: 'Passaggio generazionale',
@@ -324,8 +309,6 @@ export const services: Service[] = [
   },
   {
     slug: 'protezione-del-patrimonio',
-    photo: '/images/sezioni/protezione-del-patrimonio.jpg',
-    focus: '50% 42%',
     art: 'vault',
     num: '04',
     title: 'Protezione del patrimonio',
@@ -372,8 +355,6 @@ export const services: Service[] = [
   },
   {
     slug: 'internazionalizzazione',
-    photo: '/images/sezioni/internazionalizzazione.jpg',
-    focus: '72% 40%',
     art: 'global',
     num: '05',
     title: 'Internazionalizzazione',
@@ -448,8 +429,6 @@ export const services: Service[] = [
   },
   {
     slug: 'certificazioni-iso-e-made-in-italy',
-    photo: '/images/sezioni/certificazioni-iso-e-made-in-italy.jpg',
-    focus: '48% 30%',
     art: 'quality',
     num: '06',
     // TODO-CONTENUTO: verificare con il cliente quali schemi vengono
@@ -499,8 +478,6 @@ export const services: Service[] = [
   },
   {
     slug: 'riorganizzazione-e-sviluppo',
-    photo: '/images/sezioni/riorganizzazione-e-sviluppo.jpg',
-    focus: '54% 32%',
     art: 'boardroom',
     num: '07',
     title: 'Riorganizzazione e sviluppo',

@@ -1,11 +1,10 @@
 ---
 import Logo from './Logo.astro';
 import { site, nav } from '../data/site';
-import { locations } from '../data/locations';
+import { locations, typeLabels } from '../data/locations';
 import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
-const cities = locations.map((l) => l.city);
 ---
 
 <footer class="on-navy">
@@ -40,10 +39,14 @@ const cities = locations.map((l) => l.city);
       </div>
       <div class="foot-col">
         <h4>Sedi</h4>
-        <p>
-          {cities.slice(0, 3).join(' · ')}<br />
-          {cities.slice(3).join(' · ')}
-        </p>
+        <ul class="foot-sedi">
+          {locations.map((l) => (
+            <li>
+              <span class="fs-city">{l.city}<i>{l.cc}</i></span>
+              <span class="fs-role">{typeLabels[l.type]}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
     <div class="foot-bottom">
@@ -81,6 +84,23 @@ const cities = locations.map((l) => l.city);
     margin-bottom: 16px;
   }
   .foot-col p { font-size: 16px; line-height: 1.9; font-weight: 300; }
+  /* Sedi: stessa gerarchia della pagina Team & Sedi, città con la sigla del
+     paese e sotto il ruolo della sede */
+  .foot-sedi { list-style: none; }
+  .foot-sedi li { margin-bottom: 12px; }
+  .foot-sedi .fs-city {
+    display: block; font-size: 16px; font-weight: 400; color: var(--on-navy);
+  }
+  .foot-sedi .fs-city i {
+    font-style: normal; font-family: var(--sans);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--on-navy-muted); margin-left: 8px; vertical-align: 1px;
+  }
+  .foot-sedi .fs-role {
+    display: block; font-family: var(--sans);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-soft); margin-top: 2px;
+  }
   .foot-col a { transition: color 0.3s; }
   .foot-col a:hover { color: var(--accent-soft); }
   .foot-phones { list-style: none; margin-top: 14px; }

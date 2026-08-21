@@ -1,0 +1,31 @@
+---
+/**
+ * Il nome del marchio non si scrive: si mostra col lettering, senza payoff
+ * né claim. Dentro il lettering il nome vale circa un quarto dell'altezza
+ * del blocco (il tondo PLUS è alto quanto tutto il resto), quindi per
+ * accostarlo a un testo serve renderlo più alto del testo stesso: `scale`
+ * è quel rapporto, in multipli della dimensione del testo attorno.
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  scale?: number;
+  class?: string;
+}
+const { scale = 2.1, class: className } = Astro.props;
+---
+
+<span class:list={['brand-name', className]} style={`--brand-scale:${scale}`}>
+  <Logo variant="lettering" height={40} />
+</span>
+
+<style>
+  .brand-name { display: inline-block; }
+  .brand-name :global(.logo-mark) {
+    display: inline-block;
+    /* il lettering è largo 3,4 volte la sua altezza */
+    height: calc(1em * var(--brand-scale)) !important;
+    width: calc(3.4em * var(--brand-scale)) !important;
+    vertical-align: calc(-0.30em * var(--brand-scale));
+  }
+</style>

@@ -1,12 +1,13 @@
 ---
 import SectionHead from '../SectionHead.astro';
+import BrandName from '../BrandName.astro';
 import { whyUs } from '../../data/why-us';
 ---
 
 <section id="perche-noi">
   <div class="wrap">
     <SectionHead eyebrow="Perché sceglierci">
-      <Fragment slot="title">Perché Fulvio Rossi <em>Plus</em></Fragment>
+      <Fragment slot="title">Perché <BrandName class="why-brand" scale={1.35} /></Fragment>
       <p slot="lead">
         Non vendiamo relazioni: costruiamo risultati. Quattro ragioni per cui le
         imprese ci scelgono.

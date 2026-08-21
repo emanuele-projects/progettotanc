@@ -7,6 +7,7 @@ import Badges from '../components/sections/Badges.astro';
 import Quotes from '../components/sections/Quotes.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import StockImage from '../components/StockImage.astro';
+import BrandName from '../components/BrandName.astro';
 import { site } from '../data/site';
 ---
 
@@ -24,7 +25,7 @@ import { site } from '../data/site';
   </PageHero>
 
   <Manifesto eyebrow="La nostra idea di consulenza" sign="Fulvio Tancredi Rossi, Presidente e Co-fondatore" id="manifesto">
-    Fulvio Rossi Plus è un <em>Think Tank</em> di consulenza strategica e
+    <BrandName scale={1.9} /> è un <em>Think Tank</em> di consulenza strategica e
     finanza d'impresa: un serbatoio di idee e di competenze (fiscalisti,
     legali, revisori, business coach) che affianca la vostra azienda e
     costruisce con voi una business strategy su misura. Diagnosi oneste,
