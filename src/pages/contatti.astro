@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
-import { locations } from '../data/locations';
+import { locations, typeLabels } from '../data/locations';
 ---
 
 <BaseLayout
@@ -25,12 +25,7 @@ import { locations } from '../data/locations';
         TODO-CONTENUTO: collegare a un form service (Web3Forms/Formspree)
         o a un endpoint del futuro WordPress. Per ora: mailto.
       -->
-      <form
-        class="c-form"
-        method="get"
-        action={`mailto:${site.email}`}
-        data-reveal
-      >
+      <form class="c-form" id="c-form" action={`mailto:${site.email}`} method="post" data-reveal>
         <div class="field">
           <label for="f-nome">Nome e cognome</label>
           <input id="f-nome" name="nome" type="text" autocomplete="name" required />
@@ -48,8 +43,9 @@ import { locations } from '../data/locations';
           <textarea id="f-msg" name="messaggio" rows="6" required></textarea>
         </div>
         <p class="privacy-note">
-          Inviando il modulo si apre il vostro client di posta. Ogni richiesta è
-          trattata con riservatezza assoluta.
+          Inviando il modulo si apre il vostro programma di posta con il messaggio
+          già scritto, indirizzato a <a href={`mailto:${site.email}`}>{site.email}</a>.
+          Ogni richiesta è trattata con riservatezza assoluta.
         </p>
         <button type="submit" class="btn btn-solid">Invia la richiesta</button>
       </form>
@@ -70,16 +66,13 @@ import { locations } from '../data/locations';
           </ul>
         </div>
         <div class="c-block">
-          <h4>Sede direzionale, Milano</h4>
-          <p>{site.address}</p>
-        </div>
-        <div class="c-block">
           <h4>Le nostre sedi</h4>
           <ul class="c-addresses">
             {locations.map((l) => (
-              <li>
-                <span class="c-city">{l.city}</span>
-                <span class="c-addr">{l.address}</span>
+              <li class:list={{ primary: l.primary }}>
+                <span class="c-city">{l.city}<i>{l.cc}</i></span>
+                <span class="c-role">{typeLabels[l.type]}</span>
+                <span class="c-addr">{l.address.slice(0, l.address.lastIndexOf(', '))}</span>
               </li>
             ))}
           </ul>
@@ -88,6 +81,27 @@ import { locations } from '../data/locations';
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline define:vars={{ dest: site.email }}>
+  // Il modulo non ha backend: compone il messaggio e lo consegna al client di
+  // posta dell'utente. Senza JS il modulo resta comunque inviabile a mano
+  // attraverso l'indirizzo in chiaro sotto i campi.
+  document.getElementById('c-form')?.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const f = ev.currentTarget;
+    const v = (n) => (f.elements[n]?.value || '').trim();
+    const oggetto = `Richiesta di contatto${v('azienda') ? ' — ' + v('azienda') : ''}`;
+    const corpo = [
+      `Nome e cognome: ${v('nome')}`,
+      `Azienda: ${v('azienda') || '—'}`,
+      `Email: ${v('email')}`,
+      '',
+      v('messaggio'),
+    ].join('\n');
+    window.location.href =
+      `mailto:${dest}?subject=${encodeURIComponent(oggetto)}&body=${encodeURIComponent(corpo)}`;
+  });
+</script>
 
 <style>
   .contact-body { padding: 80px 0 110px; }
@@ -141,6 +155,28 @@ import { locations } from '../data/locations';
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2);
   }
   .c-addr { display: block; color: var(--ink-dim); font-size: 16.5px; line-height: 1.5; margin-top: 3px; }
+
+  /* Sedi: la stessa gerarchia della pagina Team & Sedi, città in carattere da
+     display con la sigla del paese, poi il ruolo, poi la via. */
+  .c-addresses li { margin-bottom: 18px; }
+  .c-addresses .c-city {
+    font-family: var(--disp); font-size: 18px; font-weight: 700;
+    letter-spacing: 0; text-transform: none; color: var(--ink);
+  }
+  .c-addresses .c-city i {
+    font-style: normal; font-family: var(--sans);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--muted-2); margin-left: 8px; vertical-align: 2px;
+  }
+  .c-addresses li.primary .c-city::after {
+    content: "◆"; font-size: 8px; color: var(--accent); margin-left: 8px; vertical-align: 3px;
+  }
+  .c-role {
+    display: block; font-family: var(--sans);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-text); margin-top: 4px;
+  }
+  .c-addresses .c-addr { font-size: 15px; color: var(--muted); margin-top: 4px; }
   .c-block a:hover { color: var(--accent-text); }
 
   @media (max-width: 900px) {

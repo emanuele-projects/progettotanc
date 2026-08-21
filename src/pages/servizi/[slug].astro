@@ -6,8 +6,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import StockImage from '../../components/StockImage.astro';
-import BrandArt from '../../components/BrandArt.astro';
+import BrandPlate from '../../components/BrandPlate.astro';
 import CtaBand from '../../components/sections/CtaBand.astro';
 import ServiceBlock from '../../components/sections/ServiceBlock.astro';
 import LetterBreak from '../../components/sections/LetterBreak.astro';
@@ -37,10 +36,8 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   <PageHero
     eyebrow={`Servizi · ${service.num}`}
     lead={service.lead}
-    photo={service.photo}
-    focus={service.focus}
-    art={service.photo ? undefined : service.art}
   >
+    <BrandPlate slot="bg" band={true} />
     <Fragment set:html={service.title} />
   </PageHero>
 
@@ -60,16 +57,7 @@ const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
       </div>
 
       <aside class="svc-side" data-reveal>
-        {service.photo ? (
-          <StockImage
-            src={service.photo}
-            alt={service.plainTitle}
-            ratio="4 / 5"
-            focus={service.focus}
-          />
-        ) : (
-          <BrandArt variant={service.art} ratio="4 / 5" />
-        )}
+        <BrandPlate title={service.plainTitle} num={service.num} ratio="4 / 5" />
         <div class="svc-callout">
           <span class="eyebrow">{serviceCallout.eyebrow}</span>
           <p>{serviceCallout.text}</p>

@@ -17,7 +17,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
 <header data-header>
   <div class="wrap navbar">
     <a href={url('/')} class="brand" aria-label={`${site.brand}, home`}>
-      <Logo variant="compatto" class="brand-mark" height={64} />
+      <Logo variant="lockup" class="brand-mark" height={72} />
     </a>
     <nav class="navlinks" id="navlinks" aria-label="Navigazione principale">
       {links.map((item) =>
@@ -217,8 +217,8 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
   @media (max-width: 700px) {
     /* il marchio compatto è quasi quadrato: in una fascia fissa si porta via
        altezza, quindi sul telefono scende */
-    header { padding: 12px 0; }
-    .brand :global(.brand-mark) { width: 44px !important; height: 44px !important; }
+    header { padding: 10px 0; }
+    .brand :global(.brand-mark) { width: 74px !important; height: 52px !important; }
   }
 </style>
 

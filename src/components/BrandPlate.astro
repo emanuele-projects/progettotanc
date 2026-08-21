@@ -1,0 +1,104 @@
+---
+/**
+ * Piastra di marca al posto della fotografia, per le pagine servizio.
+ *
+ * È grafica vettoriale resa nel DOM, non un file immagine: il testo resta
+ * testo (quindi nitido a ogni densità e leggibile dai motori) e il marchio
+ * arriva dallo stesso componente Logo del resto del sito, quindi non può
+ * divergere. Il fondo, il rombo e i colori vengono dai token di brand.
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  /** Testo indicativo del servizio. Omesso, resta la sola piastra di marca. */
+  title?: string;
+  /** Numero del servizio, se c'è */
+  num?: string;
+  /**
+   * Quando la piastra fa da testata alla scheda, il titolo che porta è
+   * l'intestazione vera di quella scheda e non va ripetuto sotto.
+   */
+  headingLevel?: 'h3' | 'span';
+  /**
+   * Fondo di una fascia a tutta larghezza. Lì le misure in cqw esploderebbero
+   * e il marchio finirebbe addosso al titolo: passa a destra, più piccolo e
+   * in trasparenza, perché il testo della fascia resta il protagonista.
+   */
+  band?: boolean;
+  ratio?: string;
+  class?: string;
+}
+const { title, num, headingLevel = 'span', band = false, ratio = '16 / 10', class: className } = Astro.props;
+const TitleTag = headingLevel;
+---
+
+<figure class:list={['plate', { 'plate--band': band }, className]} style={`aspect-ratio:${ratio}`}>
+  <span class="plate-mark" aria-hidden="true"><Logo variant="lettering" height={40} /></span>
+  <span class="plate-rhombus" aria-hidden="true"></span>
+  {title && (
+    <figcaption class="plate-body">
+      {num && <span class="plate-num">{num}</span>}
+      <TitleTag class="plate-title">{title}</TitleTag>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .plate {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(150deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--on-navy);
+    container-type: inline-size;
+  }
+  /* Marchio in alto a sinistra, alla stessa distanza dai due bordi */
+  .plate-mark {
+    position: absolute; top: 7cqw; left: 7cqw;
+    display: block; color: var(--on-navy);
+  }
+  .plate-mark :global(.logo-mark) {
+    width: 34cqw !important;
+    height: calc(34cqw / 3.399) !important;
+  }
+  /* Il rombo del brand, appena accennato, esce dall'angolo opposto */
+  .plate-rhombus {
+    position: absolute; right: -14cqw; bottom: -20cqw;
+    width: 52cqw; height: 52cqw;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    transform: rotate(45deg);
+  }
+  .plate-body {
+    position: absolute; left: 7cqw; right: 7cqw; bottom: 7cqw;
+    display: flex; flex-direction: column; gap: 2cqw;
+  }
+  .plate-num {
+    font-family: var(--sans); font-size: 3.2cqw; font-weight: 700;
+    letter-spacing: 0.24em; color: var(--accent-soft);
+  }
+  .plate-title {
+    font-family: var(--disp); font-weight: 800;
+    font-size: 7.6cqw; line-height: 1.12;
+    color: var(--on-navy);
+    text-wrap: balance;
+  }
+
+  /* --- Fondo di fascia --- */
+  .plate--band .plate-mark {
+    top: auto; bottom: 12%; left: auto; right: 6%;
+    opacity: 0.34;
+  }
+  .plate--band .plate-mark :global(.logo-mark) {
+    width: clamp(150px, 17cqw, 290px) !important;
+    height: auto !important;
+    aspect-ratio: 3.399;
+  }
+  .plate--band .plate-rhombus {
+    right: 4%; bottom: -28%;
+    width: min(46cqw, 620px); height: min(46cqw, 620px);
+  }
+  @media (max-width: 900px) {
+    .plate--band .plate-mark { bottom: 8%; right: 7%; opacity: 0.26; }
+    .plate--band .plate-mark :global(.logo-mark) { width: clamp(110px, 30cqw, 180px) !important; }
+  }
+</style>
