@@ -5,7 +5,7 @@ export const site = {
   description:
     'Deep consulting dal 1989: compravendita di aziende, finanza d’impresa, passaggio generazionale e tutela del patrimonio. Presenza diffusa tra Europa e Golfo.',
   foundedYear: 1989,
-  email: 'direzione@fulviorossiplus.it',
+  email: 'direzione@fulviorossiplus.com',
   /**
    * I tre recapiti forniti dal cliente. Il primo è quello di riferimento
    * dove serve un numero solo.
@@ -62,7 +62,7 @@ export const legal = {
   registeredOffice: 'ul. Podskale 1/14, Cracovia (Polonia)',
   /** Indirizzo a cui l'interessato esercita i propri diritti */
   // Meglio un indirizzo dedicato (es. privacy@) quando sarà disponibile
-  privacyEmail: 'direzione@fulviorossiplus.it',
+  privacyEmail: 'direzione@fulviorossiplus.com',
   pec: 'DA COMPLETARE: PEC',
   /** Responsabile della protezione dei dati, se nominato */
   dpo: null as string | null,

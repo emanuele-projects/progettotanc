@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 // builda con base /sitotanc/); in locale e sull'hosting finale restano
 // i default (root).
 export default defineConfig({
-  site: process.env.DEPLOY_SITE ?? 'https://www.fulviorossiplus.it',
+  site: process.env.DEPLOY_SITE ?? 'https://www.fulviorossiplus.com',
   base: process.env.DEPLOY_BASE ?? '/',
   integrations: [sitemap()],
 });
