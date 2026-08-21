@@ -19,6 +19,8 @@ export interface Member {
    * Se assente si usa il placeholder BrandArt.
    */
   photo?: string;
+  /** Nota sotto la scheda, per i ritratti non ancora definitivi */
+  photoNote?: string;
 }
 
 export const team: Member[] = [
@@ -68,6 +70,7 @@ export const team: Member[] = [
     name: 'Luca Basso',
     role: 'Partner Executive',
     photo: '/images/team/luca-basso.jpg',
+    photoNote: 'Ritratto provvisorio',
   },
   {
     mono: 'GC',

@@ -17,7 +17,7 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
 <header data-header>
   <div class="wrap navbar">
     <a href={url('/')} class="brand" aria-label={`${site.brand}, home`}>
-      <Logo variant="lockup" class="brand-mark" height={72} />
+      <Logo variant="lockup" class="brand-mark" height={96} />
     </a>
     <nav class="navlinks" id="navlinks" aria-label="Navigazione principale">
       {links.map((item) =>
@@ -93,6 +93,12 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
     transition: color 0.4s ease;
   }
   header.scrolled .brand :global(.brand-mark) { color: var(--brand-blue); }
+  /* Il marchio intero vuole 96px perché il payoff si legga, ma una fascia
+     fissa da 121px è troppa mentre si scorre: dopo lo scroll rientra. */
+  .brand :global(.brand-mark) { transition: width 0.35s ease, height 0.35s ease, color 0.4s ease; }
+  header.scrolled .brand :global(.brand-mark) {
+    width: 92px !important; height: 64px !important;
+  }
 
   /* Rombo accanto alla voce Mentoria */
   .nav-gold :global(.m-rombo) { flex: none; margin-right: 8px; }
@@ -214,11 +220,11 @@ const diamond = `<svg class="m-rombo" viewBox="0 0 24 24" width="11" height="11"
     .caret { display: none; }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     /* il marchio compatto è quasi quadrato: in una fascia fissa si porta via
        altezza, quindi sul telefono scende */
     header { padding: 10px 0; }
-    .brand :global(.brand-mark) { width: 74px !important; height: 52px !important; }
+    .brand :global(.brand-mark) { width: 92px !important; height: 64px !important; }
   }
 </style>
 

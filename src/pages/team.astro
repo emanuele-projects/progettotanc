@@ -29,10 +29,8 @@ import { team } from '../data/team';
         <span class="eyebrow">Lo studio</span>
         <h2>Chi risponde di voi</h2>
         <p>
-          Le stesse persone dall'inizio alla fine: è a loro che rispondete, ed è
-          di voi che rispondono. Competenze ed esperienze diverse, che ampliano
-          ciò che possiamo seguire senza spezzare la regìa. È il Think Tank nella
-          sua forma stabile.
+          Competenze ed esperienze diverse, che ampliano ciò che possiamo
+          seguire senza spezzare la regìa. È il Think Tank nella sua forma stabile.
         </p>
       </div>
 
@@ -49,6 +47,7 @@ import { team } from '../data/team';
             <div class="member-body">
               <h3>{m.name}</h3>
               <div class="pos">{m.role}</div>
+              {m.photoNote && <p class="photo-note">{m.photoNote}</p>}
               {m.bio && (
                 <details class="bio">
                   <summary>
@@ -133,6 +132,10 @@ import { team } from '../data/team';
   }
   .member-body { padding: 16px 18px 20px; }
   .member h3 { font-size: 18px; line-height: 1.25; }
+  .photo-note {
+    font-family: var(--sans); font-size: 10.5px; font-style: italic;
+    color: var(--muted-2); margin-top: 6px;
+  }
   .pos {
     font-family: var(--sans); font-size: 10.5px; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase;

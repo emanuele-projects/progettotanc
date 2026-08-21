@@ -9,7 +9,7 @@
  * I redazionali restano pubblicati anche a WordPress collegato, salvo che la
  * redazione pubblichi un articolo con lo stesso slug.
  *
- * Esempio: WP_API_URL=https://www.fulviorossiplus.it/wp/wp-json/wp/v2
+ * Esempio: WP_API_URL=https://www.fulviorossiplus.com/wp/wp-json/wp/v2
  */
 
 export interface Post {
