@@ -6,7 +6,6 @@ import Method from '../components/sections/Method.astro';
 import PercorsoSteps from '../components/sections/PercorsoSteps.astro';
 import CtaBand from '../components/sections/CtaBand.astro';
 import DecoBand from '../components/DecoBand.astro';
-import StockImage from '../components/StockImage.astro';
 import { site } from '../data/site';
 
 const pillars = [
@@ -75,7 +74,13 @@ const steps = [
     <Fragment slot="title">Oltre il talento.<br />Il metodo per <em>guidare l'impresa</em></Fragment>
   </Hero>
 
-  <Manifesto eyebrow="Che cos'è la mentoria" sign="Fulvio Tancredi Rossi, Presidente e Co-fondatore">
+  <Manifesto
+    eyebrow="Che cos'è la mentoria"
+    sign="Fulvio Tancredi Rossi, Presidente e Co-fondatore"
+    sidePhoto="/images/sezioni/sezione-mentoria.jpg"
+    sidePhotoAlt="Fulvio Tancredi Rossi in collegamento, con la cuffia da regia"
+    sidePhotoCaption="In regìa, dove il metodo si trasmette in diretta."
+  >
     Il capitale più fragile di un'impresa non è nei conti: è nella testa di chi
     la guida. La mentoria è il modo in cui questo capitale si <em>trasmette</em>:
     dal fondatore ai successori, dalla proprietà alla squadra, prima che
@@ -92,21 +97,6 @@ const steps = [
   >
     <Fragment slot="title">Mentoria<br />&amp; trasferimento</Fragment>
   </Method>
-
-  <!-- Stacco fotografico fra le tre dimensioni e il percorso -->
-  <section class="mn-band">
-    <div class="wrap">
-      <div data-reveal>
-        <StockImage
-          src="/images/sezioni/sezione-mentoria.jpg"
-          alt="Fulvio Tancredi Rossi in collegamento, con la cuffia da regia"
-          ratio="4 / 3"
-          focus="50% 2%"
-          tint={0.3}
-        />
-      </div>
-    </div>
-  </section>
 
   <PercorsoSteps
     eyebrow="Il percorso"
@@ -125,11 +115,3 @@ const steps = [
     <Fragment slot="title">Parliamo di chi<br /><em>guida.</em></Fragment>
   </CtaBand>
 </BaseLayout>
-
-<style>
-  /* Stacco fotografico fra le tre dimensioni e il percorso */
-  .mn-band { padding: 76px 0 4px; }
-  /* Lo scatto nuovo è un primo piano: a tutta larghezza in fascia panoramica
-     resterebbe una fetta di viso. Colonna più stretta, proporzione più alta. */
-  .mn-band > .wrap > div { max-width: 620px; margin: 0 auto; }
-</style>

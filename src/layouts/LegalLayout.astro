@@ -91,4 +91,20 @@ const { title, description, eyebrow, lead } = Astro.props;
   }
 
   .legal-body :global(.table-scroll) { overflow-x: auto; }
+
+  @media (max-width: 560px) {
+    /* Sotto i 560px il contenitore scende a ~335px: parole senza spazi come
+       «CONSERVAZIONE» o «indicativamente» imponevano una larghezza minima
+       di colonna che il layout automatico non poteva rispettare, e
+       overflow-x:auto nascondeva il resto senza nessun indizio che si
+       potesse scorrere — sembrava testo troncato per errore. table-layout
+       fixed forza colonne di larghezza fissa e break-word le fa andare a
+       capo, così tutto il contenuto resta visibile senza scorrimento. */
+    .legal-body :global(table) { table-layout: fixed; font-size: 12.5px; }
+    .legal-body :global(th), .legal-body :global(td) {
+      padding: 8px 6px 8px 0;
+      overflow-wrap: break-word; word-break: break-word;
+    }
+    .legal-body :global(th) { font-size: 9.5px; letter-spacing: 0.05em; }
+  }
 </style>

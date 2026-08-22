@@ -10,36 +10,63 @@ interface Props {
   id?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /**
+   * Foto a lato del testo, opzionale: trasforma il blocco centrato in una
+   * colonna doppia (testo + immagine), come già in Chi siamo per «Come
+   * lavoriamo con gli altri». Assente, il manifesto resta quello di sempre.
+   */
+  sidePhoto?: string;
+  sidePhotoAlt?: string;
+  sidePhotoCaption?: string;
+  sidePhotoFocus?: string;
 }
-const { eyebrow, sign, signPhoto, id = 'chi-siamo', ctaLabel, ctaHref } = Astro.props;
+const {
+  eyebrow, sign, signPhoto, id = 'chi-siamo', ctaLabel, ctaHref,
+  sidePhoto, sidePhotoAlt = '', sidePhotoCaption, sidePhotoFocus = '50% 50%',
+} = Astro.props;
 
 // finché il ritratto non è stato depositato in public/ resta il filetto oro
 const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
+const hasSidePhoto = sidePhoto && hasPublicAsset(sidePhoto);
 ---
 
 <section class="manifesto" id={id}>
-  <div class="wrap em-gold">
-    <span class="eyebrow" data-reveal>{eyebrow}</span>
-    <p class="big" data-reveal><slot /></p>
-    {sign && (
-      <div class:list={['sign', { 'has-photo': portrait }]} data-reveal>
-        {portrait && (
-          <img
-            class="sign-photo"
-            src={url(portrait)}
-            alt={`Ritratto di ${sign.split(',')[0].trim()}`}
-            width="72"
-            height="72"
-            loading="lazy"
-          />
-        )}
-        <span>{sign}</span>
-      </div>
-    )}
-    {ctaLabel && ctaHref && (
-      <div class="manifesto-cta" data-reveal>
-        <a href={url(ctaHref)} class="btn">{ctaLabel}</a>
-      </div>
+  <div class:list={['wrap', 'em-gold', { 'has-side': hasSidePhoto }]}>
+    <div class="manifesto-body">
+      <span class="eyebrow" data-reveal>{eyebrow}</span>
+      <p class="big" data-reveal><slot /></p>
+      {sign && (
+        <div class:list={['sign', { 'has-photo': portrait }]} data-reveal>
+          {portrait && (
+            <img
+              class="sign-photo"
+              src={url(portrait)}
+              alt={`Ritratto di ${sign.split(',')[0].trim()}`}
+              width="72"
+              height="72"
+              loading="lazy"
+            />
+          )}
+          <span>{sign}</span>
+        </div>
+      )}
+      {ctaLabel && ctaHref && (
+        <div class="manifesto-cta" data-reveal>
+          <a href={url(ctaHref)} class="btn">{ctaLabel}</a>
+        </div>
+      )}
+    </div>
+
+    {hasSidePhoto && (
+      <figure class="manifesto-photo" data-reveal>
+        <img
+          src={url(sidePhoto!)}
+          alt={sidePhotoAlt}
+          loading="lazy"
+          style={`object-position:${sidePhotoFocus}`}
+        />
+        {sidePhotoCaption && <figcaption>{sidePhotoCaption}</figcaption>}
+      </figure>
     )}
   </div>
 </section>
@@ -50,6 +77,12 @@ const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
     border-top: 1px solid var(--hair-faint);
     border-bottom: 1px solid var(--hair-faint);
   }
+  .wrap.has-side {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 60px;
+    align-items: center;
+  }
   .big {
     font-family: var(--disp);
     font-size: clamp(22px, calc(14.7px + 1.95vw), 42px);
@@ -59,6 +92,7 @@ const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
     max-width: 980px;
     margin-top: 28px;
   }
+  .has-side .big { max-width: none; }
   .sign {
     font-family: var(--sans); font-size: 13px; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--muted);
@@ -70,6 +104,9 @@ const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
   .sign.has-photo::before { display: none; }
   .sign-photo {
     width: 72px; height: 72px;
+    /* la firma lunga spingeva il flex a comprimere l'immagine in larghezza,
+       lasciando l'altezza intatta: un cerchio diventava un ovale */
+    flex: none;
     border-radius: 50%;
     object-fit: cover; object-position: center top;
     border: 1px solid var(--accent);
@@ -77,4 +114,22 @@ const portrait = signPhoto && hasPublicAsset(signPhoto) ? signPhoto : undefined;
     background: var(--panel);
   }
   .manifesto-cta { margin-top: 36px; }
+
+  /* --- Foto a lato --- */
+  .manifesto-photo { margin: 0; min-width: 0; }
+  .manifesto-photo img {
+    display: block; width: 100%; aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--hair-faint);
+  }
+  .manifesto-photo figcaption {
+    font-family: var(--sans); font-size: 13.5px; line-height: 1.5;
+    color: var(--muted); margin-top: 12px;
+    padding-left: 12px; border-left: 2px solid var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .wrap.has-side { grid-template-columns: 1fr; gap: 34px; }
+    .manifesto-photo { max-width: 360px; }
+  }
 </style>
