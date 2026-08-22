@@ -434,8 +434,8 @@ export const services: Service[] = [
     // TODO-CONTENUTO: verificare con il cliente quali schemi vengono
     // effettivamente seguiti. Nel testo sono citati per ambito e non per
     // sigla, per non dichiarare competenze non presidiate.
-    title: 'Certificazioni ISO & Made in Italy',
-    plainTitle: 'Certificazioni ISO e Made in Italy',
+    title: 'ISO made in Italy con enti certificati',
+    plainTitle: 'ISO made in Italy con enti certificati',
     excerpt:
       'Trasformiamo la qualità in vantaggio commerciale. Vi guidiamo alle certificazioni internazionali con enti accreditati, per vincere gare, filiere e nuovi mercati.',
     lead: 'Trasformare la qualità che già avete in un vantaggio che si vede.',
