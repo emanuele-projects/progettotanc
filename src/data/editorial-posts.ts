@@ -57,14 +57,6 @@ export const editorialPosts: Post[] = [
 
       '<h2>Da dove arriva questa struttura</h2>',
       '<p>La nuova struttura nasce sulla base di circa trentotto anni di esperienza maturata da Fulvio Rossi nel mondo del marketing, degli eventi e dell’ottimizzazione dei processi, attraverso collaborazioni con le più importanti agenzie italiane (Castadiva, Uvet Amex, Synapsy, Yeg, Jakala) e mandati per brand internazionali tra cui American Express, Nestlé, Barilla, Juventus, Piaggio, Iveco e RCS Giro d’Italia.</p>',
-      fig(
-        '/images/sezioni/comunicato-premi.jpg',
-        'Fulvio Tancredi Rossi a una premiazione di settore',
-        [900, 1600],
-        'Trentotto anni tra marketing, eventi e ottimizzazione dei processi.',
-        380,
-      ),
-
       '<blockquote>«Tutto il resto è rumore, noi lavoriamo.»<br /><em>Fulvio Rossi, Presidente di FulviorossiPLUS</em></blockquote>',
       '<p>È la frase che il gruppo si porta dietro da tempo, e che ciascuno declina a modo proprio.</p>',
       fig(
